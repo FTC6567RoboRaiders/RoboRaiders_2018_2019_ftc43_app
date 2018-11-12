@@ -85,20 +85,20 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     }
 
 
-    public void DeployRobot(ProtoBot robot) throws InterruptedException {
+    public void DeployRobot(ProtoBot robot) throws InterruptedException{
 
-        while (!robot.sensorTouch.isPressed()) {
-            robot.setLiftMotorPower(-0.95);
+        robot.setLiftMotorPower(-0.95);
 
+        while (opModeIsActive() && !robot.sensorTouch.isPressed()) {
 
-            if (robot.sensorTouch.isPressed()) {
-
-                robot.setLiftMotorPower(0);
-
-                robot.liftClaw.setPosition(robot.liftClawOpen);
-            }
         }
+        robot.setLiftMotorPower(0);
 
+        robot.liftClaw.setPosition(robot.liftClawOpen);
+
+        Thread.sleep(500);
+
+    }
 
 
         }
@@ -180,4 +180,5 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
       robot.runWithoutEncoders(); //sets the mode back to run without encoder
   }
     }
+
 
