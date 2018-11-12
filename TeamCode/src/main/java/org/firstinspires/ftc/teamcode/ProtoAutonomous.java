@@ -18,9 +18,9 @@ public class ProtoAutonomous extends RoboraiderAutonomous {
         waitForStart();
 
 
-        //closeRedDepot(robotPID,robot);
+        farRedDepot(robot);
 
-        DeployRobot(robot);
+        //DeployRobot(robot);
 
 
     }
