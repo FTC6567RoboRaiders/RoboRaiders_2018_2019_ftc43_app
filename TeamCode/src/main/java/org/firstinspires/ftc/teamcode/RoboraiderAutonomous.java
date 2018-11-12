@@ -14,7 +14,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public double motor_power;
 
     public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
-        EncoderDrivePID(robotPID, robot,13 );
+        EncoderDrivePID(robotPID, robot,24 );
         Thread.sleep(500);
 
 
@@ -34,9 +34,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         while (opModeIsActive() && robot.getSortedEncoderCount() < robot.calculateCOUNTS(wantedDistance)) {
                 motor_power =robotPID.pidWithCounts(robot.calculateCOUNTS(wantedDistance), robot.getSortedEncoderCount());
             robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
-            telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-            telemetry.addData("Target Count", robot.calculateCOUNTS(wantedDistance));
-            telemetry.update();
+
         }
     }
     public void imuTurn(ProtoBot robot, float degrees, double power, String direction) { //gets hardware from

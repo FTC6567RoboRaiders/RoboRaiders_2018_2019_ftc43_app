@@ -15,6 +15,7 @@ public class ProtoAutonomous extends RoboraiderAutonomous {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.initialize(hardwareMap);
+
         waitForStart();
 
 
