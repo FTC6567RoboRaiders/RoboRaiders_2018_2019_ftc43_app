@@ -42,8 +42,8 @@ public class ProtoBot {
     public double iza_deltaHeading;
     public float iza_newHeading;
     public Orientation iza_angles;
-    public double liftClawOpen = -1.0;
-    public double liftClawClosed = 1.0;
+    public double liftClawOpen = 1.0;
+    public double liftClawClosed = 0.0;
     boolean robotDown;
 
     /**
