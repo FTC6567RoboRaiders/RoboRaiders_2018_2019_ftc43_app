@@ -221,6 +221,10 @@ public class ProtoBot {
         imu.initialize(parameters);
     }
 
-}
+    public double getBackLeftDriveEncoderCounts() { return motorBackLeft.getCurrentPosition(); }
+    public double getBackRightDriveEncoderCounts() { return motorBackRight.getCurrentPosition(); }
+    public double getFrontLeftDriveEncoderCounts() { return motorFrontLeft.getCurrentPosition(); }
+    public double getFrontRightDriveEncoderCounts() { return motorFrontRight.getCurrentPosition(); }
+ }
 
 
