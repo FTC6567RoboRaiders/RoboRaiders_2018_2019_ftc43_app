@@ -1,7 +1,7 @@
 package RoboRaiders.AutoOptions;
 
 public class RoboRaidersPID {
-    public double Kp = 0.003;
+    public double Kp = 0.006;
     public double Ki = 0.0;
     public double Kd = 0.0;
     public double error;
