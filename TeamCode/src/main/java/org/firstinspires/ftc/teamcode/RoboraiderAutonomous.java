@@ -14,36 +14,35 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public double motor_power;
 
     public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
-        EncoderDrivePID(robotPID, robot,72 );
+        EncoderDrivePID(robotPID, robot,13 );
         Thread.sleep(500);
+        imuTurn (robot, 90, 1, "left");
+
+
 //Dont' touch!
 
         }
 
-     public void farRedDepot (ProtoBot robot) throws InterruptedException {
-        encodersMove( robot, 9,1,"forward");
+     public void farRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+        EncoderDrivePID(robotPID,robot,31);
         Thread.sleep(500);
 
-        imuTurn(robot, 90, 1, "left");
+        encodersMove(robot, 18, 1, "backward");
         Thread.sleep(500);
 
-        encodersMove(robot, 34, 1, "backward");
-        Thread.sleep(500);
+        imuTurn(robot, 90, .95, "left");
 
-        imuTurn(robot, 60, 1, "left");
-        Thread.sleep(500);
+        EncoderDrivePID(robotPID, robot, 36);
 
-        encodersMove( robot, 11,1,"backward");
-        Thread.sleep(500);
+        imuTurn(robot, 23, .95, "left");
 
-        imuTurn(robot, 90, 1, "left");
-        Thread.sleep(500);
+        EncoderDrivePID(robotPID, robot, 36 );
 
-         encodersMove( robot, 42,1,"backward");
-         Thread.sleep(500);
+        imuTurn(robot, 90, .95, "right");
 
-         imuTurn(robot, 90, 1, "right");
+        imuTurn(robot, 90, .95, "right");
 
+        EncoderDrivePID(robotPID, robot, 78);
      }
 
 
