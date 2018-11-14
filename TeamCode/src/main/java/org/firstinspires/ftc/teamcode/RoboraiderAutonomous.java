@@ -14,12 +14,21 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public double motor_power;
 
     public void farRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
-        EncoderDrivePID(robotPID, robot,13 );
+        EncoderDrivePID(robotPID, robot,48 );
         Thread.sleep(500);
+
         imuTurn (robot, 90, 1, "left");
+        Thread.sleep(500);
 
+        EncoderDrivePID(robotPID, robot, 1);
+        Thread.sleep(500);
 
-//Dont' touch!
+        imuTurn(robot, 45, 1, "left");
+        Thread.sleep(500);
+
+        EncoderDrivePID(robotPID, robot, 60);
+        Thread.sleep(500);
+
 
         }
 
@@ -31,19 +40,26 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         Thread.sleep(500);
 
         imuTurn(robot, 90, .95, "left");
+         Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 36);
+         Thread.sleep(500);
 
         imuTurn(robot, 23, .95, "left");
+         Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 36 );
+         Thread.sleep(500);
 
         imuTurn(robot, 90, .95, "right");
+         Thread.sleep(500);
 
         imuTurn(robot, 90, .95, "right");
+         Thread.sleep(500);
 
 
         EncoderDrivePID(robotPID, robot, 78);
+         Thread.sleep(500);
      }
 
 
