@@ -28,8 +28,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         EncoderDrivePID(robotPID, robot, 60);
         Thread.sleep(500);
-
-
+        
         }
 
      public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
