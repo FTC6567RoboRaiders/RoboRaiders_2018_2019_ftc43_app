@@ -3,7 +3,7 @@ package RoboRaiders.AutoOptions;
 public class RoboRaidersPID {
     public double Kp = 0.004;
     public double Ki = 0.0;
-    public double Kd = 0.0;
+    public double Kd = 0.005;
     public double error;
     public double integral;
     public double derivative;

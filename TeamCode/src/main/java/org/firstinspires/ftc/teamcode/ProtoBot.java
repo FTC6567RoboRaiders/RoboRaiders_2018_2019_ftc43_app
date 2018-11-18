@@ -46,6 +46,7 @@ public class ProtoBot {
     public double liftClawClosed = 0.0;
     boolean robotDown;
 
+
     /**
      * Constructor for Robot class, current does nothing but is needed since every class needs a constructor
      */
