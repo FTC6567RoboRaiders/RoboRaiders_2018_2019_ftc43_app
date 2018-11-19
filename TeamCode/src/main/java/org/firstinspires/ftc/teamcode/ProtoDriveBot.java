@@ -22,7 +22,25 @@ public class ProtoDriveBot extends OpMode {
     float LeftFront;  // Power for left front motor
     float RightFront; // Power for right front motor
     float maxpwr;     // Maximum power of the four motors
+    float lander;
     double powerFactor = 1;
+    public boolean currStateRightBumper1 = false;
+    public boolean prevStateRightBumper1 = false;
+    public boolean currStateLeftBumper1  = false;
+    public boolean prevStateLeftBumper1  = false;
+    public boolean currStateRightTrigger = false;
+    public boolean prevStateRightTrigger = false;
+    public boolean currStateLeftTrigger  = false;
+    public boolean prevStateLeftTrigger  = false;
+    int timesPivoted = 0;
+    public boolean currStateY = false;
+    public boolean prevStateY = false;
+    public boolean currStateX = false;
+    public boolean prevStateX = false;
+    public boolean currStateB = false;
+    public boolean prevStateB = false;
+    public boolean currStateA = false;
+    public boolean prevStateA = false;
 
     @Override
     public void init() {
@@ -48,6 +66,8 @@ public class ProtoDriveBot extends OpMode {
         LeftFront = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
         RightFront = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
 
+
+
         maxpwr = findMaxPower(LeftBack, LeftFront, RightBack, RightFront);
 
         LeftBack = LeftBack / maxpwr;
@@ -66,7 +86,50 @@ public class ProtoDriveBot extends OpMode {
                 RightBack * 0.95);
 
 
+        // "Power Factor" functionality
+        currStateLeftBumper1 = gamepad1.left_bumper;
+        if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
+            powerFactor = 0.5;
+            prevStateLeftBumper1 = currStateLeftBumper1;
+        }
+        else if (!currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
+
+            prevStateLeftBumper1 = currStateLeftBumper1;
+        }
+        currStateRightBumper1 = gamepad1.right_bumper;
+        if (currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
+
+            powerFactor = 1;
+            prevStateRightBumper1 = currStateRightBumper1;
+        }
+        else if (!currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
+
+            prevStateRightBumper1 = currStateRightBumper1;
+        }
+
+
+
+        // "Set Relic Motor Power" functionality
+        lander = gamepad2.left_stick_y;
+        lander = Range.clip(lander, -1, 1);
+        lander = (float) scaleInput(lander);
+
+        if (gamepad2.left_stick_y > 0.0 ){
+            robot.setLiftMotorPower(-0.95);
+        }
+
+        if (gamepad2.left_stick_y < 0.0){
+            robot.setLiftMotorPower(0.95);
+        }
+
+        if (gamepad2.right_trigger > 0){
+            robot.liftClaw.setPosition(robot.liftClawClosed);
+        }
+
+        if (gamepad2.left_trigger >0){
+            robot.liftClaw.setPosition(robot.liftClawOpen);
+        }
 
 
 
@@ -194,5 +257,9 @@ public class ProtoDriveBot extends OpMode {
 
             return 1;
         }
+
+
     }
+
+
 }

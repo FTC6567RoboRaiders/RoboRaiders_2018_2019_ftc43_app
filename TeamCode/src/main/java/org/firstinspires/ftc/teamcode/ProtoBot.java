@@ -30,6 +30,7 @@ public class ProtoBot {
     public BNO055IMU imu;
     public TouchSensor sensorTouch;
     public Servo liftClaw = null;
+    //public Servo markerDrop = null;
 
     /* Local OpMode Members */
     public HardwareMap hwMap = null;
@@ -44,7 +45,10 @@ public class ProtoBot {
     public Orientation iza_angles;
     public double liftClawOpen = 1.0;
     public double liftClawClosed = 0.0;
+    //public double markerDropUp = 0.0;
+    //public double markerDropDown = 1.0;
     boolean robotDown;
+
 
 
     /**
@@ -72,6 +76,8 @@ public class ProtoBot {
         motorLift = hwMap.get(DcMotor.class, "motorLift");
         sensorTouch = hwMap.touchSensor.get("sensorTouch");
         liftClaw = hwMap.servo.get("liftClaw");
+        //markerDrop= hwMap.servo.get("markerDrop");
+
 
 
 
@@ -88,6 +94,7 @@ public class ProtoBot {
         motorBackRight.setPower(0);
         motorBackLeft.setPower(0);
         liftClaw.setPosition(liftClawClosed);
+        //markerDrop.setPosition(markerDropUp);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
