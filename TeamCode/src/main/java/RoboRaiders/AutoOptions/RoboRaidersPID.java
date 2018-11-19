@@ -1,9 +1,9 @@
 package RoboRaiders.AutoOptions;
 
 public class RoboRaidersPID {
-    public double Kp = 0.004;
+    public double Kp = 0.001;
     public double Ki = 0.0;
-    public double Kd = 0.005;
+    public double Kd = 0.00009;
     public double error;
     public double integral;
     public double derivative;
@@ -28,9 +28,9 @@ public class RoboRaidersPID {
         if (error == 0) {
             integral = 0;
         }
-        if (Math.abs(error) > 100) {
+       /* if (Math.abs(error) > 100) {
             integral = 0;
-        }
+        }*/
         derivative = (error - previous_error) / timeChange;
         previous_error = error;
         power = Kp * error + Ki * integral + Kd * derivative;

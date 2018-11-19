@@ -22,7 +22,9 @@ public class ProtoAutonomous extends RoboraiderAutonomous {
 
         //closeRedDepot(robotPID, robot);
 
-        //closeRedDepot(robotPID, robot);
+        //moveTest(robotPID, robot);
+
+
 
         DeployRobot(robot);
 
