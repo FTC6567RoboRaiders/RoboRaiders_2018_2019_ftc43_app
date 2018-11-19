@@ -35,7 +35,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         EncoderDrivePID(robotPID,robot,28);
         Thread.sleep(500);
 
-        encodersMove(robot, 6, .80, "backward");
+        encodersMove(robot, 4, .80, "backward");
         Thread.sleep(500);
 
         imuTurn(robot, 90, .65, "left");
@@ -59,7 +59,53 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         EncoderDrivePID(robotPID, robot, 78);
          Thread.sleep(500);
      }
+     public void farBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+         EncoderDrivePID(robotPID,robot,28);
+         Thread.sleep(500);
 
+         encodersMove(robot, 6, .80, "backward");
+         Thread.sleep(500);
+
+         imuTurn(robot, 90, .65, "left");
+         Thread.sleep(500);
+
+         EncoderDrivePID(robotPID, robot, 34);
+         Thread.sleep(500);
+
+         imuTurn(robot, 40, .65, "left");
+         Thread.sleep(500);
+
+         EncoderDrivePID(robotPID, robot, 32 );
+         Thread.sleep(500);
+
+         imuTurn(robot, 90, .65, "right");
+         Thread.sleep(500);
+
+         imuTurn(robot, 90, .65, "right");
+         Thread.sleep(500);
+
+         EncoderDrivePID(robotPID, robot, 78);
+         Thread.sleep(500);
+     }
+     public void closeBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+         EncoderDrivePID(robotPID, robot,48 );
+         Thread.sleep(500);
+
+         imuTurn (robot, 90, 1, "left");
+         Thread.sleep(500);
+
+         EncoderDrivePID(robotPID, robot, 1);
+         Thread.sleep(500);
+
+         imuTurn(robot, 45, 1, "left");
+         Thread.sleep(500);
+
+         EncoderDrivePID(robotPID, robot, 60);
+         Thread.sleep(500);
+     }
+    public void moveTest (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+        EncoderDrivePID(robotPID, robot, 48);
+    }
 
 
 
@@ -67,9 +113,14 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public void EncoderDrivePID(RoboRaidersPID robotPID, ProtoBot robot, double wantedDistance) {
           robot.resetEncoders();
           robot.runWithEncoders();
-        while (opModeIsActive() && robot.getSortedEncoderCount() < robot.calculateCOUNTS(wantedDistance)) {
-                motor_power =robotPID.pidWithCounts(robot.calculateCOUNTS(wantedDistance), robot.getSortedEncoderCount());
+          double EncoderCount = robot.calculateCOUNTS(wantedDistance);
+        while (opModeIsActive() &&
+                (robot.getSortedEncoderCount() <= EncoderCount - 15 ||
+                 robot.getSortedEncoderCount() >= EncoderCount + 15)) {
+
+                motor_power =robotPID.pidWithCounts(EncoderCount, robot.getSortedEncoderCount());
             robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
+
 
         }
     }
