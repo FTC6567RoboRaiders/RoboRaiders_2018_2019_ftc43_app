@@ -115,12 +115,16 @@ public class ProtoDriveBot extends OpMode {
         lander = Range.clip(lander, -1, 1);
         lander = (float) scaleInput(lander);
 
-        if (gamepad2.left_stick_y > 0.2 ){
+        if (lander > 0.2 ){
             robot.setLiftMotorPower(-0.95);
         }
 
-        if (gamepad2.left_stick_y < 0.2){
+        if (lander < -0.2){
             robot.setLiftMotorPower(0.95);
+        }
+
+        if (-0.2 < lander && 0.2 > lander){
+            robot.setLiftMotorPower(0.00);
         }
 
         if (gamepad2.right_trigger > 0){
