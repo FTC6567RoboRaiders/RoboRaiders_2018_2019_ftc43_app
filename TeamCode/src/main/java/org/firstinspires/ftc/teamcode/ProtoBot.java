@@ -31,6 +31,7 @@ public class ProtoBot {
     public TouchSensor sensorTouch;
     public Servo liftClaw = null;
     //public Servo markerDrop = null;
+    //public Servo intake = null;
 
     /* Local OpMode Members */
     public HardwareMap hwMap = null;
@@ -69,10 +70,10 @@ public class ProtoBot {
         hwMap = ahwMap;
 
         // Define and initialize motors
-        motorFrontLeft = hwMap.get(DcMotor.class, "leftMotorFront");
-        motorFrontRight = hwMap.get(DcMotor.class, "rightMotorFront");
-        motorBackLeft = hwMap.get(DcMotor.class, "leftMotorBack");
-        motorBackRight = hwMap.get(DcMotor.class, "rightMotorBack");
+        motorFrontLeft = hwMap.get(DcMotor.class, "motorFrontLeft");
+        motorFrontRight = hwMap.get(DcMotor.class, "motorFrontRight");
+        motorBackLeft = hwMap.get(DcMotor.class, "motorBackLeft");
+        motorBackRight = hwMap.get(DcMotor.class, "motorBackRight");
         motorLift = hwMap.get(DcMotor.class, "motorLift");
         sensorTouch = hwMap.touchSensor.get("sensorTouch");
         liftClaw = hwMap.servo.get("liftClaw");

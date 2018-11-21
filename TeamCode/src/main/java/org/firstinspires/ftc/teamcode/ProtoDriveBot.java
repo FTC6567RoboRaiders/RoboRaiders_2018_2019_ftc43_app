@@ -113,32 +113,51 @@ public class ProtoDriveBot extends OpMode {
         // "Set Relic Motor Power" functionality
         lander = gamepad2.left_stick_y;
         lander = Range.clip(lander, -1, 1);
-        lander = (float) scaleInput(lander);
+        //lander = (float) scaleInput(lander);
 
-        if (lander > 0.2 ){
+        if (lander >= 0.2 ){
             robot.setLiftMotorPower(-0.95);
         }
 
-        if (lander < -0.2){
+        else if (lander <= -0.2){
             robot.setLiftMotorPower(0.95);
         }
 
-        if (-0.2 < lander && 0.2 > lander){
+        else if (lander > -0.2 && lander <0.2){
             robot.setLiftMotorPower(0.00);
         }
 
         if (gamepad2.right_trigger > 0){
+            currStateRightTrigger = true;
+        }
+
+        if (currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
+
             robot.liftClaw.setPosition(robot.liftClawClosed);
+            prevStateRightTrigger = currStateRightTrigger;
         }
+        else if (!currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
 
-        if (gamepad2.left_trigger > 0){
-            robot.liftClaw.setPosition(robot.liftClawOpen);
+            prevStateRightTrigger = currStateRightTrigger;
+
+            }
+            if (gamepad2.left_trigger > 0) {
+                currStateLeftTrigger = true;
+            }
+
+            if (currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
+
+                robot.liftClaw.setPosition(robot.liftClawOpen);
+                prevStateLeftTrigger = currStateLeftTrigger;
+            }
+
+             else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
+
+                prevStateLeftTrigger = currStateLeftTrigger;
+            }
+
+
         }
-
-
-
-
-    }
 
     @Override
     public void stop() {
