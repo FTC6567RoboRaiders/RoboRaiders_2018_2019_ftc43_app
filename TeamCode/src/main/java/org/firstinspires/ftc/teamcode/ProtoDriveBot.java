@@ -127,8 +127,15 @@ public class ProtoDriveBot extends OpMode {
             robot.setLiftMotorPower(0.00);
         }
 
+
+
+
         if (gamepad2.right_trigger > 0){
             currStateRightTrigger = true;
+        }
+
+        else {
+            currStateRightTrigger = false;
         }
 
         if (currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
@@ -141,23 +148,50 @@ public class ProtoDriveBot extends OpMode {
             prevStateRightTrigger = currStateRightTrigger;
 
             }
-            if (gamepad2.left_trigger > 0) {
-                currStateLeftTrigger = true;
+
+
+
+
+        if (gamepad2.left_trigger > 0) {
+            currStateLeftTrigger = true;
+        }
+
+        else {
+            currStateLeftTrigger = false;
+        }
+
+        if (currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
+
+            robot.liftClaw.setPosition(robot.liftClawOpen);
+            prevStateLeftTrigger = currStateLeftTrigger;
+        }
+
+         else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
+
+            prevStateLeftTrigger = currStateLeftTrigger;
             }
 
-            if (currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
 
-                robot.liftClaw.setPosition(robot.liftClawOpen);
-                prevStateLeftTrigger = currStateLeftTrigger;
-            }
+        currStateX = gamepad2.x;
+        if (currStateX && currStateX != prevStateX) {
 
-             else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
+            robot.intake.setPosition(robot.intakeIn);
+            prevStateX = currStateX;
+            currStateX = false;
+        }
 
-                prevStateLeftTrigger = currStateLeftTrigger;
-            }
+        currStateY = gamepad2.y;
+        if (currStateY && currStateY != prevStateY) {
+
+            robot.intake.setPosition(robot.intakeOut);
+            prevStateY = currStateY;
+            currStateY = false;
+        }
 
 
         }
+
+
 
     @Override
     public void stop() {
