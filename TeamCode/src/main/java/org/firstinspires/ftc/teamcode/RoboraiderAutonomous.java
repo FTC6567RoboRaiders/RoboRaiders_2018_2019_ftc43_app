@@ -17,7 +17,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         EncoderDrivePID(robotPID, robot,48 );
         Thread.sleep(500);
 
-        imuTurn (robot, 90, .6, "right");
+        imuTurn(robot, 90, .25, "right");
         Thread.sleep(500);
 
         DeployTeamMarker(robot);
