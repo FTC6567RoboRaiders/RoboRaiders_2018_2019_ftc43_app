@@ -41,6 +41,7 @@ public class ProtoDriveBot extends OpMode {
     public boolean prevStateB = false;
     public boolean currStateA = false;
     public boolean prevStateA = false;
+    public String intakeStatus = null;
 
     @Override
     public void init() {
@@ -172,6 +173,33 @@ public class ProtoDriveBot extends OpMode {
             }
 
 
+            //testing//
+
+        currStateX = gamepad2.x;
+        currStateY = gamepad2.y;
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("currStateX", currStateX);
+        telemetry.addData("currStateY", currStateY);
+
+        if (currStateX) {
+            robot.intake.setPosition(robot.intakeIn);
+            intakeStatus = "In";
+        }
+        else if (currStateY) {
+            robot.intake.setPosition(robot.intakeOut);
+            intakeStatus = "Out";
+        }
+        else {
+            robot.intake.setPosition(0.5);
+            intakeStatus = "Stopped";
+        }
+        telemetry.addData("servoPos","(%.2s)",intakeStatus);
+
+
+
+        telemetry.update();
+/*
         currStateX = gamepad2.x;
         if (currStateX && currStateX != prevStateX) {
 
@@ -187,7 +215,7 @@ public class ProtoDriveBot extends OpMode {
             prevStateY = currStateY;
             currStateY = false;
         }
-
+*/
 
         }
 
