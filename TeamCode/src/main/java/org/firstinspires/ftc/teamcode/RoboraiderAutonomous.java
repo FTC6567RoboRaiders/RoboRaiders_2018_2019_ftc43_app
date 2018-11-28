@@ -22,10 +22,10 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         DeployTeamMarker(robot);
 
-        EncoderDrivePID(robotPID, robot, 1);
+        EncoderDrivePID(robotPID, robot, 6);
         Thread.sleep(500);
 
-        imuTurn(robot, 45, 1, "left");
+        imuTurn(robot, 60, .25, "right");
         Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 60);
@@ -40,24 +40,24 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         encodersMove(robot, 4, .65, "backward");
         Thread.sleep(500);
 
-        imuTurn(robot, 90, .65, "left");
+        imuTurn(robot, 90, .25, "left");
         Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 34);
          Thread.sleep(500);
 
-        imuTurn(robot, 40, .65, "left");
+        imuTurn(robot, 40, .25, "left");
          Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 32 );
          Thread.sleep(500);
 
-        imuTurn(robot, 90, .65, "right");
+        imuTurn(robot, 90, .25, "right");
          Thread.sleep(500);
 
          DeployTeamMarker(robot);
 
-        imuTurn(robot, 90, .65, "right");
+        imuTurn(robot, 90, .25, "right");
          Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 78);
@@ -70,22 +70,22 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
          encodersMove(robot, 6, .80, "backward");
          Thread.sleep(500);
 
-         imuTurn(robot, 90, .65, "left");
+         imuTurn(robot, 90, .25, "left");
          Thread.sleep(500);
 
          EncoderDrivePID(robotPID, robot, 34);
          Thread.sleep(500);
 
-         imuTurn(robot, 40, .65, "left");
+         imuTurn(robot, 40, .25, "left");
          Thread.sleep(500);
 
          EncoderDrivePID(robotPID, robot, 32 );
          Thread.sleep(500);
 
-         imuTurn(robot, 90, .65, "right");
+         imuTurn(robot, 90, .25, "right");
          Thread.sleep(500);
 
-         imuTurn(robot, 90, .65, "right");
+         imuTurn(robot, 90, .25, "right");
          Thread.sleep(500);
 
          EncoderDrivePID(robotPID, robot, 78);
@@ -95,13 +95,13 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
          EncoderDrivePID(robotPID, robot,48 );
          Thread.sleep(500);
 
-         imuTurn (robot, 90, 1, "left");
+         imuTurn (robot, 90, .25, "left");
          Thread.sleep(500);
 
          EncoderDrivePID(robotPID, robot, 1);
          Thread.sleep(500);
 
-         imuTurn(robot, 45, 1, "left");
+         imuTurn(robot, 45, .25, "left");
          Thread.sleep(500);
 
          EncoderDrivePID(robotPID, robot, 60);
