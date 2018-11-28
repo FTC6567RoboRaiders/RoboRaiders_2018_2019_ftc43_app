@@ -1,8 +1,10 @@
 package RoboRaiders.reference;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous
+@Disabled
 
 public class IndieAutonomousOptions extends IndieRoboRaidersAuto {
 
