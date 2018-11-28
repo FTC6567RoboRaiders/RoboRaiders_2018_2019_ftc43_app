@@ -123,7 +123,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
 
     public void EncoderDrivePID(RoboRaidersPID robotPID, ProtoBot robot, double wantedDistance) {
-          robot.resetEncoders();
+           robot.resetEncoders();
           robot.runWithEncoders();
           double EncoderCount = robot.calculateCOUNTS(wantedDistance);
         while (opModeIsActive() &&
