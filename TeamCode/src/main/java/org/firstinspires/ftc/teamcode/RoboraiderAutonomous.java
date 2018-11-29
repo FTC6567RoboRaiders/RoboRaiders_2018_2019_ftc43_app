@@ -34,7 +34,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         encodersMove(robot, 30, .9, "backward");
         Thread.sleep(500);
 
-        imuTurn(robot, 25, .25, "right");
+        imuTurn(robot, 35, .25, "right");
         Thread.sleep(500);
 
         encodersMove(robot, 15, .9, "backward");
@@ -57,7 +57,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         imuTurn(robot, 60, .40, "left");
          Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 34 );
+        EncoderDrivePID(robotPID, robot, 45 );
          Thread.sleep(500);
 
         imuTurn(robot, 90, .40, "right");
@@ -170,11 +170,19 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         double startDeployTime = System.currentTimeMillis();
 
-        robot.setLiftMotorPower(-0.95);
-
-        while (opModeIsActive() && !robot.sensorTouch.isPressed() && System.currentTimeMillis()-startDeployTime < 7800) {
-                            // System.currentTimeMillis()-startDeployTime is the elapsed time (the current time minus the start time)
+        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 5500 && !robot.sensorTouch.isPressed()){
+            robot.setLiftMotorPower(-0.95);
         }
+
+        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 5500 && System.currentTimeMillis() - startDeployTime < 7800 && !robot.sensorTouch.isPressed()){
+            robot.setLiftMotorPower(-.45);
+        }
+
+
+
+        //while (opModeIsActive() && !robot.sensorTouch.isPressed() && System.currentTimeMillis()-startDeployTime < 7800) {
+                            // System.currentTimeMillis()-startDeployTime is the elapsed time (the current time minus the start time)
+        //}
 
         robot.setLiftMotorPower(0);
 
