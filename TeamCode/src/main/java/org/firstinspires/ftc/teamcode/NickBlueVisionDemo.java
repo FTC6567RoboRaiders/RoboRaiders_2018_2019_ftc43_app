@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -48,6 +49,7 @@ import RoboRaiders.examples.ExampleBlueVision;
  * Additionally, the centers of the bounding rectangles of the contours are sent to telemetry.
  */
 @TeleOp(name="Example: Nick Blue Vision Demo")
+@Disabled
 public class NickBlueVisionDemo extends OpMode {
     private NickBlueVision blueVision;
     @Override

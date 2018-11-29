@@ -10,7 +10,7 @@ import RoboRaiders.reference.IndieRobot;
  *  Created by Steve Kocik
  */
 
-@TeleOp
+@TeleOp(name="Teleop: Lets Drive")
 
 public class ProtoDriveBot extends OpMode {
 
