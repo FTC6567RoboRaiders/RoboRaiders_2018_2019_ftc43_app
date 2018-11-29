@@ -177,8 +177,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 5500 && System.currentTimeMillis() - startDeployTime < 7800 && !robot.sensorTouch.isPressed()){
             robot.setLiftMotorPower(-.45);
         }
-
-
+        
 
         //while (opModeIsActive() && !robot.sensorTouch.isPressed() && System.currentTimeMillis()-startDeployTime < 7800) {
                             // System.currentTimeMillis()-startDeployTime is the elapsed time (the current time minus the start time)
