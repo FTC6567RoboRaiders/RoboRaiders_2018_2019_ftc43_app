@@ -185,15 +185,17 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         robot.setLiftMotorPower(0);
 
-        Thread.sleep (250);
+        //Thread.sleep (250);
 
-        encodersMove(robot, 1.5, .5, "backward");
+        //encodersMove(robot, 1.5, .5, "backward");
 
         Thread.sleep(500);
 
         robot.liftClaw.setPosition(robot.liftClawOpen);
 
         Thread.sleep(1200);
+
+        robot.collectionIn();
 
     }
 

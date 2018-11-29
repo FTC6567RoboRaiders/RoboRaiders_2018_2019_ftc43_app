@@ -139,6 +139,11 @@ public class ProtoBot {
         motorLift.setPower(lift);
     }
 
+    public void collectionIn() {   intake.setPosition(1.0); }
+
+    public void collectionOut() {   intake.setPosition(0.0); }
+
+    public void collectionOff() {   intake.setPosition(0.5); }
 
     public double calculateCOUNTS(double distance) {
 
