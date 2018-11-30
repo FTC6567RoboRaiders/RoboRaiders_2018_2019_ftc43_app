@@ -42,30 +42,34 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         }
 
      public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+        //DeployRobot(robot);
+
         EncoderDrivePID(robotPID,robot,28);
         Thread.sleep(500);
 
-        encodersMove(robot, 4, .65, "backward");
+        encodersMove(robot, 3, 1, "backward");
         Thread.sleep(500);
 
-        imuTurn(robot, 90, .40, "left");
+        robot.collectionOff();
+
+        imuTurn(robot, 100, .35, "left");
         Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 36);
+        EncoderDrivePID(robotPID, robot, 39);
          Thread.sleep(500);
 
-        imuTurn(robot, 60, .40, "left");
+        imuTurn(robot, 60, .35, "left");
          Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 45 );
+        EncoderDrivePID(robotPID, robot, 40 );
          Thread.sleep(500);
 
-        imuTurn(robot, 90, .40, "right");
+        imuTurn(robot, 110, .35, "right");
          Thread.sleep(500);
 
          DeployTeamMarker(robot);
 
-        imuTurn(robot, 90, .40, "right");
+        imuTurn(robot, 110, .35, "right");
          Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 78);
