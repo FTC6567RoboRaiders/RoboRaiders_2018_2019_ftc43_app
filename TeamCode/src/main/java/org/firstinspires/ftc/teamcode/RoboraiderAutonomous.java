@@ -146,7 +146,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         robot.resetIMU(); //resets IMU angle to zero
 
-        robot.getHeading(); //returns the current heading of the IMU
+       // robot.getHeading(); //returns the current heading of the IMU
 
         if (direction.equals("right")) { //if the desired direction is right
 
@@ -174,8 +174,9 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         double startDeployTime = System.currentTimeMillis();
 
+        robot.setLiftMotorPower(-0.95);
         while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 5500 && !robot.sensorTouch.isPressed()){
-            robot.setLiftMotorPower(-0.95);
+
         }
 
         while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 5500 && System.currentTimeMillis() - startDeployTime < 7800 && !robot.sensorTouch.isPressed()){

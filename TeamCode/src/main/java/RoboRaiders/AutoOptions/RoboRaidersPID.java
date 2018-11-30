@@ -39,6 +39,20 @@ public class RoboRaidersPID {
         return power;
     }
 
+    /**
+     * Will re-initialize variables
+     */
+    public void initialize(){
+        timeChange = 0.0;
+        error = 0.0;
+        integral = 0.0;
+        derivative = 0.0;
+        previous_error = 0.0;
+        power = 0.0;
+        previous_time = 0.0;
+
+    }
+
 
      public double pidWithDistance (double Sensor, double Target){
          currentTime = System.currentTimeMillis();

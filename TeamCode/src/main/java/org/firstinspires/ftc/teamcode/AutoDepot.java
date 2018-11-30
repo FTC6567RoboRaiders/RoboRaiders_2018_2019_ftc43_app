@@ -18,7 +18,7 @@ public class AutoDepot extends RoboraiderAutonomous {
 
         waitForStart();
 
-        //DeployRobot(robot);
+        DeployRobot(robot);
 
         closeRedDepot(robotPID, robot);
 
