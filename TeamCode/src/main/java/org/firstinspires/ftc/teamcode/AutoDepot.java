@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import RoboRaiders.AutoOptions.RoboRaidersPID;
 
-@Autonomous
+@Autonomous(name="Auto: Robot Starts Towards Depot")
 
-public class ProtoAutonomous extends RoboraiderAutonomous {
+public class AutoDepot extends RoboraiderAutonomous {
 
     ProtoBot robot = new ProtoBot();
     RoboRaidersPID robotPID = new RoboRaidersPID();
