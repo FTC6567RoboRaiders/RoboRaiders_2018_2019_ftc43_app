@@ -55,13 +55,13 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         imuTurn(robot, 100, .35, "left");
         Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 39);
+        EncoderDrivePID(robotPID, robot, 41);
          Thread.sleep(500);
 
-        imuTurn(robot, 60, .35, "left");
+        imuTurn(robot, 55, .35, "left");
          Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 40 );
+        EncoderDrivePID(robotPID, robot,39 );
          Thread.sleep(500);
 
         imuTurn(robot, 110, .35, "right");
@@ -69,7 +69,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
          DeployTeamMarker(robot);
 
-        imuTurn(robot, 110, .35, "right");
+        imuTurn(robot, 90, .35, "right");
          Thread.sleep(500);
 
         EncoderDrivePID(robotPID, robot, 78);
@@ -145,10 +145,10 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public void imuTurn(ProtoBot robot, float degrees, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
+robot.resetIMU();
+        float finalHeading = robot.getHeading() + degrees;
 
-        robot.resetIMU(); //resets IMU angle to zero
-
-       // robot.getHeading(); //returns the current heading of the IMU
+       // robot.getHeading(); returns the current heading of the IMU
 
         if (direction.equals("right")) { //if the desired direction is right
 
@@ -159,7 +159,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
         }
 
-        while (robot.getHeading() < (degrees - 20) && opModeIsActive()) { //while the value of getHeading is
+        while (robot.getHeading() < (finalHeading - 20) && opModeIsActive()) { //while the value of getHeading is
             //less then the degree value
             //and while opMode is active continue the while loop
 

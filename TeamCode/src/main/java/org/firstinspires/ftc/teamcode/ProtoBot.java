@@ -111,6 +111,8 @@ public class ProtoBot {
 
 
 
+
+
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -134,6 +136,7 @@ public class ProtoBot {
         motorBackLeft.setPower(leftBack);
         motorBackRight.setPower(rightBack);
     }
+
 
     public void setLiftMotorPower(double lift){
         motorLift.setPower(lift);
