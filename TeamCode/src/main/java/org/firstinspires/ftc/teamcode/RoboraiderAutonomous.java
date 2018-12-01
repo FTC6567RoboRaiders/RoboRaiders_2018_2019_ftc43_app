@@ -44,24 +44,27 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
      public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
         //DeployRobot(robot);
 
-        EncoderDrivePID(robotPID,robot,28);
-        Thread.sleep(500);
+        EncoderDrivePID(robot,28);
+        Thread.sleep(250);
 
         encodersMove(robot, 3, 1, "backward");
-        Thread.sleep(500);
+        Thread.sleep(250);
 
         robot.collectionOff();
 
         imuTurn(robot, 100, .35, "left");
-        Thread.sleep(500);
+        Thread.sleep(250);
 
-        EncoderDrivePID(robotPID, robot, 41);
-         Thread.sleep(500);
+        EncoderDrivePID(robot, 41);
+         Thread.sleep(250);
+
+         encodersMove(robot, 1,0.25,"forward");
+         Thread.sleep(100);
 
         imuTurn(robot, 55, .35, "left");
-         Thread.sleep(500);
+         Thread.sleep(250);
 
-        EncoderDrivePID(robotPID, robot,39 );
+        EncoderDrivePID(robot,39 );
          Thread.sleep(500);
 
         imuTurn(robot, 110, .35, "right");
@@ -72,7 +75,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         imuTurn(robot, 90, .35, "right");
          Thread.sleep(500);
 
-        EncoderDrivePID(robotPID, robot, 78);
+        EncoderDrivePID(robot, 78);
          Thread.sleep(500);
      }
      public void farBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
@@ -127,20 +130,29 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
 
     public void EncoderDrivePID(RoboRaidersPID robotPID, ProtoBot robot, double wantedDistance) {
-           robot.resetEncoders();
-          robot.runWithEncoders();
-          robotPID.initialize();   // re-initialized the pid variables that we care about
+        robot.resetEncoders();
+        robot.runWithEncoders();
+        robotPID.initialize();   // re-initialized the pid variables that we care about
 
-          double EncoderCount = robot.calculateCOUNTS(wantedDistance);
+        double EncoderCount = robot.calculateCOUNTS(wantedDistance);
+        double currentEncoderCount = robot.getSortedEncoderCount();
         while (opModeIsActive() &&
-                (robot.getSortedEncoderCount() <= EncoderCount - 15 ||
-                 robot.getSortedEncoderCount() >= EncoderCount + 15)) {
+                (currentEncoderCount <= EncoderCount - 30.0 || currentEncoderCount >= EncoderCount + 30.0)) {
 
-                motor_power =robotPID.pidWithCounts(EncoderCount, robot.getSortedEncoderCount());
+            motor_power =robotPID.pidWithCounts(EncoderCount, robot.getSortedEncoderCount());
             robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
+            currentEncoderCount = robot.getSortedEncoderCount();
 
 
         }
+    }
+    public void EncoderDrivePID(ProtoBot robot, double wantedDistance) {
+    //    robot.resetEncoders();
+    //    robot.runWithEncoders();
+        RoboRaidersPID pidClass = new RoboRaidersPID();   // create new pidClass
+
+        EncoderDrivePID(pidClass,robot,wantedDistance);
+
     }
     public void imuTurn(ProtoBot robot, float degrees, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a

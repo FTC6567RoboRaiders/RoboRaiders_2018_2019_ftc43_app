@@ -3,7 +3,8 @@ package RoboRaiders.AutoOptions;
 public class RoboRaidersPID {
     public double Kp = 0.001;
     public double Ki = 0.0;
-    public double Kd = 0.00009;
+    public double Kd = 0.0;
+    //public double Kd = 0.00009;
     public double error;
     public double integral;
     public double derivative;
@@ -19,8 +20,8 @@ public class RoboRaidersPID {
 
     public double pidWithCounts(double Target, double Sensor) {
 
-        currentTime = System.currentTimeMillis();
-        timeChange = (currentTime - previous_time);
+        currentTime = (double)System.currentTimeMillis();
+        timeChange = currentTime - previous_time;
 
         error = (Target) - (Sensor);
         integral = integral + (error * timeChange);
@@ -33,9 +34,9 @@ public class RoboRaidersPID {
         }*/
         derivative = (error - previous_error) / timeChange;
         previous_error = error;
-        power = Kp * error + Ki * integral + Kd * derivative;
+        power = (Kp * error) + (Ki * integral) + (Kd * derivative);
 
-        previous_time = System.currentTimeMillis();
+        previous_time = (double) System.currentTimeMillis();
         return power;
 
 
