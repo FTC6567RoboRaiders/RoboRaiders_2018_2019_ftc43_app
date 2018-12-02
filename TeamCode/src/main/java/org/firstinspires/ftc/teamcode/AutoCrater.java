@@ -16,7 +16,7 @@ public class AutoCrater extends RoboraiderAutonomous {
 
         waitForStart();
 
-        //DeployRobot(robot);
+        DeployRobot(robot);
 
         closeRedDepot(robotPID, robot);
 

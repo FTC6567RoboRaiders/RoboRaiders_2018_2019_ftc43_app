@@ -45,38 +45,42 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         //DeployRobot(robot);
 
         EncoderDrivePID(robot,28);
-        Thread.sleep(250);
+        Thread.sleep(200);
 
         encodersMove(robot, 3, 1, "backward");
+        Thread.sleep(200);
+
+        imuTurn(robot, 100, .35, "left");
+        Thread.sleep(100);
+
+        EncoderDrivePID(robot, 41);   // was 40 now 41
+        Thread.sleep(100);
+
+        encodersMove(robot, 3.0,0.25,"forward"); // was 1
+        Thread.sleep(100);
+
+        imuTurn(robot, 60, .35, "left");  // was 55
         Thread.sleep(250);
+
+        EncoderDrivePID(robot,36 ); // was 39
+        Thread.sleep(100);
+
+        encodersMove(robot, 1,0.25,"forward");
+        Thread.sleep(100);
 
         robot.collectionOff();
 
-        imuTurn(robot, 100, .35, "left");
+
+        imuTurn(robot, 105, .35, "right");  // was 100
         Thread.sleep(250);
 
-        EncoderDrivePID(robot, 41);
-         Thread.sleep(250);
+        DeployTeamMarker(robot);
 
-         encodersMove(robot, 1,0.25,"forward");
-         Thread.sleep(100);
+        imuTurn(robot, 90, .35, "right"); // was 85, now at 90
+        Thread.sleep(200);
 
-        imuTurn(robot, 55, .35, "left");
-         Thread.sleep(250);
-
-        EncoderDrivePID(robot,39 );
-         Thread.sleep(500);
-
-        imuTurn(robot, 110, .35, "right");
-         Thread.sleep(500);
-
-         DeployTeamMarker(robot);
-
-        imuTurn(robot, 90, .35, "right");
-         Thread.sleep(500);
-
-        EncoderDrivePID(robot, 78);
-         Thread.sleep(500);
+        EncoderDrivePID(robot, 68);  // was 78 inches
+      //  Thread.sleep(250);
      }
      public void farBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
          EncoderDrivePID(robotPID,robot,28);
@@ -157,7 +161,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public void imuTurn(ProtoBot robot, float degrees, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
-robot.resetIMU();
+        robot.resetIMU();
         float finalHeading = robot.getHeading() + degrees;
 
        // robot.getHeading(); returns the current heading of the IMU
@@ -189,11 +193,11 @@ robot.resetIMU();
         double startDeployTime = System.currentTimeMillis();
 
         robot.setLiftMotorPower(-0.95);
-        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 5500 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 6500 && !robot.sensorTouch.isPressed()){
 
         }
 
-        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 5500 && System.currentTimeMillis() - startDeployTime < 7800 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 6500 && System.currentTimeMillis() - startDeployTime < 10000 && !robot.sensorTouch.isPressed()){
             robot.setLiftMotorPower(-.45);
         }
 
@@ -222,11 +226,11 @@ robot.resetIMU();
 
         robot.markerDrop.setPosition(robot.markerDropDown);
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         robot.markerDrop.setPosition(robot.markerDropUp);
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
     }
 
