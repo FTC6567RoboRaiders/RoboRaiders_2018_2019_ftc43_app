@@ -20,7 +20,7 @@ public class AutoDepot extends RoboraiderAutonomous {
 
         DeployRobot(robot);
 
-        closeRedDepot(robotPID, robot);
+        farRedDepot(robotPID, robot);
 
         //moveTest(robotPID, robot);
 
