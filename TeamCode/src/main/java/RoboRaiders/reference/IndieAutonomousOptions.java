@@ -29,15 +29,15 @@ public class IndieAutonomousOptions extends IndieRoboRaidersAuto {
 
         String allianceSelPrompt = "Alliance Color";                      // Alliance Color prompt
         final String[] alliancePosResps = new String[]                    // Possible Alliance Color selections
-                {"red", "blue"};
+                {"Red", "Blue"};
 
-        String bsSelPrompt = "Balancing Stone Location";                  // Balancing Stone Location prompt
-        final String[] bsPosResps = new String[]                          // Possible Balancing Stone Location selections
-                {"close", "far"};
+        String landerLocationSelPrompt = "Lander Location";                  // Balancing Stone Location prompt
+        final String[] landerLocationPosResps = new String[]                          // Possible Balancing Stone Location selections
+                {"Close", "Far"};
 
-        String jewelSelPrompt = "Jewel";                                  // Jewel prompt
+        String deploySelPrompt = "Deploy From Lander";                                  // Jewel prompt
         final String[] jewelPosResps = new String[]                       // Possible Jewel selections
-                {"no", "yes"};
+                {"No", "Yes"};
 
         String parkCryptSelPrompt = "Parking and/or Cryptobox";           // Parking and/or Cryptobox prompt
         final String[] parkCryptPosResps = new String[]                   // Possible Parking and/or Cryptobox selections

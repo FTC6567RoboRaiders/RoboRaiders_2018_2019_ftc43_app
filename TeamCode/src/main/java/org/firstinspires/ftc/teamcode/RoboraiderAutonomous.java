@@ -73,7 +73,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
 
         imuTurn(robot, 105, .35, "right");  // was 100
-        Thread.sleep(250);
+         Thread.sleep(250);
 
         DeployTeamMarker(robot);
 
@@ -81,7 +81,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         Thread.sleep(200);
 
         EncoderDrivePID(robot, 68);  // was 78 inches
-      //  Thread.sleep(250);
+        Thread.sleep(250);
      }
      public void farBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
          EncoderDrivePID(robotPID,robot,28);
@@ -130,6 +130,70 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
     public void moveTest (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
         EncoderDrivePID(robotPID, robot, 48);
     }
+    public void moveDepotFromCraterStart (ProtoBot robot) throws  InterruptedException {
+        EncoderDrivePID(robot,28);
+        Thread.sleep(200);
+
+        encodersMove(robot, 3, 1, "backward");
+        Thread.sleep(200);
+
+        imuTurn(robot, 100, .35, "left");
+        Thread.sleep(100);
+
+        EncoderDrivePID(robot, 41);   // was 40 now 41
+        Thread.sleep(100);
+
+        encodersMove(robot, 3.0,0.25,"forward"); // was 1
+        Thread.sleep(100);
+
+        imuTurn(robot, 60, .35, "left");  // was 55
+        Thread.sleep(250);
+
+        EncoderDrivePID(robot,36 ); // was 39
+        Thread.sleep(100);
+
+        encodersMove(robot, 1,0.25,"forward");
+        Thread.sleep(100);
+
+        robot.collectionOff();
+
+        imuTurn(robot, 105, .35, "right");
+        Thread.sleep(250);
+    }
+
+    public void moveDepotFromDepotStart (ProtoBot robot) throws InterruptedException {
+        EncoderDrivePID(robot,50 );
+        Thread.sleep(500);
+
+        imuTurn(robot, 90, .25, "right");
+        Thread.sleep(500);
+    }
+
+    public void parkFromCraterStart (ProtoBot robot) throws InterruptedException {
+        imuTurn(robot, 90, .35, "right");
+        Thread.sleep(200);
+
+        EncoderDrivePID(robot, 68);
+        Thread.sleep(250);
+    }
+
+    public void parkFromDepotStart (ProtoBot robot) throws InterruptedException {
+        encodersMove(robot, 6, .9, "backward");
+        Thread.sleep(500);
+
+
+        imuTurn(robot, 60, .25, "left");
+        Thread.sleep(500);
+
+        encodersMove(robot, 30, .9, "backward");
+        Thread.sleep(500);
+
+        imuTurn(robot, 35, .25, "right");
+        Thread.sleep(500);
+
+        encodersMove(robot, 15, .9, "backward");
+    }
+
 
 
 

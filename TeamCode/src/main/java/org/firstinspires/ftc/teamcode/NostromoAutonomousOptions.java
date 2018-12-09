@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import RoboRaiders.AutoOptions.RoboRaidersPID;
 import RoboRaiders.reference.IndieRoboRaidersAuto;
 import RoboRaiders.reference.IndieRobot;
 
 @Autonomous
 @Disabled
 
-public class NostromoAutonomousOptions extends IndieRoboRaidersAuto {
+public class NostromoAutonomousOptions extends RoboraiderAutonomous {
 
-    public IndieRobot robot = new IndieRobot();
+    public ProtoBot robot = new ProtoBot();
 
     boolean cur_B_ButtonState;                                            // "b" button current state
     boolean cur_X_ButtonState;                                            // "x" button current state
@@ -28,45 +29,53 @@ public class NostromoAutonomousOptions extends IndieRoboRaidersAuto {
 
         // Array to store selected options, by design selectedOptions[0][*] is used to store the
         // response for finalizing the selected options.
-        String[][] selectedOptions = new String[6][2];                    // Array to store selections
+        String[][] selectedOptions = new String[8][2];                    // Array to store selections
 
         String allianceSelPrompt = "Alliance Color";                      // Alliance Color prompt
         final String[] alliancePosResps = new String[]                    // Possible Alliance Color selections
                 {"Red", "Blue"};
 
-        String bsSelPrompt = "Location";                  // Balancing Stone Location prompt
-        final String[] bsPosResps = new String[]                          // Possible Balancing Stone Location selections
+        String locationSelPrompt = "Location?";                  // Balancing Stone Location prompt
+        final String[] locationPosResps = new String[]                          // Possible Balancing Stone Location selections
                 {"Depot", "Crater"};
 
-        String jewelSelPrompt = "Jewel";                                  // Jewel prompt
-        final String[] jewelPosResps = new String[]                       // Possible Jewel selections
-                {"no", "yes"};
+        String deployRobotSelPrompt = "Deploy From Lander?";                                  // Jewel prompt
+        final String[] deployRobotPosResps = new String[]                       // Possible Jewel selections
+                {"No", "Yes"};
 
-        String parkCryptSelPrompt = "Parking and/or Cryptobox";           // Parking and/or Cryptobox prompt
-        final String[] parkCryptPosResps = new String[]                   // Possible Parking and/or Cryptobox selections
-                {"Just Park", "Cryptobox Vuforia"};
+        String dropTeamMarkerSelPrompt = "Drop Team Marker?";           // Parking and/or Cryptobox prompt
+        final String[] dropTeamMarkerPosResps = new String[]                   // Possible Parking and/or Cryptobox selections
+                {"No", "Yes"};
+        String moveDepotSelPrompt = "Move to Depot?";
+        final String [] moveDepotPosResps = new String[]
+                {"No, Yes"};
+        String parkSelPrompt = "Park" ;
+        final String [] parkPosResps = new String[]
+                {"No, Yes"};
 
         String selectionsOk = "Selections Great :)";                      // Finished Selections prompt
         final String[] finishedSelPosResps = new String[]                 // Possible Finished Selections responses
-                {"no", "yes"};
+                {"No", "Yes"};
 
         // Default that the options to be selected are not finalized.  This is done since we want
         // the loop below to actually loop.  At the end of the loop, the question will be asked if
         // the selections are ok, if they are, then this will be set to "yes" and the loop will
         // exit.
-        selectedOptions[0][1] = "no";
+        selectedOptions[0][1] = "No";
 
         // Configure for Indie autonomous while the selections are not finalized
-        while (selectedOptions[0][1].equals("no")) {
+        while (selectedOptions[0][1].equals("No")) {
 
             //                        Prompt            Responses    Index  Options output
             configForAuto2Options(allianceSelPrompt, alliancePosResps, 1, selectedOptions);       // Alliance Color selection
-            configForAuto2Options(bsSelPrompt, bsPosResps, 2, selectedOptions);                   // Balancing Stone Location selection
-            configForAuto2Options(jewelSelPrompt, jewelPosResps, 3, selectedOptions);             // Jewel selection
-            configForAuto2Options(parkCryptSelPrompt, parkCryptPosResps, 4, selectedOptions);     // Parking and/or Cryptobox selection
+            configForAuto2Options(locationSelPrompt, locationPosResps, 2, selectedOptions);                   // Balancing Stone Location selection
+            configForAuto2Options(deployRobotSelPrompt, deployRobotPosResps, 3, selectedOptions);             // Jewel selection
+            configForAuto2Options(dropTeamMarkerSelPrompt, dropTeamMarkerPosResps, 4, selectedOptions);     // Parking and/or Cryptobox selection
+            configForAuto2Options(moveDepotSelPrompt, moveDepotPosResps, 5, selectedOptions); // Move to Depot Selectiong
+            configForAuto2Options(parkSelPrompt, parkPosResps,6, selectedOptions);
 
             // Loop through all of the selections and tell user what s/he has selected
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1; i <= 6; i++) {
 
                 telemetry.addLine().addData(selectedOptions[i][0], selectedOptions[i][1]);
             }
@@ -77,11 +86,6 @@ public class NostromoAutonomousOptions extends IndieRoboRaidersAuto {
         }
 
         robot.initialize(hardwareMap);
-        alignRobot(robot, selectedOptions[1][1], selectedOptions[2][1]);
-
-        // Initializing
-        telemetry.addLine("Robot is Aligned - Press B to Initialize and Wait for Start");
-        telemetry.update();
 
         gamepad1.reset();
 
@@ -89,42 +93,44 @@ public class NostromoAutonomousOptions extends IndieRoboRaidersAuto {
 
         }
 
-        robot.initializeServosAutonomous();
-        vuforiaInitialization(hardwareMap);
         telemetry.addLine("Initialized");
         telemetry.update();
 
         // Wait for start to be pushed
         waitForStart();
 
-        // Jewel
-        if (selectedOptions[3][1].equals("yes")) {
-
-            lowerArm(robot);
-            selectJewel(robot, selectedOptions[1][1]);
+        // Deploy From Lander
+        if (selectedOptions[3][1].equals("Yes")) {
+            DeployRobot(robot);
         }
 
-        // Parking and/or Cryptobox
-        if (selectedOptions[4][1].equals("Just Park")) {
-
-            if (selectedOptions[1][1].equals("blue") && selectedOptions[2][1].equals("close")) {
-
-                justParkCloseBlue(robot);
+        // Move to Depot
+        if (selectedOptions[5][1].equals("Yes")) {
+            if (selectedOptions[2][1].equals("Crater")) {
+                moveDepotFromCraterStart(robot);
             }
-            else if (selectedOptions[1][1].equals("blue") && selectedOptions[2][1].equals("far")) {
-
-                justParkFarBlue(robot);
+            if (selectedOptions[2][1].equals("Depot")) {
+                moveDepotFromDepotStart(robot);
             }
-            else if (selectedOptions[1][1].equals("red") && selectedOptions[2][1].equals("close")) {
 
-                justParkCloseRed(robot);
-            }
-            else if (selectedOptions[1][1].equals("red") && selectedOptions[2][1].equals("far")) {
-
-                justParkFarRed(robot);
-            }
+        // Drop Team Marker
+        if (selectedOptions[4][1].equals("Yes")) {
+            DeployTeamMarker(robot);
         }
-        else if (selectedOptions[4][1].equals("Cryptobox Vuforia")) {
+
+        //Park In the Crater
+        if (selectedOptions[6][1].equals("Yes") ) {
+            if (selectedOptions[2][1].equals("Crater")) {
+                parkFromCraterStart(robot);
+                }
+            if (selectedOptions[2][1].equals("Depot")) {
+                parkFromDepotStart(robot);
+            }
+            }
+
+
+
+        } else if (selectedOptions[4][1].equals("Cryptobox Vuforia")) {
 
             getRelicRecoveryVuMark();
             Thread.sleep(250);
