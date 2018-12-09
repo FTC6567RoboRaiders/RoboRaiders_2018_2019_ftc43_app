@@ -46,7 +46,7 @@ public class ProtoBot {
     public Orientation iza_angles;
     public double liftClawOpen = 1.0;
     public double liftClawClosed = 0.0;
-    public double markerDropUp = 0.5;
+    public double markerDropUp = 0.3;
     public double markerDropDown = 1.0;
     public double intakeIn = 1.0;
     public double intakeOut = 0.0;
