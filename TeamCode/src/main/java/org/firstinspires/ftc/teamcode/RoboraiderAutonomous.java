@@ -35,8 +35,8 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         encodersMove(robot, 30, .9, "backward");
         Thread.sleep(500);
 
-        imuTurn(robot, 35, .25, "right");
-        Thread.sleep(500);
+        imuTurn(robot, 105, .35, "right");  // was 100
+        Thread.sleep(250);
 
         encodersMove(robot, 15, .9, "backward");
 

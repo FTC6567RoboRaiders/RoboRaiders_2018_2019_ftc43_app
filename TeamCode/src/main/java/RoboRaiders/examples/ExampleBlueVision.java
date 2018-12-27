@@ -114,6 +114,10 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
         Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
+        Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
+
+        double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
+
         return rgba; // display the image seen by the camera
 
     }
