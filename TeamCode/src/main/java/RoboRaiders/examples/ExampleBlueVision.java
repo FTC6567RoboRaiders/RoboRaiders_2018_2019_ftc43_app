@@ -98,9 +98,17 @@ public class ExampleBlueVision extends OpenCVPipeline {
         double maxArea = 0.0;
         List<MatOfPoint> MaxContour = new ArrayList<>();
         MatOfPoint currentMaxContour = new MatOfPoint();
+        MatOfPoint myTargetRatio = new MatOfPoint();
 
         for (MatOfPoint myPoints : contours) {
+
             double area = Imgproc.contourArea(myPoints);
+            Rect myRect = Imgproc.boundingRect(myPoints);
+            double ratio = myRect.height/myRect.width;
+            if (ratio == 1.0) {
+                // found my target
+                myTargetRatio = myPoints;
+            }
             if (area >  maxArea) {
                 maxArea = area;
                 currentMaxContour = myPoints;
@@ -117,6 +125,8 @@ public class ExampleBlueVision extends OpenCVPipeline {
         Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
         double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
+
+        double degress = Math.atan(what ever my formula is);
 
         return rgba; // display the image seen by the camera
 

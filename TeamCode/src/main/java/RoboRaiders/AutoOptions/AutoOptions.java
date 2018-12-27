@@ -2,10 +2,6 @@ package RoboRaiders.AutoOptions;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-
 public class AutoOptions {
 
     private LinearOpMode op;
