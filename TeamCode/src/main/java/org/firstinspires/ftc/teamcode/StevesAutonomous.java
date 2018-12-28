@@ -14,6 +14,7 @@ public class StevesAutonomous extends RoboraiderAutonomous {
     private boolean nearCrater        = false;
     private boolean deployFromLander  = false;
     private boolean selectionsAreGood = false;
+    public ProtoBot robot = new ProtoBot();
 
 
     //----------------------------------------------------------------------------------------------
@@ -38,12 +39,18 @@ public class StevesAutonomous extends RoboraiderAutonomous {
            // moveToDepot      = myAO.selectMoveToDepot();           // Should the robot go to depot
            //
 
-            telemetry.addData("Autonomous", "Selections");
-            telemetry.addData("Alliance", isRed ? "Red" : "Blue");
-            telemetry.addData("Near Crater", nearCrater ? "Yes" : "No");
-            telemetry.addData("Deploy From Lander", deployFromLander ? "Yes" : "No");
+            // Display the options selected
+            // We show two options per line, to save space and lines.  The maximum number of characters
+            // per line is roughly 45.  Maximum number of lines to be displayed is 9.
+            telemetry.addLine().addData("Autonomous", "Selections");
+            telemetry.addLine().addData("Alliance:", isRed ? "Red" : "Blue").addData("  Near Crater:", nearCrater ? "Yes" : "No");
+            telemetry.addLine().addData("Deploy From Lander:", deployFromLander ? "Yes" : "No");
 
-            boolean selectionsAreGood = myAO.selectionsGood();
+            // Verify that the autonomous selections are good, if so we are ready to rumble.  If not, well ask again.
+            // Note: Normally when data is shown on the drive station, a telemetry.update() is done.  In this case
+            //       we do not issue the telemetry.update() since selectionsGood() will issue the telemetry.update()
+            //       displaying the autonomous selections and then asking if the autonomous selections are good.
+            selectionsAreGood = myAO.selectionsGood();
         }
 
         robot.initialize(hardwareMap);
