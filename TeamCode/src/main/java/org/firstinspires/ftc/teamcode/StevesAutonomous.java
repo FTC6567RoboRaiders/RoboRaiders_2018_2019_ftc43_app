@@ -45,21 +45,25 @@ public class StevesAutonomous extends RoboraiderAutonomous {
             telemetry.addLine().addData("Autonomous", "Selections");
             telemetry.addLine().addData("Alliance:", isRed ? "Red" : "Blue").addData("  Near Crater:", nearCrater ? "Yes" : "No");
             telemetry.addLine().addData("Deploy From Lander:", deployFromLander ? "Yes" : "No");
+            telemetry.update();
 
             // Verify that the autonomous selections are good, if so we are ready to rumble.  If not, well ask again.
-            // Note: Normally when data is shown on the drive station, a telemetry.update() is done.  In this case
-            //       we do not issue the telemetry.update() since selectionsGood() will issue the telemetry.update()
-            //       displaying the autonomous selections and then asking if the autonomous selections are good.
+            // Note: To keep the autonomous options displayed, the automagical clearing of the telemetry data will be
+            //       turned off with the setAutoClear(false) prior to calling selectionsGood().  After selectionsGood()
+            //       turn on the automagical clearing of the telemetry data which is the default action.
+            telemetry.setAutoClear(false);
             selectionsAreGood = myAO.selectionsGood();
+            telemetry.setAutoClear(true);
         }
 
         robot.initialize(hardwareMap);
 
         gamepad1.reset();
 
-
-        telemetry.addLine("Initialized");
+        telemetry.setAutoClear(false);                                 // turn off automagically clearing the telemetery data
+        telemetry.addLine("Initialized: Waiting for Start");
         telemetry.update();
+        telemetry.setAutoClear(true);                                  // turn on automagically clearing the telemetery data
 
         // Wait for start to be pushed
         waitForStart();

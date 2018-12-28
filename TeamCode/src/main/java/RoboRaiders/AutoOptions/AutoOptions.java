@@ -109,13 +109,12 @@ public class AutoOptions {
 
     private int makeSelection(String msPrompt, String[] msResps) {
 
-
         int index = 0;
-
 
         // Let the user Select, reset gamepad1
         op.gamepad1.reset();
 
+        // Assume that neither the B or X button has been pressed
         prev_B_ButtonState = false;
         prev_X_ButtonState = false;
 
