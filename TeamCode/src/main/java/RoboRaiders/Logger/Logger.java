@@ -8,7 +8,7 @@ import android.util.Log;
 public class Logger {
 
 
-    String tag;
+    private String tag;
 
     /**
      * constructor for Logger
