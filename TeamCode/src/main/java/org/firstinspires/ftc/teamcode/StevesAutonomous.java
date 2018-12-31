@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutoOptions.AutoOptions;
+import RoboRaiders.Logger.Logger;
 
 @Autonomous
 @Disabled
@@ -27,6 +28,10 @@ public class StevesAutonomous extends RoboraiderAutonomous {
 
         // Ask drivers how they want autonomous to work
         AutoOptions myAO = new AutoOptions(this);
+
+        // Set up for logging messages to the log
+        Logger L = new Logger(String.valueOf("FTC6567"));
+
 
         // While the drivers haven't made up their mind, keep asking what they want to do
         while (!selectionsAreGood) {
@@ -56,6 +61,11 @@ public class StevesAutonomous extends RoboraiderAutonomous {
             telemetry.setAutoClear(true);
         }
 
+        // Log autonomous selections
+        L.Debug("isRed: ", isRed);
+        L.Debug("nearCrater: ", nearCrater);
+        L.Debug("deplayFromLander: ", deployFromLander);
+
         robot.initialize(hardwareMap);
 
         gamepad1.reset();
@@ -64,6 +74,8 @@ public class StevesAutonomous extends RoboraiderAutonomous {
         telemetry.addLine("Initialized: Waiting for Start");
         telemetry.update();
         telemetry.setAutoClear(true);                                  // turn on automagically clearing the telemetery data
+
+        L.Info("Initialized: Waiting for Start");
 
         // Wait for start to be pushed
         waitForStart();
