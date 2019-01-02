@@ -53,11 +53,20 @@ public class ExampleBlueVisionDemo extends OpMode {
     @Override
     public void init() {
         blueVision = new ExampleBlueVision();
+        telemetry.addLine("created ExampleBlueVision");
+        telemetry.update();
+        telemetry.setAutoClear(false);
         // can replace with ActivityViewDisplay.getInstance() for fullscreen
         blueVision.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
+        telemetry.addLine("blueVision inited");
+        telemetry.update();
         blueVision.setShowCountours(false);
+        telemetry.addLine("blueVision showcontours set");
+        telemetry.update();
         // start the vision system
         blueVision.enable();
+        telemetry.addLine("blueVision enabled");
+        telemetry.update();
     }
 
     @Override
@@ -75,6 +84,7 @@ public class ExampleBlueVisionDemo extends OpMode {
                     String.format(Locale.getDefault(), "(%d, %d)", (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2));
 
         }
+
 
     }
 

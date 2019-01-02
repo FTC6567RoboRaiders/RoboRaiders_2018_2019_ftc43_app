@@ -58,8 +58,8 @@ public class IndieAutonomousOptions extends IndieRoboRaidersAuto {
 
             //                        Prompt            Responses    Index  Options output
             configForAuto2Options(allianceSelPrompt, alliancePosResps, 1, selectedOptions);       // Alliance Color selection
-            configForAuto2Options(bsSelPrompt, bsPosResps, 2, selectedOptions);                   // Balancing Stone Location selection
-            configForAuto2Options(jewelSelPrompt, jewelPosResps, 3, selectedOptions);             // Jewel selection
+         //   configForAuto2Options(bsSelPrompt, bsPosResps, 2, selectedOptions);                   // Balancing Stone Location selection
+         //   configForAuto2Options(jewelSelPrompt, jewelPosResps, 3, selectedOptions);             // Jewel selection
             configForAuto2Options(parkCryptSelPrompt, parkCryptPosResps, 4, selectedOptions);     // Parking and/or Cryptobox selection
 
             // Loop through all of the selections and tell user what s/he has selected

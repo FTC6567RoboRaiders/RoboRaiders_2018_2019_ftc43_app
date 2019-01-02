@@ -86,7 +86,7 @@ public class StevesAutonomous extends RoboraiderAutonomous {
         }
 
         // Move to Depot
-        if (moveToDepot) {
+        //if (moveToDepot) {
             if (nearCrater) {
                 moveDepotFromCraterStart(robot);
             }
@@ -98,4 +98,4 @@ public class StevesAutonomous extends RoboraiderAutonomous {
     }
 
 
-}
+//}

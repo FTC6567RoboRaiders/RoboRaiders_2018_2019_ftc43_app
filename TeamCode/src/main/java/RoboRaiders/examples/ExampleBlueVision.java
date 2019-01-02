@@ -96,23 +96,19 @@ public class ExampleBlueVision extends OpenCVPipeline {
         }
 
         double maxArea = 0.0;
+        double sideRatioTest = 0.0;
         List<MatOfPoint> MaxContour = new ArrayList<>();
         MatOfPoint currentMaxContour = new MatOfPoint();
-        MatOfPoint myTargetRatio = new MatOfPoint();
 
         for (MatOfPoint myPoints : contours) {
-
             double area = Imgproc.contourArea(myPoints);
-            Rect myRect = Imgproc.boundingRect(myPoints);
-            double ratio = myRect.height/myRect.width;
-            if (ratio == 1.0) {
-                // found my target
-                myTargetRatio = myPoints;
-            }
-            if (area >  maxArea) {
+            Rect testRect = Imgproc.boundingRect(myPoints);
+            sideRatioTest = testRect.width/testRect.height;
+            if (area >  maxArea && 0.8 < sideRatioTest &&  sideRatioTest< 1.2) {
                 maxArea = area;
                 currentMaxContour = myPoints;
                 //sorts the contour areas and assigns the largest one to currentMaxContour
+
             }
         }
 
@@ -120,13 +116,17 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
         Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
 
+        double sideRatioRect = boundingRect.width/boundingRect.height;
+
         Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
         Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
         double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
 
-        double degress = Math.atan(what ever my formula is);
+        double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
+
+        double cvheading = Math.toDegrees(cvheadingrad);
 
         return rgba; // display the image seen by the camera
 
