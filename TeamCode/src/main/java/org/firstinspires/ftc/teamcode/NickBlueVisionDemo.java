@@ -12,8 +12,6 @@ import org.opencv.imgproc.Imgproc;
 import java.util.List;
 import java.util.Locale;
 
-import RoboRaiders.examples.ExampleBlueVision;
-
 /**
  * Created by guinea on 10/5/17.
  * -------------------------------------------------------------------------------------

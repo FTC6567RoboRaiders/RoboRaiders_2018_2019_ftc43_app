@@ -19,7 +19,7 @@ public class Logger {
 
 
     // Debug
-    public void Debug(String str)              { Log.i(tag,str); }
+    public void Debug(String str)              { Log.d(tag,str); }
 
     public void Debug(String str, int num)     { Log.d(tag,str+String.valueOf(num)); }
 
@@ -39,7 +39,7 @@ public class Logger {
 
 
     // Error
-    public void Error(String str)              { Log.i(tag,str); }
+    public void Error(String str)              { Log.e(tag,str); }
 
     public void Error(String str, int num)     { Log.e(tag,str+String.valueOf(num)); }
 
@@ -79,7 +79,7 @@ public class Logger {
 
 
     // Verbose
-    public void Verbose(String str)              { Log.i(tag,str); }
+    public void Verbose(String str)              { Log.v(tag,str); }
 
     public void Verbose(String str, int num)     { Log.v(tag,str+String.valueOf(num)); }
 

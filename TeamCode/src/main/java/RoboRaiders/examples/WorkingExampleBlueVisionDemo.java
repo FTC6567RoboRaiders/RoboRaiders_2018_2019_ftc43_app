@@ -6,10 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,25 +46,28 @@ import java.util.Locale;
  * Additionally, the centers of the bounding rectangles of the contours are sent to telemetry.
  */
 @TeleOp(name="Example: Blue Vision Demo")
-public class ExampleBlueVisionDemo extends OpMode {
-    private ExampleBlueVision blueVision;
+public class WorkingExampleBlueVisionDemo extends OpMode {
+    private WorkingExampleBlueVision blueVision;
     @Override
     public void init() {
-        blueVision = new ExampleBlueVision();
-        telemetry.addLine("created ExampleBlueVision");
-        telemetry.update();
+        blueVision = new WorkingExampleBlueVision();
         telemetry.setAutoClear(false);
+        telemetry.addLine("created WorkingExampleBlueVision");
+        telemetry.update();
+
         // can replace with ActivityViewDisplay.getInstance() for fullscreen
         blueVision.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         telemetry.addLine("blueVision inited");
         telemetry.update();
-        blueVision.setShowCountours(false);
+
         telemetry.addLine("blueVision showcontours set");
         telemetry.update();
+
         // start the vision system
         blueVision.enable();
         telemetry.addLine("blueVision enabled");
         telemetry.update();
+
     }
 
     @Override
@@ -84,7 +85,6 @@ public class ExampleBlueVisionDemo extends OpMode {
                     String.format(Locale.getDefault(), "(%d, %d)", (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2));
 
         }
-
 
     }
 

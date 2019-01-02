@@ -132,10 +132,10 @@ public class NostromoAutonomousOptions extends RoboraiderAutonomous {
 
         } else if (selectedOptions[4][1].equals("Cryptobox Vuforia")) {
 
-          //  getRelicRecoveryVuMark();
+            //getRelicRecoveryVuMark();
             Thread.sleep(250);
 
-           // selectColumn(robot, selectedOptions[1][1], selectedOptions[2][1], pictograph);
+            //selectColumn(robot, selectedOptions[1][1], selectedOptions[2][1], pictograph);
         }
     }
 

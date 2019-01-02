@@ -49,7 +49,7 @@ import java.util.Locale;
  * robotics OpenCV applications.
  */
 
-public class ExampleBlueVision extends OpenCVPipeline {
+public class WorkingExampleBlueVision extends OpenCVPipeline {
     private boolean showContours = true;
     // To keep it such that we don't have to instantiate a new Mat every call to processFrame,
     // we declare the Mats up here and reuse them. This is easier on the garbage collector.
@@ -96,19 +96,23 @@ public class ExampleBlueVision extends OpenCVPipeline {
         }
 
         double maxArea = 0.0;
-        double sideRatioTest = 0.0;
         List<MatOfPoint> MaxContour = new ArrayList<>();
         MatOfPoint currentMaxContour = new MatOfPoint();
+        MatOfPoint myTargetRatio = new MatOfPoint();
 
         for (MatOfPoint myPoints : contours) {
+
             double area = Imgproc.contourArea(myPoints);
-            Rect testRect = Imgproc.boundingRect(myPoints);
-            sideRatioTest = testRect.width/testRect.height;
-            if (area >  maxArea && 0.8 < sideRatioTest &&  sideRatioTest< 1.2) {
+            Rect myRect = Imgproc.boundingRect(myPoints);
+            double ratio = myRect.height/myRect.width;
+            if (ratio == 1.0) {
+                // found my target
+                myTargetRatio = myPoints;
+            }
+            if (area >  maxArea) {
                 maxArea = area;
                 currentMaxContour = myPoints;
                 //sorts the contour areas and assigns the largest one to currentMaxContour
-
             }
         }
 
@@ -116,17 +120,13 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
         Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
 
-        double sideRatioRect = boundingRect.width/boundingRect.height;
-
         Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
         Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
         double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
 
-        double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
-
-        double cvheading = Math.toDegrees(cvheadingrad);
+      //  double degress = Math.atan(what ever my formula is);
 
         return rgba; // display the image seen by the camera
 

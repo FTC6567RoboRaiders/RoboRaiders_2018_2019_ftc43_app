@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutoOptions.AutoOptions;
 import RoboRaiders.Logger.Logger;
+import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
 @Disabled
@@ -16,6 +17,7 @@ public class StevesAutonomous extends RoboraiderAutonomous {
     private boolean deployFromLander  = false;
     private boolean selectionsAreGood = false;
     public ProtoBot robot = new ProtoBot();
+    StringBuilder[][] robotVarInfo = new StringBuilder[6][2];
 
 
     //----------------------------------------------------------------------------------------------
@@ -31,6 +33,9 @@ public class StevesAutonomous extends RoboraiderAutonomous {
 
         // Set up for logging messages to the log
         Logger L = new Logger(String.valueOf("FTC6567"));
+
+        // Set up robot telemetry
+     //   RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostromo");
 
 
         // While the drivers haven't made up their mind, keep asking what they want to do
@@ -64,16 +69,21 @@ public class StevesAutonomous extends RoboraiderAutonomous {
         // Log autonomous selections
         L.Debug("isRed: ", isRed);
         L.Debug("nearCrater: ", nearCrater);
-        L.Debug("deplayFromLander: ", deployFromLander);
+        L.Debug("deployFromLander: ", deployFromLander);
 
         robot.initialize(hardwareMap);
 
         gamepad1.reset();
 
-        telemetry.setAutoClear(false);                                 // turn off automagically clearing the telemetery data
-        telemetry.addLine("Initialized: Waiting for Start");
-        telemetry.update();
-        telemetry.setAutoClear(true);                                  // turn on automagically clearing the telemetery data
+        // Display autonomous status
+ //       robotVarInfo[0][0] = StringBuilder.valueOf("isRed: ");
+ //       robotVarInfo[0][1] = StringBuilder.valueOf(isRed?"Red":"Blue");
+ //       robotVarInfo[1][0] = StringBuilder.valueOf("nearCrater: ");
+ //       robotVarInfo[1][1] = StringBuilder.valueOf(nearCrater?"Yes":"No");
+ //       robotVarInfo[2]]0] = StringBuilder.valueOf("deployFromLander: ");
+ //       robotVarInfo[2][1] = StringBuilder.valueOf(deployFromLander?"Yes":"No");
+ //       rtd.displayRobotTelemetry("Initialized Waiting for Start",robotVarInfo);
+
 
         L.Info("Initialized: Waiting for Start");
 
@@ -86,7 +96,7 @@ public class StevesAutonomous extends RoboraiderAutonomous {
         }
 
         // Move to Depot
-        //if (moveToDepot) {
+      //  if (moveToDepot) {
             if (nearCrater) {
                 moveDepotFromCraterStart(robot);
             }
@@ -94,8 +104,7 @@ public class StevesAutonomous extends RoboraiderAutonomous {
                 moveDepotFromDepotStart(robot);
             }
 
-        }
+       // }
     }
 
-
-//}
+}
