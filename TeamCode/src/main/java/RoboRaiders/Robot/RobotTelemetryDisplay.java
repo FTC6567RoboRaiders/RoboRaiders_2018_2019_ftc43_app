@@ -15,28 +15,55 @@ public class RobotTelemetryDisplay {
      * Line 3-8:  Variable Section
      *
      * Example:
-     * Line 1:    Nostromo Status
-     * Line 2:    Robbot Status: Sampling
-     * Line 3:    Drive Motor Power: 0.45
-     * Line 4:    Heading: 95
-     * Line 5:    Intake Arm: Extended
-     * Line 6:    Encoder Value: 6784
-     * Line 7:    Lift/Hang: Extended
-     * Line 8:    Lift Claw: Closed
+     * Line 1:    Nostromo: Sampling
+     * Line 2:    Drive Motor Power: 0.45
+     * Line 3:    Heading: 95
+     * Line 4:    Intake Arm: Extended
+     * Line 5:    Encoder Value: 6784
+     * Line 6:    Lift/Hang: Extended
+     * Line 7:    Lift Claw: Closed
      *
      */
 
     OpMode op;
     String robotName;
+    int displayLineCount = 0;
+    String robotStatus;
+
 
     /**
      * Constructor for RobotTelemetryDisplay
      * @param op the OpMode tied to this class
      * @param robotName name of the robot
      */
-    RobotTelemetryDisplay (OpMode op, String robotName) {
+    public RobotTelemetryDisplay (OpMode op, String robotName) {
         this.op = op;
         this.robotName = robotName;
+    }
+
+    /**
+     * will display the robot telemetry data as shown above
+     * @param robotStatus - current robot status (e.g. Deployed, Sampling, etc.)
+     *
+     */
+    public void displayRobotTelemetry(String robotStatus) {
+
+        displayLineCount = 0;
+        this.robotStatus = robotStatus;
+
+        // Tell update to clear the display and then update to clear the display
+        op.telemetry.setAutoClear(true);
+        op.telemetry.update();
+
+        // Tell update to not clear the display when update() is called
+        op.telemetry.setAutoClear(false);
+
+        // Output the robot status
+        op.telemetry.addLine().addData(robotName,robotStatus);
+        op.telemetry.update();
+
+        displayLineCount++;
+
     }
 
     /**
@@ -45,27 +72,25 @@ public class RobotTelemetryDisplay {
      * @param varInfo - string array of variable information that would be helpful to display, only the
      *                  first 6 elements will be displayed
      */
-    public void displayRobotTelemetry(String robotStatus, StringBuilder[][] varInfo) {
 
-        // Output the title line
-        op.telemetry.addLine().addData(robotName, " Status");
+    /**
+     * will display the tobot telemetry data as shown above
+     * @param label - label of the information to be displayed
+     * @param info - the information to be displayed
+     */
+    public void displayRobotTelemetry(String label, String info) {
 
-        // Output the status line
-        op.telemetry.addLine().addData("Status: ",robotStatus);
+        displayLineCount++;
 
-        // Output the variable information
-        for (int i=0; i<6; i++) {
-            //op.telemetry.addLine().addData(varInfo[i][0],varInfo[i][1].toString());
+        if (displayLineCount > 7) {
+            displayRobotTelemetry(robotStatus);
         }
 
+        // Output the robot status
+        op.telemetry.addLine().addData(label,info);
         op.telemetry.update();
 
+
     }
-
-
-
-
-
-
 
 }

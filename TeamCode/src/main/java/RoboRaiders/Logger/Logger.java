@@ -25,6 +25,9 @@ public class Logger {
 
     public void Debug(String str, double num)  { Log.d(tag,str+String.valueOf(num)); }
 
+    public void Debug(String str, double num, double num1, double num2)  {
+        Log.d(tag,str+String.valueOf(num)+","+String.valueOf(num1)+","+String.valueOf(num2)); }
+
     public void Debug(String str, float num)   { Log.d(tag,str+String.valueOf(num)); }
 
     public void Debug(String str, long num)    { Log.d(tag,str+String.valueOf(num)); }

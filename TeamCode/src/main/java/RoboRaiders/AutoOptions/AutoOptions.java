@@ -64,7 +64,7 @@ public class AutoOptions {
 
         // Let driver make selection, when index = 0 means first selection, when index = 1
         // means second selection
-        int index = makeSelection("Alliance: ",alliances);
+        int index = makeSelection("Alliance?",alliances);
 
         // Check index against zero, if zero then true returned else false
         return index == 0;
@@ -76,14 +76,14 @@ public class AutoOptions {
      *          DEPOT  - true
      *          CRATER - false
      */
-    public boolean selectLocation() {
+    public boolean selectStartLocation() {
 
         // Create the locations
-        String[] locations = new String[] {"Depot", "Crater"};
+        String[] locations = new String[] {"Crater", "Depot"};
 
         // Let driver make selection, when index = 0 means first selection, when index = 1
         // means second selection
-        int index = makeSelection("Location: ", locations);
+        int index = makeSelection("Robot Start Location", locations);
 
         // Check index against zero, if zero then true returned else false
         return index == 0;
@@ -98,7 +98,39 @@ public class AutoOptions {
     public boolean selectDeployFromLander() {
 
         // Let the driver make a yes or no selection for deploying from lander
-        int index = makeYesNoSelection("Deploy From Lander");
+        int index = makeYesNoSelection("Deploy From Lander?");
+
+        // Check index against zero, if zero, then true returned, else false
+        return index == 0;
+
+    }
+
+    /**
+     * will return yes or no if the robot should claim the depot (drop the team marker)
+     * @return a boolean indicating if the robot should claim the depot (drop the team marker)
+     *         YES - true
+     *         NO  - false
+     */
+    public boolean selectClaimDepot() {
+
+        // Let the driver make a yes or no selection for claiming the depot (dropping the team marker)
+        int index = makeYesNoSelection("Claim Depot?");
+
+        // Check index against zero, if zero, then true returned, else false
+        return index == 0;
+
+    }
+
+    /**
+     * will return yes or no if the robot should park in the crater
+     * @return a boolean indicating if the robot should park in the crater
+     *         YES - true
+     *         NO  - false
+     */
+    public boolean selectParkInCrater() {
+
+        // Let the driver make a yes or no selection for parking in the crater
+        int index = makeYesNoSelection("Park In Crater?");
 
         // Check index against zero, if zero, then true returned, else false
         return index == 0;

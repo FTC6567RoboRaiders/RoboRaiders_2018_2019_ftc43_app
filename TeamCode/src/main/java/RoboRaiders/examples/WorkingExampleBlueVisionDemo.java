@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
-import org.opencv.core.MatOfPoint;
+import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 import java.util.Locale;
+
+import RoboRaiders.Logger.Logger;
 
 /**
  * Created by guinea on 10/5/17.
@@ -48,6 +50,7 @@ import java.util.Locale;
 @TeleOp(name="Example: Working Blue Vision Demo")
 public class WorkingExampleBlueVisionDemo extends OpMode {
     private WorkingExampleBlueVision blueVision;
+    private Logger l = new Logger("JQ");
     @Override
     public void init() {
         blueVision = new WorkingExampleBlueVision();
@@ -72,19 +75,55 @@ public class WorkingExampleBlueVisionDemo extends OpMode {
 
     @Override
     public void loop() {
+
+
+
+
         // update the settings of the vision pipeline
         blueVision.setShowCountours(gamepad1.x);
 
         // get a list of contours from the vision system
-        List<MatOfPoint> contours = blueVision.getContours();
-        for (int i = 0; i < contours.size(); i++) {
-            // get the bounding rectangle of a single contour, we use it to get the x/y center
-            // yes there's a mass center using Imgproc.moments but w/e
-            Rect boundingRect = Imgproc.boundingRect(contours.get(i));
-            telemetry.addData("contour" + Integer.toString(i),
-                    String.format(Locale.getDefault(), "(%d, %d)", (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2));
+        Mat image = blueVision.getImage();
 
+        telemetry.setAutoClear(true);
+        telemetry.update();
+        telemetry.setAutoClear(false);
+
+        telemetry.addLine("outputting data");
+
+        //    for (int i = 0; i < contours.size(); i++) {
+        // get the bounding rectangle of a single contour, we use it to get the x/y center
+        // yes there's a mass center using Imgproc.moments but w/e
+    //    Rect boundingRect = Imgproc.boundingRect(contour);
+
+      //  StringBuilder outdata = new StringBuilder();
+
+        for (int i=0; i < image.height(); i++) {
+            for (int j=0; j<image.width(); j++) {
+                double[] data = image.get(i,j);
+                l.Debug(String.valueOf("data("+i+","+j+"): "),data[0],data[1],data[2]);
+            }
+         //   outdata.append(data[i]);
+         //   outdata.append(",");
         }
+
+        telemetry.addLine("done outputting data");
+
+       /* telemetry.addLine(outdata.toString());
+        telemetry.addLine(String.valueOf(data.length));
+        telemetry.addLine(String.valueOf(image.height()+","+image.width())); */
+
+      /*  telemetry.addData(
+                "contour",
+                String.format(
+                        Locale.getDefault(),
+                        "(%d, %d)",
+                        (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2
+                )
+        ); */
+
+        //  }
+
 
     }
 

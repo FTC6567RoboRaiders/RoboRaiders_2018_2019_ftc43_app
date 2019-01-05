@@ -50,11 +50,18 @@ import java.util.Locale;
  */
 
 public class ExampleBlueVision extends OpenCVPipeline {
+
     private boolean showContours = true;
+
     // To keep it such that we don't have to instantiate a new Mat every call to processFrame,
     // we declare the Mats up here and reuse them. This is easier on the garbage collector.
     private Mat hsv = new Mat();
     private Mat thresholded = new Mat();
+
+    double maxArea = 0.0;
+    double sideRatioTest = 0.0;
+    List<MatOfPoint> MaxContour = new ArrayList<>();
+    MatOfPoint currentMaxContour = new MatOfPoint();
 
     // this is just here so we can expose it later thru getContours.
     private List<MatOfPoint> contours = new ArrayList<>();
@@ -62,8 +69,8 @@ public class ExampleBlueVision extends OpenCVPipeline {
     public synchronized void setShowCountours(boolean enabled) {
         showContours = enabled;
     }
-    public synchronized List<MatOfPoint> getContours() {
-        return contours;
+    public synchronized MatOfPoint getContours() {
+        return currentMaxContour;
     }
 
     // This is called every camera frame.
@@ -71,10 +78,12 @@ public class ExampleBlueVision extends OpenCVPipeline {
     public Mat processFrame(Mat rgba, Mat gray) {
         // First, we change the colorspace from RGBA to HSV, which is usually better for color
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV, 3);
+
         // Then, we threshold our hsv image so that we get a black/white binary image where white
         // is the blues listed in the specified range of values
         // you can use a program like WPILib GRIP to find these values, or just play around.
-        Core.inRange(hsv, new Scalar(15, 125, 180), new Scalar(20, 230, 255), thresholded);
+ //       Core.inRange(hsv, new Scalar(15, 125, 180), new Scalar(20, 230, 255), thresholded);
+        Core.inRange(hsv, new Scalar(9, 60, 106), new Scalar(20, 230, 255), thresholded);
 
         // we blur the thresholded image to remove noise
         // there are other types of blur like box blur or gaussian which can be explored.
@@ -86,6 +95,7 @@ public class ExampleBlueVision extends OpenCVPipeline {
         // that we can find. We can iterate over them to find objects of interest.
         // the Imgproc module has many functions to analyze individual contours by their area, avg position, etc.
         contours = new ArrayList<>();
+
         // this function fills our contours variable with the outlines of blue objects we found
         Imgproc.findContours(thresholded, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
         // Then we display our nice little binary threshold on screen
@@ -95,15 +105,12 @@ public class ExampleBlueVision extends OpenCVPipeline {
             Imgproc.drawContours(rgba, contours, -1, new Scalar(0, 255, 0), 2, 8);
         }
 
-        double maxArea = 0.0;
-        double sideRatioTest = 0.0;
-        List<MatOfPoint> MaxContour = new ArrayList<>();
-        MatOfPoint currentMaxContour = new MatOfPoint();
 
         for (MatOfPoint myPoints : contours) {
             double area = Imgproc.contourArea(myPoints);
             Rect testRect = Imgproc.boundingRect(myPoints);
             sideRatioTest = testRect.width/testRect.height;
+
             if (area >  maxArea && 0.8 < sideRatioTest &&  sideRatioTest< 1.2) {
                 maxArea = area;
                 currentMaxContour = myPoints;
@@ -114,19 +121,19 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
         MaxContour.add(currentMaxContour); // gets currentMaxContour into the correct type
 
-        Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
+       Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
 
-        double sideRatioRect = boundingRect.width/boundingRect.height;
+     //   double sideRatioRect = boundingRect.width/boundingRect.height;
 
         Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
-        Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
+      //  Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
-        double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
+      //  double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
 
-        double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
+      //  double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
 
-        double cvheading = Math.toDegrees(cvheadingrad);
+     //   double cvheading = Math.toDegrees(cvheadingrad);
 
         return rgba; // display the image seen by the camera
 

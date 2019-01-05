@@ -57,19 +57,23 @@ public class WorkingExampleBlueVision extends OpenCVPipeline {
     private Mat thresholded = new Mat();
 
     // this is just here so we can expose it later thru getContours.
-    private List<MatOfPoint> contours = new ArrayList<>();
+    private Mat contours;
+    Mat image;
 
     public synchronized void setShowCountours(boolean enabled) {
         showContours = enabled;
     }
-    public synchronized List<MatOfPoint> getContours() {
-        return contours;
+    public synchronized Mat getImage() {
+        return image;
     }
 
     // This is called every camera frame.
     @Override
     public Mat processFrame(Mat rgba, Mat gray) {
-        // First, we change the colorspace from RGBA to HSV, which is usually better for color
+
+        image = rgba;
+
+       /* // First, we change the colorspace from RGBA to HSV, which is usually better for color
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV, 3);
         // Then, we threshold our hsv image so that we get a black/white binary image where white
         // is the blues listed in the specified range of values
@@ -86,8 +90,10 @@ public class WorkingExampleBlueVision extends OpenCVPipeline {
         // that we can find. We can iterate over them to find objects of interest.
         // the Imgproc module has many functions to analyze individual contours by their area, avg position, etc.
         contours = new ArrayList<>();
+
         // this function fills our contours variable with the outlines of blue objects we found
         Imgproc.findContours(thresholded, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+
         // Then we display our nice little binary threshold on screen
         if (showContours) {
             // this draws the outlines of the blue contours over our original image.
@@ -100,7 +106,7 @@ public class WorkingExampleBlueVision extends OpenCVPipeline {
         MatOfPoint currentMaxContour = new MatOfPoint();
         MatOfPoint myTargetRatio = new MatOfPoint();
 
-        for (MatOfPoint myPoints : contours) {
+    /*    for (MatOfPoint myPoints : contours) {
 
             double area = Imgproc.contourArea(myPoints);
             Rect myRect = Imgproc.boundingRect(myPoints);
@@ -114,17 +120,17 @@ public class WorkingExampleBlueVision extends OpenCVPipeline {
                 currentMaxContour = myPoints;
                 //sorts the contour areas and assigns the largest one to currentMaxContour
             }
-        }
+        } */
 
-        MaxContour.add(currentMaxContour); // gets currentMaxContour into the correct type
+    //    MaxContour.add(currentMaxContour); // gets currentMaxContour into the correct type
 
-        Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
+    //    Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
 
-        Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
+    //    Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
-        Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
+      //  Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
-        double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
+        //double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
 
       //  double degress = Math.atan(what ever my formula is);
 
