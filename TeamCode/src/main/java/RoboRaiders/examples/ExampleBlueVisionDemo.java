@@ -1,33 +1,39 @@
 package RoboRaiders.examples;
 
+
+
+import android.hardware.Camera;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.CameraDevice;
 
 import org.corningrobotics.enderbots.endercv.CameraViewDisplay;
-import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
+import java.security.Policy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import RoboRaiders.Logger.Logger;
 
 /**
  * Created by guinea on 10/5/17.
  * -------------------------------------------------------------------------------------
  * Copyright (c) 2018 FTC Team 5484 Enderbots
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,8 +41,8 @@ import RoboRaiders.Logger.Logger;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
- * 
+ *
+ *
  * By downloading, copying, installing or using the software you agree to this license.
  * If you do not agree to this license, do not download, install,
  * copy or use the software.
@@ -47,15 +53,23 @@ import RoboRaiders.Logger.Logger;
  *
  * Additionally, the centers of the bounding rectangles of the contours are sent to telemetry.
  */
-@TeleOp(name="Example: Working Blue Vision Demo")
-public class WorkingExampleBlueVisionDemo extends OpMode {
-    private WorkingExampleBlueVision blueVision;
-    private Logger l = new Logger("JQ");
+
+
+
+@TeleOp(name="Example: Blue Vision Demo")
+public class ExampleBlueVisionDemo extends OpMode {
+    private ExampleBlueVision blueVision;
+    private Camera myCamera;
+    private Camera.Parameters parms;
+    private boolean cameraoff = true;
+
+
+
     @Override
     public void init() {
-        blueVision = new WorkingExampleBlueVision();
+        blueVision = new ExampleBlueVision();
         telemetry.setAutoClear(false);
-        telemetry.addLine("created WorkingExampleBlueVision");
+        telemetry.addLine("created ExampleBlueVision");
         telemetry.update();
 
         // can replace with ActivityViewDisplay.getInstance() for fullscreen
@@ -65,7 +79,6 @@ public class WorkingExampleBlueVisionDemo extends OpMode {
 
         telemetry.addLine("blueVision showcontours set");
         telemetry.update();
-
         // start the vision system
         blueVision.enable();
         telemetry.addLine("blueVision enabled");
@@ -77,52 +90,59 @@ public class WorkingExampleBlueVisionDemo extends OpMode {
     public void loop() {
 
 
+     //   CameraDevice.getInstance().setFlashTorchMode(true);
+
+    /*    if (cameraoff) {
+            myCamera = Camera.open();
+            parms = myCamera.getParameters();
+            parms.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            myCamera.setParameters(parms);
+         //   myCamera.startPreview();
+            cameraoff = false;
+        }*/
+
 
 
         // update the settings of the vision pipeline
         blueVision.setShowCountours(gamepad1.x);
 
         // get a list of contours from the vision system
-        Mat image = blueVision.getImage();
+        MatOfPoint contour = blueVision.getContours();
 
-        telemetry.setAutoClear(true);
+      //  myCamera.stopPreview();
+      //  myCamera.release();
+
+
         telemetry.update();
-        telemetry.setAutoClear(false);
+        telemetry.setAutoClear(true);
 
-        telemetry.addLine("outputting data");
+    //    for (int i = 0; i < contours.size(); i++) {
+            // get the bounding rectangle of a single contour, we use it to get the x/y center
+            // yes there's a mass center using Imgproc.moments but w/e
+            Rect boundingRect = Imgproc.boundingRect(contour);
 
-        //    for (int i = 0; i < contours.size(); i++) {
-        // get the bounding rectangle of a single contour, we use it to get the x/y center
-        // yes there's a mass center using Imgproc.moments but w/e
-    //    Rect boundingRect = Imgproc.boundingRect(contour);
-
-      //  StringBuilder outdata = new StringBuilder();
-
-        for (int i=0; i < image.height(); i++) {
-            for (int j=0; j<image.width(); j++) {
-                double[] data = image.get(i,j);
-                l.Debug(String.valueOf("data("+i+","+j+"): "),data[0],data[1],data[2]);
+            StringBuilder outdata = new StringBuilder();
+            double[] data = contour.get(0,0);
+            for (int i=0; i < data.length; i++) {
+                outdata.append(data[i]);
+                outdata.append(",");
             }
-         //   outdata.append(data[i]);
-         //   outdata.append(",");
-        }
 
-        telemetry.addLine("done outputting data");
+            telemetry.addLine(outdata.toString());
+            telemetry.addLine(String.valueOf(data.length));
+            telemetry.addLine(String.valueOf(contour.height()+","+contour.width()));
 
-       /* telemetry.addLine(outdata.toString());
-        telemetry.addLine(String.valueOf(data.length));
-        telemetry.addLine(String.valueOf(image.height()+","+image.width())); */
+            telemetry.addData(
+                    "contour",
+                    String.format(
+                            Locale.getDefault(),
+                            "(%d, %d)",
+                            (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2
+                    )
+            );
 
-      /*  telemetry.addData(
-                "contour",
-                String.format(
-                        Locale.getDefault(),
-                        "(%d, %d)",
-                        (boundingRect.x + boundingRect.width) / 2, (boundingRect.y + boundingRect.height) / 2
-                )
-        ); */
+      //  }
 
-        //  }
 
 
     }
@@ -130,5 +150,8 @@ public class WorkingExampleBlueVisionDemo extends OpMode {
     public void stop() {
         // stop the vision system
         blueVision.disable();
+     //   CameraDevice.getInstance().setFlashTorchMode(false);
+     //   myCamera.stopPreview();
+      //  myCamera.release();
     }
 }
