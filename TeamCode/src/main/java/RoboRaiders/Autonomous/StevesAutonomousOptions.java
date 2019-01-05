@@ -1,22 +1,23 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import RoboRaiders.AutoOptions.AutoOptions;
+import RoboRaiders.AutonomousMethdos.AutoOptions.AutoOptions;
+import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
-import RoboRaiders.Robot.RobotTelemetryDisplay;
+import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous
 @Disabled
 
-public class StevesAutonomous extends RoboraiderAutonomous {
+public class StevesAutonomousOptions extends NostromoAutonomousMethods {
 
     private boolean isRed             = false;
     private boolean nearCrater        = false;
     private boolean deployFromLander  = false;
     private boolean selectionsAreGood = false;
-    public ProtoBot robot = new ProtoBot();
+    public NostromoBot robot = new NostromoBot();
     StringBuilder[][] robotVarInfo = new StringBuilder[6][2];
 
 

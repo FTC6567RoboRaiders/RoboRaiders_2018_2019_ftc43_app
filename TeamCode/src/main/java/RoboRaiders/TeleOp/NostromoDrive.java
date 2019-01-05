@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import RoboRaiders.reference.IndieRobot;
+import RoboRaiders.Robot.NostromoBot;
 
 /**
  *  Created by Steve Kocik
@@ -12,9 +12,9 @@ import RoboRaiders.reference.IndieRobot;
 
 @TeleOp(name="Teleop: Lets Drive")
 
-public class ProtoDriveBot extends OpMode {
+public class NostromoDrive extends OpMode {
 
-    public ProtoBot robot = new ProtoBot();
+    public NostromoBot robot = new NostromoBot();
 
     /* Define variables */
     float LeftBack;   // Power for left back motor

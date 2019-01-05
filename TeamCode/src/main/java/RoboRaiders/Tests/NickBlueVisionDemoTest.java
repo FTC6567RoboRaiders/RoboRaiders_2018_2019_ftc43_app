@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -11,6 +11,8 @@ import org.opencv.imgproc.Imgproc;
 
 import java.util.List;
 import java.util.Locale;
+
+import RoboRaiders.AutonomousMethdos.NickBlueVision;
 
 /**
  * Created by guinea on 10/5/17.
@@ -48,7 +50,7 @@ import java.util.Locale;
  */
 @TeleOp(name="Example: Nick Blue Vision Demo")
 @Disabled
-public class NickBlueVisionDemo extends OpMode {
+public class NickBlueVisionDemoTest extends OpMode {
     private NickBlueVision blueVision;
     @Override
     public void init() {

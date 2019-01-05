@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Robot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Created by Steve Kocik.
  */
 
-public class ProtoBot {
+public class NostromoBot {
 
     /* Robot Motors, Servos, CR Servos and Sensors */
     public DcMotor motorFrontLeft = null;
@@ -57,7 +57,7 @@ public class ProtoBot {
     /**
      * Constructor for Robot class, current does nothing but is needed since every class needs a constructor
      */
-    public ProtoBot() {
+    public NostromoBot() {
 
     }
 

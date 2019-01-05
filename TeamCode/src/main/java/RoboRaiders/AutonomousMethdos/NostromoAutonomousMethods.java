@@ -1,20 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.AutonomousMethdos;
 
-import android.sax.EndElementListener;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import RoboRaiders.AutoOptions.RoboRaidersPID;
-import RoboRaiders.reference.IndieRobot;
+import RoboRaiders.AutonomousMethdos.AutoOptions.RoboRaidersPID;
+import RoboRaiders.Robot.NostromoBot;
 
 
-public abstract class RoboraiderAutonomous extends LinearOpMode {
+public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public double motor_power;
 
     public void
-    farRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+    farRedDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
         EncoderDrivePID(robotPID, robot,50 );
         Thread.sleep(500);
 
@@ -42,7 +39,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         }
 
-     public void closeRedDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+     public void closeRedDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
         //DeployRobot(robot);
 
         EncoderDrivePID(robot,28);
@@ -83,7 +80,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         EncoderDrivePID(robot, 68);  // was 78 inches
         Thread.sleep(250);
      }
-     public void farBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+     public void farBlueDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
          EncoderDrivePID(robotPID,robot,28);
          Thread.sleep(500);
 
@@ -111,7 +108,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
          EncoderDrivePID(robotPID, robot, 78);
          Thread.sleep(500);
      }
-     public void closeBlueDepot (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+     public void closeBlueDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
          EncoderDrivePID(robotPID, robot,48 );
          Thread.sleep(500);
 
@@ -127,10 +124,10 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
          EncoderDrivePID(robotPID, robot, 60);
          Thread.sleep(500);
      }
-    public void moveTest (RoboRaidersPID robotPID, ProtoBot robot) throws InterruptedException {
+    public void moveTest (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
         EncoderDrivePID(robotPID, robot, 48);
     }
-    public void moveDepotFromCraterStart (ProtoBot robot) throws  InterruptedException {
+    public void moveDepotFromCraterStart (NostromoBot robot) throws  InterruptedException {
         EncoderDrivePID(robot,28);
         Thread.sleep(200);
 
@@ -161,7 +158,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         Thread.sleep(250);
     }
 
-    public void moveDepotFromDepotStart (ProtoBot robot) throws InterruptedException {
+    public void moveDepotFromDepotStart (NostromoBot robot) throws InterruptedException {
         EncoderDrivePID(robot,50 );
         Thread.sleep(500);
 
@@ -169,7 +166,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         Thread.sleep(500);
     }
 
-    public void parkFromCraterStart (ProtoBot robot) throws InterruptedException {
+    public void parkFromCraterStart (NostromoBot robot) throws InterruptedException {
         imuTurn(robot, 90, .35, "right");
         Thread.sleep(200);
 
@@ -177,7 +174,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         Thread.sleep(250);
     }
 
-    public void parkFromDepotStart (ProtoBot robot) throws InterruptedException {
+    public void parkFromDepotStart (NostromoBot robot) throws InterruptedException {
         encodersMove(robot, 6, .9, "backward");
         Thread.sleep(500);
 
@@ -198,7 +195,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
 
 
-    public void EncoderDrivePID(RoboRaidersPID robotPID, ProtoBot robot, double wantedDistance) {
+    public void EncoderDrivePID(RoboRaidersPID robotPID, NostromoBot robot, double wantedDistance) {
         robot.resetEncoders();
         robot.runWithEncoders();
         robotPID.initialize();   // re-initialized the pid variables that we care about
@@ -215,7 +212,33 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
         }
     }
-    public void EncoderDrivePID(ProtoBot robot, double wantedDistance) {
+   /* public void imuTurnWithPID (NostromoBot robot, float degrees, String direction ) {
+        robot.resetIMU();
+        float finalHeading = robot.getHeading() + degrees;
+
+        // robot.getHeading(); returns the current heading of the IMU
+
+        if (direction.equals("right")) { //if the desired direction is right
+
+            robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
+        }
+        else if (direction.equals("left")) { //if the desired direction is left
+
+            robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
+        }
+
+        while (robot.getHeading() < (finalHeading - 20) && opModeIsActive()) { //while the value of getHeading is
+            //less then the degree value
+            //and while opMode is active continue the while loop
+
+            telemetry.addData("Heading", robot.getHeading()); //feedback of getHeading value
+            telemetry.update(); //continuous update
+        }
+
+        robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
+    }
+    }*/
+    public void EncoderDrivePID(NostromoBot robot, double wantedDistance) {
     //    robot.resetEncoders();
     //    robot.runWithEncoders();
         RoboRaidersPID pidClass = new RoboRaidersPID();   // create new pidClass
@@ -223,7 +246,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
         EncoderDrivePID(pidClass,robot,wantedDistance);
 
     }
-    public void imuTurn(ProtoBot robot, float degrees, double power, String direction) { //gets hardware from
+    public void imuTurn(NostromoBot robot, float degrees, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
         robot.resetIMU();
@@ -253,7 +276,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
 
 
-    public void DeployRobot(ProtoBot robot) throws InterruptedException{
+    public void DeployRobot(NostromoBot robot) throws InterruptedException{
 
         double startDeployTime = System.currentTimeMillis();
 
@@ -287,7 +310,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
 
     }
 
-    public void DeployTeamMarker(ProtoBot robot) throws InterruptedException{
+    public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
 
         robot.markerDrop.setPosition(robot.markerDropDown);
 
@@ -312,7 +335,7 @@ public abstract class RoboraiderAutonomous extends LinearOpMode {
             telemetry.update();
 
         }*/
-  public void encodersMove(ProtoBot robot, double distance, double power, String direction) { //sets the parameters
+  public void encodersMove(NostromoBot robot, double distance, double power, String direction) { //sets the parameters
 
       robot.resetEncoders(); //resets encoders
       robot.runWithEncoders(); //sets the mode back to run with encoder

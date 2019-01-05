@@ -1,6 +1,8 @@
-package RoboRaiders.AutoOptions;
+package RoboRaiders.AutonomousMethdos.AutoOptions;
 
 public class RoboRaidersPID {
+
+
     public double Kp = 0.001;
     public double Ki = 0.0;
     public double Kd = 0.0;
@@ -77,5 +79,14 @@ public class RoboRaidersPID {
 
          return power;
      }
+    public double pidwithimuturning (double power) {
+        currentTime = System.currentTimeMillis();
+        timeChange = integral + (error * timeChange);
 
+
+        power = Kp * error + Ki * integral + Kd * derivative;
+        previous_time = (double) System.currentTimeMillis();
+        return power;
+    }
  }
+

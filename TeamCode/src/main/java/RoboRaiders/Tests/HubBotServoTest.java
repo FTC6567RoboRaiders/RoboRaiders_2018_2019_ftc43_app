@@ -1,15 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Tests;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "HubbotTest", group = "Hubbot")
+@TeleOp(name = "HubbotServoTest", group = "Hubbot")
 
-
-public class HubBotTest extends LinearOpMode {
+public class HubBotServoTest extends LinearOpMode {
 
   Servo contServo;  // Hardware Device Object
 

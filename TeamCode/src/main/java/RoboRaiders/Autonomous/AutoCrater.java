@@ -1,14 +1,16 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import RoboRaiders.AutoOptions.RoboRaidersPID;
+import RoboRaiders.AutonomousMethdos.AutoOptions.RoboRaidersPID;
+import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
+import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous(name="Auto: Robot Starts Towards Crater")
 
-public class AutoCrater extends RoboraiderAutonomous {
+public class AutoCrater extends NostromoAutonomousMethods {
 
-    ProtoBot robot = new ProtoBot();
+    NostromoBot robot = new NostromoBot();
     RoboRaidersPID robotPID = new RoboRaidersPID();
     @Override
     public void runOpMode() throws InterruptedException {

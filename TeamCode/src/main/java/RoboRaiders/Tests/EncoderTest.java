@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import RoboRaiders.Robot.NostromoBot;
 
 
 @Autonomous (name="Encoder Test", group="Samples")
@@ -12,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class EncoderTest extends LinearOpMode {
 
-    ProtoBot robot = new ProtoBot();
+    NostromoBot robot = new NostromoBot();
 
     @Override
     public void runOpMode() {

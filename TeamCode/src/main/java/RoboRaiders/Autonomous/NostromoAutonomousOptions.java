@@ -1,18 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import RoboRaiders.AutoOptions.RoboRaidersPID;
-import RoboRaiders.reference.IndieRoboRaidersAuto;
-import RoboRaiders.reference.IndieRobot;
+import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
+import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous
 @Disabled
 
-public class NostromoAutonomousOptions extends RoboraiderAutonomous {
+public class NostromoAutonomousOptions extends NostromoAutonomousMethods {
 
-    public ProtoBot robot = new ProtoBot();
+    public NostromoBot robot = new NostromoBot();
 
     boolean cur_B_ButtonState;                                            // "b" button current state
     boolean cur_X_ButtonState;                                            // "x" button current state
@@ -35,22 +34,22 @@ public class NostromoAutonomousOptions extends RoboraiderAutonomous {
         final String[] alliancePosResps = new String[]                    // Possible Alliance Color selections
                 {"Red", "Blue"};
 
-        String locationSelPrompt = "Location?";                  // Balancing Stone Location prompt
-        final String[] locationPosResps = new String[]                          // Possible Balancing Stone Location selections
+        String locationSelPrompt = "Location?";                           // Robots Starting Position prompt
+        final String[] locationPosResps = new String[]                    // Possible Starting Positions selections
                 {"Depot", "Crater"};
 
-        String deployRobotSelPrompt = "Deploy From Lander?";                                  // Jewel prompt
-        final String[] deployRobotPosResps = new String[]                       // Possible Jewel selections
+        String deployRobotSelPrompt = "Deploy From Lander?";              // Deploy  prompt
+        final String[] deployRobotPosResps = new String[]                 // Possible Deploy selections
                 {"No", "Yes"};
 
-        String dropTeamMarkerSelPrompt = "Drop Team Marker?";           // Parking and/or Cryptobox prompt
-        final String[] dropTeamMarkerPosResps = new String[]                   // Possible Parking and/or Cryptobox selections
+        String dropTeamMarkerSelPrompt = "Drop Team Marker?";             // Drop team marker prompt
+        final String[] dropTeamMarkerPosResps = new String[]              // Possible drop team marker selections
                 {"No", "Yes"};
-        String moveDepotSelPrompt = "Move to Depot?";
-        final String [] moveDepotPosResps = new String[]
+        String moveDepotSelPrompt = "Move to Depot?";                     // Move to depot prompt
+        final String [] moveDepotPosResps = new String[]                  // Possible move to depot selections
                 {"No, Yes"};
-        String parkSelPrompt = "Park" ;
-        final String [] parkPosResps = new String[]
+        String parkSelPrompt = "Park" ;                                   // Parking prompt
+        final String [] parkPosResps = new String[]                       // Possible Parking selections
                 {"No, Yes"};
 
         String selectionsOk = "Selections Great :)";                      // Finished Selections prompt
@@ -67,12 +66,12 @@ public class NostromoAutonomousOptions extends RoboraiderAutonomous {
         while (selectedOptions[0][1].equals("No")) {
 
             //                        Prompt            Responses    Index  Options output
-            configForAuto2Options(allianceSelPrompt, alliancePosResps, 1, selectedOptions);       // Alliance Color selection
-            configForAuto2Options(locationSelPrompt, locationPosResps, 2, selectedOptions);                   // Balancing Stone Location selection
-            configForAuto2Options(deployRobotSelPrompt, deployRobotPosResps, 3, selectedOptions);             // Jewel selection
-            configForAuto2Options(dropTeamMarkerSelPrompt, dropTeamMarkerPosResps, 4, selectedOptions);     // Parking and/or Cryptobox selection
-            configForAuto2Options(moveDepotSelPrompt, moveDepotPosResps, 5, selectedOptions); // Move to Depot Selectiong
-            configForAuto2Options(parkSelPrompt, parkPosResps,6, selectedOptions);
+            configForAuto2Options(allianceSelPrompt, alliancePosResps, 1, selectedOptions);                   // Alliance Color selection
+            configForAuto2Options(locationSelPrompt, locationPosResps, 2, selectedOptions);                   // Robot Starting Position selection
+            configForAuto2Options(deployRobotSelPrompt, deployRobotPosResps, 3, selectedOptions);             // Deploy Robot selection
+            configForAuto2Options(dropTeamMarkerSelPrompt, dropTeamMarkerPosResps, 4, selectedOptions);       // Drop team marker selection
+            configForAuto2Options(moveDepotSelPrompt, moveDepotPosResps, 5, selectedOptions);                 // Move to Depot selection
+            configForAuto2Options(parkSelPrompt, parkPosResps,6, selectedOptions);                            // Parking selection
 
             // Loop through all of the selections and tell user what s/he has selected
             for (int i = 1; i <= 6; i++) {
@@ -125,7 +124,7 @@ public class NostromoAutonomousOptions extends RoboraiderAutonomous {
                 }
             if (selectedOptions[2][1].equals("Depot")) {
                 parkFromDepotStart(robot);
-            }
+               }
             }
 
 
