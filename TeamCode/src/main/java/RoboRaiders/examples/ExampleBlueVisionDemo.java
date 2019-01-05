@@ -64,6 +64,7 @@ public class ExampleBlueVisionDemo extends OpMode {
     private boolean cameraoff = true;
 
 
+
     @Override
     public void init() {
         blueVision = new ExampleBlueVision();

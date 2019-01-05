@@ -66,6 +66,7 @@ public class ExampleBlueVision extends OpenCVPipeline {
     // this is just here so we can expose it later thru getContours.
     private List<MatOfPoint> contours = new ArrayList<>();
 
+
     public synchronized void setShowCountours(boolean enabled) {
         showContours = enabled;
     }
