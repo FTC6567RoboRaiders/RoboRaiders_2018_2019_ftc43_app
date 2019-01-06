@@ -7,6 +7,7 @@ import RoboRaiders.AutonomousMethdos.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous(name="Test: Steeeves Auto",group = "Hubbot")
 

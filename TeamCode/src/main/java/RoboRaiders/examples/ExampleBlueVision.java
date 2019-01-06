@@ -120,7 +120,7 @@ public class ExampleBlueVision extends OpenCVPipeline {
             }
         }
 
-        MaxContour.add(currentMaxContour); // gets currentMaxContour into the correct type
+     /*   MaxContour.add(currentMaxContour); // gets currentMaxContour into the correct type
 
        Rect boundingRect = Imgproc.boundingRect(currentMaxContour);
 
@@ -134,7 +134,7 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
       //  double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
 
-     //   double cvheading = Math.toDegrees(cvheadingrad);
+     //   double cvheading = Math.toDegrees(cvheadingrad);*/
 
         return rgba; // display the image seen by the camera
 
