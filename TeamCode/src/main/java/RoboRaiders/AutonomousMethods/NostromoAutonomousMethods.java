@@ -1,8 +1,8 @@
-package RoboRaiders.AutonomousMethdos;
+package RoboRaiders.AutonomousMethods;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import RoboRaiders.AutonomousMethdos.AutoOptions.RoboRaidersPID;
+import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.Robot.NostromoBot;
 
 

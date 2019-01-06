@@ -2,15 +2,15 @@ package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+
 import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
-@Autonomous(name="Test: Steeeves Auto",group = "Hubbot")
-
-public class StevesAutonomousOptions extends NostromoAutonomousMethods {
+@Autonomous
+public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
     private boolean isRed             = false;
     private boolean startLocation     = false;
@@ -81,7 +81,7 @@ public class StevesAutonomousOptions extends NostromoAutonomousMethods {
         L.Debug("claimDepot: ", claimDepot);
         L.Debug("parkInCrater: ", parkInCrater);
 
-    //    robot.initialize(hardwareMap);
+        //    robot.initialize(hardwareMap);
 
         gamepad1.reset();
 
@@ -149,5 +149,8 @@ public class StevesAutonomousOptions extends NostromoAutonomousMethods {
        // } */
 
     }
+
+
+
 
 }

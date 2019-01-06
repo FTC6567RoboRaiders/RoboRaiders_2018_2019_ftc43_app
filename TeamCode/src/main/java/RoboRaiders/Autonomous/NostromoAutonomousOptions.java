@@ -3,7 +3,7 @@ package RoboRaiders.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
+import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous

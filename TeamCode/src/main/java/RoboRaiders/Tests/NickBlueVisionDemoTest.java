@@ -12,7 +12,7 @@ import org.opencv.imgproc.Imgproc;
 import java.util.List;
 import java.util.Locale;
 
-import RoboRaiders.AutonomousMethdos.NickBlueVision;
+import RoboRaiders.AutonomousMethods.NickBlueVision;
 
 /**
  * Created by guinea on 10/5/17.
