@@ -126,13 +126,16 @@ public class ExampleBlueVision extends OpenCVPipeline {
 
      //   double sideRatioRect = boundingRect.width/boundingRect.height;
 
+        double halfWidth = 319.5
+        double focalLength = 3561.6
+
         Imgproc.rectangle(rgba, boundingRect.tl() ,boundingRect.br(), new Scalar(255,0,0),2, 8, 0);
 
       //  Point center = new Point(boundingRect.x + (boundingRect.width / 2), boundingRect.y + (boundingRect.height / 2));
 
       //  double xcoordinate = boundingRect.x + boundingRect.width * 0.5;
 
-      //  double cvheadingrad = Math.atan((xcoordinate-2402.5)/(3561.6438));
+      //  double cvheadingrad = Math.atan((xcoordinate - halfWidth)/(focalLength));
 
      //   double cvheading = Math.toDegrees(cvheadingrad);*/
 

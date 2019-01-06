@@ -27,7 +27,7 @@ public class AutoCrater extends NostromoAutonomousMethods {
 
         DeployRobot(robot);
 
-        closeRedDepot(robotPID, robot, rtd);
+        //closeRedDepot(robotPID, robot, rtd);
 
         //moveTest(robotPID, robot);
 

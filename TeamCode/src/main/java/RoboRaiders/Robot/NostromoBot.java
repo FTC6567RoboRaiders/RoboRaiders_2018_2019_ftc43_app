@@ -32,6 +32,9 @@ public class NostromoBot {
     public Servo liftClaw = null;
     public Servo markerDrop = null;
     public Servo intake = null;
+    public Servo dumpp1 = null;
+    public Servo dumpp2 = null;
+
 
     /* Local OpMode Members */
     public HardwareMap hwMap = null;
@@ -50,6 +53,8 @@ public class NostromoBot {
     public double markerDropDown = 1.0;
     public double intakeIn = 1.0;
     public double intakeOut = 0.0;
+    public double dumpdirection1 = 1.0;
+    public double dumpdirection2 = 0.0;
     boolean robotDown;
 
 
@@ -81,6 +86,8 @@ public class NostromoBot {
         liftClaw = hwMap.servo.get("liftClaw");
         markerDrop= hwMap.servo.get("markerDrop");
         intake = hwMap.servo.get("intake");
+        dumpp1 = hwMap.servo.get("dumpp1");
+        dumpp2 = hwMap.servo.get("dumpp2");
 
 
 
@@ -103,6 +110,8 @@ public class NostromoBot {
         liftClaw.setPosition(liftClawClosed);
         markerDrop.setPosition(markerDropUp);
         intake.setPosition(0.5);
+        dumpp1.setPosition(0.5);
+        dumpp2.setPosition(0.5);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
@@ -150,6 +159,27 @@ public class NostromoBot {
     public void collectionOut() {   intake.setPosition(0.0); }
 
     public void collectionOff() {   intake.setPosition(0.5); }
+
+    public void dumperUp() {
+
+        dumpp1.setPosition(dumpdirection1);
+        dumpp2.setPosition(dumpdirection2);
+    }
+
+    public void dumperDown() {
+
+        dumpp1.setPosition(dumpdirection2);
+        dumpp2.setPosition(dumpdirection1);
+    }
+
+    public void dumperStop() {
+
+        dumpp1.setPosition(0.5);
+        dumpp2.setPosition(0.5);
+    }
+
+
+
 
     public double calculateCOUNTS(double distance) {
 
