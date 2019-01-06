@@ -97,20 +97,18 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         // Wait for start to be pushed
         waitForStart();
 
-        /*
         // Deploy From Lander
         if (deployFromLander) {
             DeployRobot(robot);
         }
 
-        // Move to Depot
-      //  if (moveToDepot) {
-            if (nearCrater) {
-                moveDepotFromCraterStart(robot);
-            }
-            if (!nearCrater) {
-                moveDepotFromDepotStart(robot);
-            }
+        // Is the robot starting facing the crater
+        if (startLocation) {
+            moveDepotFromCraterStart(robot);
+        }
+        else{
+            moveDepotFromDepotStart(robot);
+        }
 
        // } */
 
