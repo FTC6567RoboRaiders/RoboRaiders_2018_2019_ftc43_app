@@ -4,38 +4,68 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 
 public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public double motor_power;
 
+    RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostormo");
+
     public void
     farRedDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
         EncoderDrivePID(robotPID, robot,50 );
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Forward", String.valueOf(50));
+        rtd.displayRobotTelemetry("Encoder Count", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(500);
 
         imuTurn(robot, 90, .25, "right");
+
+        rtd.displayRobotTelemetry("Turning");
+        rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(90));
+        rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(500);
 
         DeployTeamMarker(robot);
-
-
+        rtd.displayRobotTelemetry("Deploying Team Marker");
 
         encodersMove(robot, 6, .9, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Backward", String.valueOf(6));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(500);
 
 
         imuTurn(robot, 60, .25, "left");
+
+        rtd.displayRobotTelemetry("Turning");
+        rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(60));
+        rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(500);
 
         encodersMove(robot, 30, .9, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Backward", String.valueOf(30));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(500);
 
         imuTurn(robot, 105, .35, "right");  // was 100
+
+        rtd.displayRobotTelemetry("Turning");
+        rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(105));
+        rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(250);
 
         encodersMove(robot, 15, .9, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Backward", String.valueOf(15));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(15));
 
         }
 
@@ -43,41 +73,86 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //DeployRobot(robot);
 
         EncoderDrivePID(robot,28);
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Forward",String.valueOf(28));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(200);
 
         encodersMove(robot, 3, 1, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Backward", String.valueOf(3));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(200);
 
         imuTurn(robot, 100, .35, "left");
+
+        rtd.displayRobotTelemetry("Turning");
+        rtd.displayRobotTelemetry("Degrees To  Be Turned", String.valueOf(100));
+        rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(100);
 
         EncoderDrivePID(robot, 41);   // was 40 now 41
+
+         rtd.displayRobotTelemetry("Moving");
+         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(41));
+         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(100);
 
         encodersMove(robot, 3.0,0.25,"forward"); // was 1
+
+         rtd.displayRobotTelemetry("Moving");
+         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(3));
+         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(100);
 
         imuTurn(robot, 60, .35, "left");  // was 55
+
+         rtd.displayRobotTelemetry("Turning");
+         rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(60));
+         rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(250);
 
         EncoderDrivePID(robot,36 ); // was 39
+
+         rtd.displayRobotTelemetry("Moving");
+         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(36));
+         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(100);
 
         encodersMove(robot, 1,0.25,"forward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Forward", String.valueOf(1));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(100);
 
         robot.collectionOff();
-
+        rtd.displayRobotTelemetry("Turning Off Collection");
 
         imuTurn(robot, 105, .35, "right");  // was 100
+
+         rtd.displayRobotTelemetry("Turning");
+         rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(105));
+         rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
          Thread.sleep(250);
 
         DeployTeamMarker(robot);
+        rtd.displayRobotTelemetry("Deploying Team Marker");
 
         imuTurn(robot, 90, .35, "right"); // was 85, now at 90
+
+         rtd.displayRobotTelemetry("Turning");
+         rtd.displayRobotTelemetry("Degrees To Be Turned", String.valueOf(90));
+         rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(200);
 
         EncoderDrivePID(robot, 68);  // was 78 inches
+
+         rtd.displayRobotTelemetry("Moving");
+         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
+         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         Thread.sleep(250);
      }
      public void farBlueDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
