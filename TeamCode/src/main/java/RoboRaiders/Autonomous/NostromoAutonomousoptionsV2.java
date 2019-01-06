@@ -19,7 +19,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean parkInCrater      = false;
     private boolean selectionsAreGood = false;
     public NostromoBot robot = new NostromoBot();
-    StringBuilder[][] robotVarInfo = new StringBuilder[6][2];
+
 
 
     //----------------------------------------------------------------------------------------------
@@ -96,40 +96,6 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
         // Wait for start to be pushed
         waitForStart();
-
-        // Display autonomous status
-
-        double encoderValue = 4567;
-        double colorSensorValue = 5.0;
-        double distanceSensorValue = 12.5;
-        double heading = 45.78;
-
-        rtd.displayRobotTelemetry("Deploying");
-        rtd.displayRobotTelemetry("Encoder value:",String.valueOf(encoderValue));
-        rtd.displayRobotTelemetry("Color Sensor Value:",String.valueOf(colorSensorValue));
-        rtd.displayRobotTelemetry("Distance Sensor Value:",String.valueOf(distanceSensorValue));
-        rtd.displayRobotTelemetry("Heading:",String.valueOf(heading));
-
-        Thread.sleep(2000);
-
-        rtd.displayRobotTelemetry("Sampling");
-        rtd.displayRobotTelemetry("Encoder value:",String.valueOf(encoderValue));
-        rtd.displayRobotTelemetry("Color Sensor Value:",String.valueOf(colorSensorValue));
-        rtd.displayRobotTelemetry("Distance Sensor Value:",String.valueOf(distanceSensorValue));
-        rtd.displayRobotTelemetry("Heading:",String.valueOf(heading));
-
-        Thread.sleep(2000);
-
-        rtd.displayRobotTelemetry("Parked - AutoComplete");
-        rtd.displayRobotTelemetry("Encoder value:",String.valueOf(encoderValue));
-        rtd.displayRobotTelemetry("Color Sensor Value:",String.valueOf(colorSensorValue));
-        rtd.displayRobotTelemetry("Distance Sensor Value:",String.valueOf(distanceSensorValue));
-        rtd.displayRobotTelemetry("Heading:",String.valueOf(heading));
-
-        Thread.sleep(2000);
-
-
-
 
         /*
         // Deploy From Lander
