@@ -102,6 +102,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             DeployRobot(robot);
         }
 
+
         // Is the robot starting facing the crater
         if (startLocation) {
             moveDepotFromCraterStart(robot);
