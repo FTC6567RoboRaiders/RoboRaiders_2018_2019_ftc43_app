@@ -1,4 +1,4 @@
-package RoboRaiders.AutonomousMethdos.AutoOptions;
+package RoboRaiders.AutonomousMethods.AutoOptions;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

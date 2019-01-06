@@ -2,8 +2,8 @@ package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import RoboRaiders.AutonomousMethdos.AutoOptions.RoboRaidersPID;
-import RoboRaiders.AutonomousMethdos.NostromoAutonomousMethods;
+import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
+import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous(name="Auto: Robot Starts Towards Crater")

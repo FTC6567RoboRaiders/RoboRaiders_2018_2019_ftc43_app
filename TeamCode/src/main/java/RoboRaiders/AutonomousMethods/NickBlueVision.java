@@ -1,4 +1,4 @@
-package RoboRaiders.AutonomousMethdos;
+package RoboRaiders.AutonomousMethods;
 
 import org.corningrobotics.enderbots.endercv.OpenCVPipeline;
 import org.opencv.core.Core;
