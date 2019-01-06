@@ -23,7 +23,6 @@ public class AutoCrater extends NostromoAutonomousMethods {
         waitForStart();
 
         rtd.displayRobotTelemetry("Started");
-
         rtd.displayRobotTelemetry("Deploying from Lander","Calling DeployRobot");
 
         DeployRobot(robot);
