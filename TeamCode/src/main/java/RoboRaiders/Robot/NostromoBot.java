@@ -34,6 +34,9 @@ public class NostromoBot {
     public Servo intake = null;
     public Servo dumpp1 = null;
     public Servo dumpp2 = null;
+    public Servo slider = null;
+    public Servo liftIntake = null;
+    public Servo intakeDoor = null;
 
 
     /* Local OpMode Members */
@@ -55,6 +58,12 @@ public class NostromoBot {
     public double intakeOut = 0.0;
     public double dumpdirection1 = 1.0;
     public double dumpdirection2 = 0.0;
+    public double sliderdirectionout = 1.0;
+    public double sliderdirectionin = 0.0;
+    public double liftIntakedirectionup = 1.0;
+    public double liftIntakedirectiondown = 0.0;
+    public double intakeDoorOpen = 1.0;
+    public double intakeDoorClosed = 0.0;
     boolean robotDown;
 
 
@@ -88,6 +97,9 @@ public class NostromoBot {
         intake = hwMap.servo.get("intake");
         dumpp1 = hwMap.servo.get("dumpp1");
         dumpp2 = hwMap.servo.get("dumpp2");
+        slider = hwMap.servo.get("slider");
+        liftIntake = hwMap.servo.get("liftintake");
+        intakeDoor = hwMap.servo.get("intakedoor");
 
 
 
@@ -112,7 +124,9 @@ public class NostromoBot {
         intake.setPosition(0.5);
         dumpp1.setPosition(0.5);
         dumpp2.setPosition(0.5);
-
+        slider.setPosition(sliderdirectionin);
+        liftIntake.setPosition(liftIntakedirectiondown);
+        intakeDoor.setPosition((intakeDoorClosed));
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //will use them in teleop.
@@ -159,6 +173,30 @@ public class NostromoBot {
     public void collectionOut() {   intake.setPosition(0.0); }
 
     public void collectionOff() {   intake.setPosition(0.5); }
+
+    public void closeIntakeDoor () {
+        intakeDoor.setPosition(intakeDoorClosed);
+    }
+
+    public void openIntakeDoor () {
+        intakeDoor.setPosition(intakeDoorOpen);
+    }
+
+    public void liftIntakedown () {
+        liftIntake.setPosition(liftIntakedirectiondown);
+    }
+
+    public void liftIntakeup () {
+        liftIntake.setPosition(liftIntakedirectionup);
+    }
+
+    public void pushIntakein () {
+        slider.setPosition(sliderdirectionin);
+    }
+
+    public void pushIntakeout () {
+        slider.setPosition(sliderdirectionout);
+    }
 
     public void dumperUp() {
 
