@@ -42,6 +42,7 @@ public class NostromoDrive extends OpMode {
     public boolean currStateA = false;
     public boolean prevStateA = false;
     public String intakeStatus = null;
+    public String dumperStatus = null;
 
     @Override
     public void init() {
@@ -196,6 +197,31 @@ public class NostromoDrive extends OpMode {
         }
         telemetry.addData("servoPos","(%.2s)",intakeStatus);
 
+
+
+        telemetry.update();
+
+
+        currStateA = gamepad2.a;
+        currStateB = gamepad2.b;
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("currStateA", currStateA);
+        telemetry.addData("currStateB", currStateB);
+
+        if (currStateA) {
+            robot.dumperUp();
+            dumperStatus = "Up?";
+        }
+        else if (currStateB) {
+            robot.dumperDown();
+            dumperStatus = "Down?";
+        }
+        else {
+            robot.dumperStop();
+            dumperStatus = "Stopped";
+        }
+        telemetry.addData("dumperServoPos","(%.2s)",dumperStatus);
 
 
         telemetry.update();
