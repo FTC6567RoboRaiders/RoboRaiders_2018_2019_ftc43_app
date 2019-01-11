@@ -428,11 +428,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         double startDeployTime = System.currentTimeMillis();
 
         robot.setLiftMotorPower(-0.95);
-        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 6500 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 1000 && !robot.sensorTouch.isPressed()){
 
         }
 
-        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 6500 && System.currentTimeMillis() - startDeployTime < 10000 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 1000 && System.currentTimeMillis() - startDeployTime < 5000 && !robot.sensorTouch.isPressed()){
             robot.setLiftMotorPower(-.45);
         }
 
