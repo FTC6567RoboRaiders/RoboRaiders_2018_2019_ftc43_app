@@ -37,6 +37,7 @@ public class NostromoBot {
     public Servo slider = null;
     public Servo liftIntake = null;
     public Servo intakeDoor = null;
+    public Servo rubberIntake = null;
 
 
     /* Local OpMode Members */
