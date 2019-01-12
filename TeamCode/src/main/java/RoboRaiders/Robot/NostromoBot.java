@@ -27,6 +27,7 @@ public class NostromoBot {
     public DcMotor motorBackLeft = null;
     public DcMotor motorBackRight = null;
     public DcMotor motorLift = null;
+    public DcMotor liftIntake = null;
     public BNO055IMU imu;
     public TouchSensor sensorTouch;
     public Servo liftClaw = null;
@@ -35,8 +36,8 @@ public class NostromoBot {
     public Servo dumpp1 = null;
     public Servo dumpp2 = null;
     public Servo slider = null;
-    public Servo liftIntake = null;
     public Servo intakeDoor = null;
+    public Servo dumpWrist = null;
 
 
     /* Local OpMode Members */
@@ -64,6 +65,8 @@ public class NostromoBot {
     public double liftIntakedirectiondown = 0.0;
     public double intakeDoorOpen = 1.0;
     public double intakeDoorClosed = 0.0;
+    public double dumpWristDump = 1.0;
+    public double dumpWirstNotDump = 0.0;
     boolean robotDown;
 
 
@@ -91,15 +94,16 @@ public class NostromoBot {
         motorBackLeft = hwMap.get(DcMotor.class, "motorBackLeft");
         motorBackRight = hwMap.get(DcMotor.class, "motorBackRight");
         motorLift = hwMap.get(DcMotor.class, "motorLift");
+        liftIntake = hwMap.get(DcMotor.class,"liftintake");
         sensorTouch = hwMap.touchSensor.get("sensorTouch");
         liftClaw = hwMap.servo.get("liftClaw");
-        markerDrop= hwMap.servo.get("markerDrop");
+        //markerDrop= hwMap.servo.get("markerDrop");
         intake = hwMap.servo.get("intake");
         dumpp1 = hwMap.servo.get("dumpp1");
         dumpp2 = hwMap.servo.get("dumpp2");
         slider = hwMap.servo.get("slider");
-        liftIntake = hwMap.servo.get("liftintake");
         intakeDoor = hwMap.servo.get("intakedoor");
+        dumpWrist = hwMap.servo.get("dumpwrist");
 
 
 
@@ -120,12 +124,11 @@ public class NostromoBot {
 
 
         liftClaw.setPosition(liftClawClosed);
-        markerDrop.setPosition(markerDropUp);
+       // markerDrop.setPosition(markerDropUp);
         intake.setPosition(0.5);
         dumpp1.setPosition(0.5);
         dumpp2.setPosition(0.5);
         slider.setPosition(sliderdirectionin);
-        liftIntake.setPosition(liftIntakedirectiondown);
         intakeDoor.setPosition((intakeDoorClosed));
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
@@ -180,14 +183,6 @@ public class NostromoBot {
 
     public void openIntakeDoor () {
         intakeDoor.setPosition(intakeDoorOpen);
-    }
-
-    public void liftIntakedown () {
-        liftIntake.setPosition(liftIntakedirectiondown);
-    }
-
-    public void liftIntakeup () {
-        liftIntake.setPosition(liftIntakedirectionup);
     }
 
     public void pushIntakein () {
