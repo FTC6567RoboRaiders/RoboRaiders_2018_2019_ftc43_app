@@ -106,6 +106,22 @@ public class AutoOptions {
     }
 
     /**
+     * will return yes or no if the robot should sample for mineral color
+     * @return a boolean indicating if the robot should be deployed from the lander
+     *         YES - true
+     *         NO  - false
+     */
+    public boolean selectSampling() {
+
+        // Let the driver make a yes or no selection for deploying from lander
+        int index = makeYesNoSelection("Sample for Minerals?");
+
+        // Check index against zero, if zero, then true returned, else false
+        return index == 0;
+
+    }
+
+    /**
      * will return yes or no if the robot should claim the depot (drop the team marker)
      * @return a boolean indicating if the robot should claim the depot (drop the team marker)
      *         YES - true

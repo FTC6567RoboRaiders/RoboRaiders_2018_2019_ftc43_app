@@ -23,6 +23,7 @@ public class NostromoDrive extends OpMode {
     float RightFront; // Power for right front motor
     float maxpwr;     // Maximum power of the four motors
     float lander;
+    float collection;
     double powerFactor = 1;
     public boolean currStateRightBumper1 = false;
     public boolean prevStateRightBumper1 = false;
@@ -41,8 +42,13 @@ public class NostromoDrive extends OpMode {
     public boolean prevStateB = false;
     public boolean currStateA = false;
     public boolean prevStateA = false;
+    public boolean currStateDPadUp = false;
+    public boolean currStateDPadDown = false;
     public String intakeStatus = null;
     public String dumperStatus = null;
+    public String collectionStatus = null;
+    public String intakeDoorStatus = null;
+    public String sliderStatus = null;
 
     @Override
     public void init() {
@@ -112,7 +118,7 @@ public class NostromoDrive extends OpMode {
 
 
 
-        // "Set Relic Motor Power" functionality
+        // "Set Lift motor power" functionality
         lander = gamepad2.left_stick_y;
         lander = Range.clip(lander, -1, 1);
         //lander = (float) scaleInput(lander);
@@ -130,6 +136,85 @@ public class NostromoDrive extends OpMode {
         }
 
 
+        // "Set collection extension" functionality
+        collection = gamepad2.right_stick_y;
+        collection = Range.clip(collection, -1, 1);
+        //collection = (float) scaleInput(collection);
+
+        if (collection >= 0.2 ){
+            robot.setLiftIntakePower(.95);
+            //move collection up
+        }
+
+        else if (collection <= -0.2){
+            robot.setLiftIntakePower(-.95);
+            //move collection down
+        }
+
+        else if (collection > -0.2 && collection <0.2){
+            robot.setLiftIntakePower(0.00);
+            //collection doesn't move
+        }//maybe switch this to the dpad...
+
+
+
+        //put the motor on the stick (power) (like the lander)
+//controls the servo door in the collection mechanism
+        currStateLeftBumper1 = gamepad2.left_bumper;
+        currStateRightBumper1 = gamepad2.right_bumper;
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("currStateLeftBumper", currStateLeftBumper1);
+        telemetry.addData("currStateRightBumper", currStateRightBumper1);
+
+        if (currStateLeftBumper1) {
+            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
+            intakeDoorStatus = "Door open";
+        }
+        else if (currStateRightBumper1) {
+            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
+            intakeDoorStatus = "door closed";
+        }
+        else {
+            robot.intakeDoor.setPosition(0.5);
+            intakeDoorStatus = "Stopped";
+        }
+        telemetry.addData("servoPos","(%.2s)",intakeDoorStatus);
+
+
+
+        telemetry.update();
+
+
+        currStateDPadUp = gamepad2.dpad_up;
+        currStateDPadDown = gamepad2.dpad_down;
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("currStateDPadUp", currStateDPadUp);
+        telemetry.addData("currStateDPadDown", currStateDPadDown);
+
+        if (currStateDPadUp) {
+            robot.slider.setPosition(robot.sliderdirectionout);
+            sliderStatus = "slider out";
+        }
+        else if (currStateDPadDown) {
+            robot.slider.setPosition(robot.sliderdirectionin);
+            sliderStatus = "slider in ";
+        }
+        else {
+            robot.slider.setPosition(0.5);
+            sliderStatus = "Stopped";
+        }
+        telemetry.addData("servoPos","(%.2s)",sliderStatus);
+
+
+
+        telemetry.update();
+
+
+
+
+        if (gamepad2.left_bumper = true);
 
 
         if (gamepad2.right_trigger > 0){
@@ -175,7 +260,7 @@ public class NostromoDrive extends OpMode {
 
 
             //testing//
-
+//controls the intake servo
         currStateX = gamepad2.x;
         currStateY = gamepad2.y;
 
@@ -201,7 +286,7 @@ public class NostromoDrive extends OpMode {
 
         telemetry.update();
 
-
+//contorols the servos on the lift arm
         currStateA = gamepad2.a;
         currStateB = gamepad2.b;
 
@@ -225,6 +310,7 @@ public class NostromoDrive extends OpMode {
 
 
         telemetry.update();
+
 
 
 

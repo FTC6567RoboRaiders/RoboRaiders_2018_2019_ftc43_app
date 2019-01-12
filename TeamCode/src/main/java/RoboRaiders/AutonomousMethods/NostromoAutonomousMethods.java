@@ -469,6 +469,29 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }*/
 
+    public void detectGoldMineral(){
+
+
+    }
+
+    /*public void samplingMinerals(NostromoBot robot){
+
+        int goldLocation = detectGoldMineral();
+
+        switch (goldLocation) {
+            case 1:
+                mineralLeft(robot);
+                break;
+            case 2:
+                mineralCenter(robot);
+                break;
+            case 3:
+                mineralRight(robot);
+                break;
+
+        }
+    }*/
+
     public void mineralLeft(NostromoBot robot) throws InterruptedException{
 
         EncoderDrivePID(robot, 12);
@@ -519,8 +542,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 3, .95, "backward");
         Thread.sleep(200);
 
-
     }
+
 
 
 
