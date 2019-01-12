@@ -203,7 +203,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         EncoderDrivePID(robotPID, robot, 48);
     }
     public void moveDepotFromCraterStart (NostromoBot robot) throws  InterruptedException {
-        EncoderDrivePID(robot,28);
+        EncoderDrivePID(robot,28);//this is the mineral thing
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Drving Forward", String.valueOf(28));
@@ -271,7 +271,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
     public void moveDepotFromDepotStart (NostromoBot robot) throws InterruptedException {
-        EncoderDrivePID(robot,50 );
+        EncoderDrivePID(robot,50 );//also mineral knocking
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(50));
@@ -428,11 +428,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         double startDeployTime = System.currentTimeMillis();
 
         robot.setLiftMotorPower(-0.95);
-        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 6500 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis()-startDeployTime < 1000 && !robot.sensorTouch.isPressed()){
 
         }
 
-        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 6500 && System.currentTimeMillis() - startDeployTime < 10000 && !robot.sensorTouch.isPressed()){
+        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 1000 && System.currentTimeMillis() - startDeployTime < 5000 && !robot.sensorTouch.isPressed()){
             robot.setLiftMotorPower(-.45);
         }
 
@@ -469,10 +469,63 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
+    public void mineralLeft(NostromoBot robot) throws InterruptedException{
+
+        EncoderDrivePID(robot, 12);
+        Thread.sleep(200);
+
+        imuTurn(robot, 50, .35, "left");
+
+        EncoderDrivePID(robot, 24);
+        Thread.sleep(200);
+
+        encodersMove(robot, 24, .95, "backward");
+        Thread.sleep(200);
+
+        imuTurn(robot, 50, .35, "right");
+        Thread.sleep(200);
+
+        EncoderDrivePID(robot, 13);
+        Thread.sleep(200);
+
+    }
+
+    public void mineralRight(NostromoBot robot) throws InterruptedException{
+
+        EncoderDrivePID(robot, 12);
+        Thread.sleep(200);
+
+        imuTurn(robot, 50, .35, "right");
+
+        EncoderDrivePID(robot, 24);
+        Thread.sleep(200);
+
+        encodersMove(robot, 24, .95, "backward");
+        Thread.sleep(200);
+
+        imuTurn(robot, 50, .35, "left");
+        Thread.sleep(200);
+
+        EncoderDrivePID(robot, 13);
+        Thread.sleep(200);
+
+    }
+
+    public void mineralCenter(NostromoBot robot) throws InterruptedException{
+
+        EncoderDrivePID(robot, 28);
+        Thread.sleep(200);
+
+        encodersMove(robot, 3, .95, "backward");
+        Thread.sleep(200);
+
+
+    }
 
 
 
-  /*  public void DistanceDrivePID() {
+
+    /*  public void DistanceDrivePID() {
         while (opModeIsActive() && robot.getSensorDistance() < Target) {
             motor_power = drivePID.pidWithDistance(robot.getSensorDistance(), Target);
             robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
