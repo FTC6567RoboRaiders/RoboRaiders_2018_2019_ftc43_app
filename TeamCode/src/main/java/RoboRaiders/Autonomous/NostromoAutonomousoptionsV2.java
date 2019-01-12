@@ -18,6 +18,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean claimDepot        = false;
     private boolean parkInCrater      = false;
     private boolean selectionsAreGood = false;
+
     public NostromoBot robot = new NostromoBot();
 
 
@@ -101,6 +102,10 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         if (deployFromLander) {
             DeployRobot(robot);
         }
+
+     //   if (sampling) {
+      //      sampleMinerals(robot);
+      //  }
 
 
         // Is the robot starting facing the crater

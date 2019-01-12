@@ -32,6 +32,7 @@ package RoboRaiders.examples;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -51,9 +52,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
-public class StevesTFTest extends LinearOpMode {
+@TeleOp(name = "Concept: TensorFlow Object Detection 2x", group = "Concept")
+
+public class TestTFDetectionTwoTimes extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
@@ -84,8 +85,6 @@ public class StevesTFTest extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
-    private int goldPosition = -1;
-
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -108,6 +107,7 @@ public class StevesTFTest extends LinearOpMode {
             if (tfod != null) {
                 tfod.activate();
             }
+            CameraDevice.getInstance().setFlashTorchMode(true);
 
             while (opModeIsActive()) {
                 if (tfod != null) {
@@ -115,34 +115,41 @@ public class StevesTFTest extends LinearOpMode {
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      if (updatedRecognitions.size() == 3) {
-                        int goldMineralX = -1;
-                        int silverMineral1X = -1;
-                        int silverMineral2X = -1;
-                        for (Recognition recognition : updatedRecognitions) {
-                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                          } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getLeft();
-                          } else {
-                            silverMineral2X = (int) recognition.getLeft();
-                          }
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() == 2) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+
+                            // Did the robot just see two silver minerals?
+                            if (goldMineralX == -1) {
+                                telemetry.addLine().addData("Gold Mineral Position", "Left my homies");
+                            }
+                            // So a silver and gold were seen by the robot
+                            else {
+
+                                // Is the goldmineral to the left of the silver mineral?
+                                if ( goldMineralX < silverMineral1X ) {
+                                    telemetry.addLine().addData("Gold Mineral Position", "Center my homies");
+                                }
+
+                                // The gold mineral must be on the right
+                                else {
+                                    telemetry.addLine().addData("Gold Mineral Position","Right my homies");
+                                }
+                            }
+
                         }
-                        if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                          if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                            telemetry.addData("Gold Mineral Position", "Left");
-                            goldPosition = 1; // incidate gold mineral is in the left position
-                          } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            telemetry.addData("Gold Mineral Position", "Right");
-                            goldPosition = 3; // indicate gold mineral is in the right position
-                          } else {
-                            telemetry.addData("Gold Mineral Position", "Center");
-                            goldPosition = 2; // indicate gold mineral is in the center position
-                          }
-                        }
-                      }
-                      telemetry.update();
+                        telemetry.update();
                     }
                 }
             }
@@ -176,7 +183,7 @@ public class StevesTFTest extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);

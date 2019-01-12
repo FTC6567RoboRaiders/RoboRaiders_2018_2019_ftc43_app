@@ -32,6 +32,7 @@ package RoboRaiders.examples;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -52,8 +53,8 @@ import java.util.List;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
-public class StevesTFTest extends LinearOpMode {
+
+public class TestTFDetection extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
@@ -84,8 +85,6 @@ public class StevesTFTest extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
-    private int goldPosition = -1;
-
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -108,6 +107,7 @@ public class StevesTFTest extends LinearOpMode {
             if (tfod != null) {
                 tfod.activate();
             }
+            CameraDevice.getInstance().setFlashTorchMode(true);
 
             while (opModeIsActive()) {
                 if (tfod != null) {
@@ -116,7 +116,7 @@ public class StevesTFTest extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      if (updatedRecognitions.size() == 3) {
+                      if (updatedRecognitions.size() == 2) {
                         int goldMineralX = -1;
                         int silverMineral1X = -1;
                         int silverMineral2X = -1;
@@ -132,13 +132,10 @@ public class StevesTFTest extends LinearOpMode {
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
-                            goldPosition = 1; // incidate gold mineral is in the left position
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right");
-                            goldPosition = 3; // indicate gold mineral is in the right position
                           } else {
                             telemetry.addData("Gold Mineral Position", "Center");
-                            goldPosition = 2; // indicate gold mineral is in the center position
                           }
                         }
                       }
