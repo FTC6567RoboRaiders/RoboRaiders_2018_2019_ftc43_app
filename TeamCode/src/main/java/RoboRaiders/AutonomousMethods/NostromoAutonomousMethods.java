@@ -29,7 +29,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
         Thread.sleep(500);
 
-        DeployTeamMarker(robot);
+        //DeployTeamMarker(robot);
         rtd.displayRobotTelemetry("Deploying Team Marker");
 
         encodersMove(robot, 6, .9, "backward");
@@ -138,7 +138,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
          rtd.displayRobotTelemetry("Angle", String.valueOf(robot.getHeading()));
          Thread.sleep(250);
 
-        DeployTeamMarker(robot);
+       // DeployTeamMarker(robot);
         rtd.displayRobotTelemetry("Deploying Team Marker");
 
         imuTurn(robot, 90, .35, "right"); // was 85, now at 90
@@ -457,7 +457,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
+   /* public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
 
         robot.markerDrop.setPosition(robot.markerDropDown);
 
@@ -467,7 +467,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         Thread.sleep(500);
 
-    }
+    }*/
 
     public void mineralLeft(NostromoBot robot) throws InterruptedException{
 
