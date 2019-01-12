@@ -114,6 +114,7 @@ public class NostromoBot {
         motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
         motorBackRight.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
+        liftIntake.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         motorFrontRight.setPower(0);
@@ -128,7 +129,8 @@ public class NostromoBot {
         intake.setPosition(0.5);
         dumpp1.setPosition(0.5);
         dumpp2.setPosition(0.5);
-        slider.setPosition(sliderdirectionin);
+        slider.setPosition(0.5);
+        intake.setPosition(0.5);
         intakeDoor.setPosition((intakeDoorClosed));
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
@@ -137,6 +139,7 @@ public class NostromoBot {
         motorBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -169,6 +172,10 @@ public class NostromoBot {
 
     public void setLiftMotorPower(double lift){
         motorLift.setPower(lift);
+    }
+
+    public void setLiftIntakePower(double liftintake){
+        liftIntake.setPower(liftintake);
     }
 
     public void collectionIn() {   intake.setPosition(1.0); }

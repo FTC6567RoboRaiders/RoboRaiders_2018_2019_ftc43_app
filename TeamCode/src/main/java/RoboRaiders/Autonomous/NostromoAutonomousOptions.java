@@ -114,7 +114,7 @@ public class NostromoAutonomousOptions extends NostromoAutonomousMethods {
 
         // Drop Team Marker
         if (selectedOptions[4][1].equals("Yes")) {
-            DeployTeamMarker(robot);
+            //DeployTeamMarker(robot);
         }
 
         //Park In the Crater
