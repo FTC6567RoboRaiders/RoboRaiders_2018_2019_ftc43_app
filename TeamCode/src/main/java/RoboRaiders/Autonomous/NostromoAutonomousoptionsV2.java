@@ -18,7 +18,9 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean claimDepot        = false;
     private boolean parkInCrater      = false;
     private boolean selectionsAreGood = false;
+    private boolean sampling          = false;
     public NostromoBot robot = new NostromoBot();
+
 
 
 
@@ -46,6 +48,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             isRed            = myAO.selectAlliance();              // Get the alliance (Red or Blue)
             startLocation    = myAO.selectStartLocation();         // Get where the robot is starting from (Depot or Crater)
             deployFromLander = myAO.selectDeployFromLander();      // Should the robot deploy from the lander (Yes or No)
+            sampling         = myAO.selectSampling();              // Should the robot sample for minerals (Yes or No)
             claimDepot       = myAO.selectClaimDepot();            // Should the robot claim the depot
             parkInCrater     = myAO.selectParkInCrater();          // Should the robot park in crater
 
@@ -62,8 +65,8 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             telemetry.setAutoClear(false);
             telemetry.addLine().addData("Autonomous", "Selections");
             telemetry.addLine().addData("Alliance:", isRed ? "Red  " : "Blue  ").addData("  Robot Start Location:", startLocation ? "Crater" : "Depot");
-            telemetry.addLine().addData("Deploy From Lander:", deployFromLander ? "Yes  " : "No  ").addData("  Claim Depot:", claimDepot ? "Yes" : "No");
-            telemetry.addLine().addData("Park In Crater:", parkInCrater ? "Yes  " : "No  ");
+            telemetry.addLine().addData("Deploy From Lander:", deployFromLander ? "Yes  " : "No  ").addData("  Sample Mineral: ", sampling ? "Yes" : "No");
+            telemetry.addLine() .addData("  Claim Depot:", claimDepot ? "Yes" : "No").addData("Park In Crater:", parkInCrater ? "Yes  " : "No  ");
             telemetry.update();
 
             // Verify that the autonomous selections are good, if so we are ready to rumble.  If not, well ask again.
@@ -102,7 +105,9 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             DeployRobot(robot);
         }
 
-
+        if (sampling){
+          //  samplingMinerals(robot);
+        }
         // Is the robot starting facing the crater
         if (startLocation) {
             moveDepotFromCraterStart(robot);

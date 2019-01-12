@@ -83,6 +83,7 @@ public class StevesTFTest extends LinearOpMode {
      * Detection engine.
      */
     private TFObjectDetector tfod;
+    private int goldPostion = -1;
 
     @Override
     public void runOpMode() {
@@ -130,10 +131,13 @@ public class StevesTFTest extends LinearOpMode {
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
+                            goldPostion = 1;//indicate gold mineral is in the left position
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right");
+                            goldPostion = 3;//indicate gold mineral is in the right position
                           } else {
                             telemetry.addData("Gold Mineral Position", "Center");
+                            goldPostion = 2;//indicate gold mineral is in the center position
                           }
                         }
                       }
