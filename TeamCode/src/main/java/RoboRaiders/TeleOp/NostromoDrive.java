@@ -33,6 +33,10 @@ public class NostromoDrive extends OpMode {
     public boolean prevStateRightTrigger = false;
     public boolean currStateLeftTrigger  = false;
     public boolean prevStateLeftTrigger  = false;
+    public boolean currStateRightDpad = false;
+    public boolean prevStateRightDpad = false;
+    public boolean currStateLeftDpad = false;
+    public boolean prevStateLeftDpad = false;
     int timesPivoted = 0;
     public boolean currStateY = false;
     public boolean prevStateY = false;
@@ -142,12 +146,13 @@ public class NostromoDrive extends OpMode {
         //collection = (float) scaleInput(collection);
 
         if (collection >= 0.2 ){
-            robot.setLiftIntakePower(.95);
+            robot.setLiftIntakePower(.50);
             //move collection up
+            //
         }
 
         else if (collection <= -0.2){
-            robot.setLiftIntakePower(-.95);
+            robot.setLiftIntakePower(-.50);
             //move collection down
         }
 
@@ -160,7 +165,7 @@ public class NostromoDrive extends OpMode {
 
         //put the motor on the stick (power) (like the lander)
 //controls the servo door in the collection mechanism
-        currStateLeftBumper1 = gamepad2.left_bumper;
+     /*   currStateLeftBumper1 = gamepad2.left_bumper;
         currStateRightBumper1 = gamepad2.right_bumper;
 
         // send the info back to driver station using telemetry function.
@@ -183,8 +188,61 @@ public class NostromoDrive extends OpMode {
 
 
 
+        telemetry.update();*/
+
+        currStateLeftBumper1 = gamepad2.left_bumper;
+
+        if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
+
+            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
+            prevStateLeftBumper1 = currStateLeftBumper1;
+            intakeDoorStatus = "Open";
+        }
+        else if (!currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
+
+            prevStateLeftBumper1 = currStateLeftBumper1;
+        }
+
+        currStateRightBumper1 = gamepad2.right_bumper;
+
+        if (currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
+
+            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
+            prevStateRightBumper1 = currStateRightBumper1;
+            intakeDoorStatus = "Closed";
+        }
+        else if (!currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
+
+            prevStateRightBumper1 = currStateRightBumper1;
+        }
+
+        telemetry.addData("ServosPos", intakeDoorStatus);
+
         telemetry.update();
 
+        currStateRightDpad = gamepad2.dpad_right;
+
+        if (currStateRightDpad && currStateRightDpad != prevStateRightDpad) {
+
+            robot.dumpWrist.setPosition(robot.dumpWristDump);
+            prevStateRightDpad = currStateRightDpad;
+
+        }
+        else if (!currStateRightDpad && currStateRightDpad != prevStateRightDpad) {
+
+            prevStateRightDpad = currStateRightDpad;
+        }
+
+        currStateLeftDpad = gamepad2.dpad_left;
+        if (currStateLeftDpad && currStateLeftDpad != prevStateLeftDpad) {
+
+            robot.dumpWrist.setPosition(robot.dumpWirstNotDump);
+            prevStateLeftDpad = currStateLeftDpad;intakeDoorStatus = "Closed";
+        }
+        else if (!currStateLeftDpad && currStateLeftDpad != prevStateLeftDpad) {
+
+            prevStateLeftDpad = currStateLeftDpad;
+        }
 
         currStateDPadUp = gamepad2.dpad_up;
         currStateDPadDown = gamepad2.dpad_down;
@@ -291,10 +349,13 @@ public class NostromoDrive extends OpMode {
 
         if (currStateA) {
             robot.dumperUp();
+            robot.dumpWrist.setPosition(robot.dumpWristDump);
             dumperStatus = "Up?";
+
         }
         else if (currStateB) {
             robot.dumperDown();
+            robot.dumpWrist.setPosition(robot.dumpWirstNotDump);
             dumperStatus = "Down?";
         }
         else {
