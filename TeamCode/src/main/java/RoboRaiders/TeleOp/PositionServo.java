@@ -10,9 +10,9 @@ import RoboRaiders.Robot.NostromoBot;
  *  Created by Steve Kocik
  */
 
-@TeleOp(name="Teleop: Lets Drive")
+@TeleOp(name="Teleop: Lets Figure out the Dump Wrist Position")
 
-public class NostromoDrive extends OpMode {
+public class PositionServo extends OpMode {
 
     public NostromoBot robot = new NostromoBot();
 
@@ -68,240 +68,28 @@ public class NostromoDrive extends OpMode {
     @Override
     public void loop() {
 
-        // "Mecanum Drive" functionality
-        LeftBack = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
-        RightBack = -gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
-        LeftFront = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-        RightFront = -gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-
-
-
-        maxpwr = findMaxPower(LeftBack, LeftFront, RightBack, RightFront);
-
-        LeftBack = LeftBack / maxpwr;
-        RightBack = RightBack / maxpwr;
-        LeftFront = LeftFront / maxpwr;
-        RightFront = RightFront / maxpwr;
-
-        LeftBack = (float) scaleInput(LeftBack);
-        RightBack = (float) scaleInput(RightBack);
-        LeftFront = (float) scaleInput(LeftFront);
-        RightFront = (float) scaleInput(RightFront);
-
-        robot.setDriveMotorPower(LeftFront * 0.95,
-                RightFront * 0.95,
-                LeftBack * 0.95,
-                RightBack * 0.95);
-
-
-        // "Power Factor" functionality
-        currStateLeftBumper1 = gamepad1.left_bumper;
-        if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
-
-            powerFactor = 0.5;
-            prevStateLeftBumper1 = currStateLeftBumper1;
-        }
-        else if (!currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
-
-            prevStateLeftBumper1 = currStateLeftBumper1;
-        }
-        currStateRightBumper1 = gamepad1.right_bumper;
-        if (currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
-
-            powerFactor = 1;
-            prevStateRightBumper1 = currStateRightBumper1;
-        }
-        else if (!currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
-
-            prevStateRightBumper1 = currStateRightBumper1;
-        }
-
-
-
-        // "Set Lift motor power" functionality
-        lander = gamepad2.left_stick_y;
-        lander = Range.clip(lander, -1, 1);
-        //lander = (float) scaleInput(lander);
-
-        if (lander >= 0.2 ){
-            robot.setLiftMotorPower(-0.95);
-        }
-
-        else if (lander <= -0.2){
-            robot.setLiftMotorPower(0.95);
-        }
-
-        else if (lander > -0.2 && lander <0.2){
-            robot.setLiftMotorPower(0.00);
-        }
-
-
-        // "Set collection extension" functionality
-        collection = gamepad2.right_stick_y;
-        collection = Range.clip(collection, -1, 1);
-        //collection = (float) scaleInput(collection);
-
-        if (collection >= 0.2 ){
-            robot.setLiftIntakePower(.95);
-            //move collection up
-        }
-
-        else if (collection <= -0.2){
-            robot.setLiftIntakePower(-.95);
-            //move collection down
-        }
-
-        else if (collection > -0.2 && collection <0.2){
-            robot.setLiftIntakePower(0.00);
-            //collection doesn't move
-        }//maybe switch this to the dpad...
-
-
-
-        //put the motor on the stick (power) (like the lander)
-//controls the servo door in the collection mechanism
-        currStateLeftBumper1 = gamepad2.left_bumper;
-        currStateRightBumper1 = gamepad2.right_bumper;
-
-        // send the info back to driver station using telemetry function.
-        telemetry.addData("currStateLeftBumper", currStateLeftBumper1);
-        telemetry.addData("currStateRightBumper", currStateRightBumper1);
-
-        if (currStateLeftBumper1) {
-            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
-            intakeDoorStatus = "Door open";
-        }
-        else if (currStateRightBumper1) {
-            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
-            intakeDoorStatus = "door closed";
-        }
-        else {
-            robot.intakeDoor.setPosition(0.5);
-            intakeDoorStatus = "Stopped";
-        }
-        telemetry.addData("servoPos","(%.2s)",intakeDoorStatus);
-
-
-
-        telemetry.update();
-
-
-        currStateDPadUp = gamepad2.dpad_up;
-        currStateDPadDown = gamepad2.dpad_down;
-
-        // send the info back to driver station using telemetry function.
-        telemetry.addData("currStateDPadUp", currStateDPadUp);
-        telemetry.addData("currStateDPadDown", currStateDPadDown);
-
-        if (currStateDPadUp) {
-            robot.slider.setPosition(robot.sliderdirectionout);
-            sliderStatus = "slider out";
-        }
-        else if (currStateDPadDown) {
-            robot.slider.setPosition(robot.sliderdirectionin);
-            sliderStatus = "slider in ";
-        }
-        else {
-            robot.slider.setPosition(0.5);
-            sliderStatus = "Stopped";
-        }
-        telemetry.addData("servoPos","(%.2s)",sliderStatus);
-
-
-
-        telemetry.update();
-
-
-        if (gamepad2.right_trigger > 0){
-            currStateRightTrigger = true;
-        }
-
-        else {
-            currStateRightTrigger = false;
-        }
-
-        if (currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
-
-            robot.liftClaw.setPosition(robot.liftClawClosed);
-            prevStateRightTrigger = currStateRightTrigger;
-        }
-        else if (!currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
-
-            prevStateRightTrigger = currStateRightTrigger;
-
-            }
-
-
-
-
-        if (gamepad2.left_trigger > 0) {
-            currStateLeftTrigger = true;
-        }
-
-        else {
-            currStateLeftTrigger = false;
-        }
-
-        if (currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
-
-            robot.liftClaw.setPosition(robot.liftClawOpen);
-            prevStateLeftTrigger = currStateLeftTrigger;
-        }
-
-         else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
-
-            prevStateLeftTrigger = currStateLeftTrigger;
-            }
-
-
-            //testing//
-//controls the intake servo
-        currStateX = gamepad2.x;
-        currStateY = gamepad2.y;
-
-        // send the info back to driver station using telemetry function.
-        telemetry.addData("currStateX", currStateX);
-        telemetry.addData("currStateY", currStateY);
-
-        if (currStateX) {
-            robot.intake.setPosition(robot.intakeIn);
-            intakeStatus = "In";
-        }
-        else if (currStateY) {
-            robot.intake.setPosition(robot.intakeOut);
-            intakeStatus = "Out";
-        }
-        else {
-            robot.intake.setPosition(0.5);
-            intakeStatus = "Stopped";
-        }
-        telemetry.addData("servoPos","(%.2s)",intakeStatus);
-
-
-
-        telemetry.update();
-
 //contorols the servos on the lift arm
         currStateA = gamepad2.a;
         currStateB = gamepad2.b;
+
+        double newPosition = 0.0;
+
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("currStateA", currStateA);
         telemetry.addData("currStateB", currStateB);
 
         if (currStateA) {
-            robot.dumperUp();
-            dumperStatus = "Up?";
+            newPosition = robot.dumpWrist.getPosition() + 0.1;
         }
         else if (currStateB) {
-            robot.dumperDown();
-            dumperStatus = "Down?";
+            newPosition = robot.dumpWrist.getPosition() - 0.1;
         }
         else {
-            robot.dumperStop();
-            dumperStatus = "Stopped";
+
         }
-        telemetry.addData("dumperServoPos","(%.2s)",dumperStatus);
+        robot.dumpWrist.setPosition(newPosition);
+        telemetry.addData("dumperWristServoPos","(%.2d)",newPosition);
 
 
         telemetry.update();
