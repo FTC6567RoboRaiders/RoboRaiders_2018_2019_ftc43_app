@@ -1,6 +1,7 @@
 package RoboRaiders.AutonomousMethods;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -480,7 +481,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMinerals(NostromoBot robot) {
 
-        EncoderDrivePID(robot, 12);
+        encodersMove(robot, 12, .8, "forward");
         robotSleep(200);
 
         int goldLocation = detectGoldMineral(robot);
@@ -522,6 +523,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             if (robot.tfod != null) {
                 robot.tfod.activate();
             }
+            CameraDevice.getInstance().setFlashTorchMode(true);
 
             while (opModeIsActive()) {
                 if (robot.tfod != null) {
