@@ -149,6 +149,7 @@ public class TestTFDetectionTwoTimes extends LinearOpMode {
                             }
 
                         }
+
                         telemetry.update();
                     }
                 }
