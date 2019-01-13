@@ -50,6 +50,8 @@ public class PositionServo extends OpMode {
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
 
+    double newPosition = 0.0;
+
     @Override
     public void init() {
 
@@ -62,7 +64,7 @@ public class PositionServo extends OpMode {
     @Override
     public void start() {
 
-        //   robot.initializeServosTeleOp();
+       // robot.initializeServosTeleOp();
     }
 
     @Override
@@ -71,27 +73,24 @@ public class PositionServo extends OpMode {
 //contorols the servos on the lift arm
         currStateA = gamepad2.a;
         currStateB = gamepad2.b;
-
-        double newPosition = 0.0;
-
+        currStateX = gamepad2.x;
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("currStateA", currStateA);
         telemetry.addData("currStateB", currStateB);
 
         if (currStateA) {
-            newPosition = robot.dumpWrist.getPosition() + 0.1;
+            newPosition = 0.1;
         }
         else if (currStateB) {
-            newPosition = robot.dumpWrist.getPosition() - 0.1;
+            newPosition = 0.0;
         }
-        else {
+        else if (currStateX) {
+            newPosition = 1.0;
+        }
 
-        }
         robot.dumpWrist.setPosition(newPosition);
-        telemetry.addData("dumperWristServoPos","(%.2d)",newPosition);
-
-
+        telemetry.addData("dumperWristServoPos",String.valueOf(newPosition));
         telemetry.update();
 
 

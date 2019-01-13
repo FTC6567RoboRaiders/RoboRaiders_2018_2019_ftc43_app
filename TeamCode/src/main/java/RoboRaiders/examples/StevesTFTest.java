@@ -140,7 +140,34 @@ public class StevesTFTest extends LinearOpMode {
                             goldPostion = 2;//indicate gold mineral is in the center position
                           }
                         }
+
                       }
+                        if (updatedRecognitions.size() == 2){
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+                            //difference starts here
+                            if (silverMineral2X != -1){
+                                goldPostion = 1;
+                            }
+                            else {
+                                if(goldMineralX < silverMineral1X){
+                                    goldPostion = 2;
+                                }
+                                else {
+                                    goldPostion = 3;
+                                }
+                            }
+                        }
                       telemetry.update();
                     }
                 }
@@ -150,8 +177,8 @@ public class StevesTFTest extends LinearOpMode {
         if (tfod != null) {
             tfod.shutdown();
         }
+        //return goldPostion;
     }
-
     /**
      * Initialize the Vuforia localization engine.
      */
@@ -162,7 +189,7 @@ public class StevesTFTest extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -175,9 +202,10 @@ public class StevesTFTest extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
+
 }
