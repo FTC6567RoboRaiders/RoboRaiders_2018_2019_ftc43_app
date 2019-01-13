@@ -2,6 +2,11 @@ package RoboRaiders.AutonomousMethods;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
+import java.util.List;
+
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
@@ -474,9 +479,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    /*public void samplingMinerals(NostromoBot robot){
+    /**
+     * Will detect the location of the gold mineral
+     * @param robot - the robot to work with
+     */
+    public void samplingMinerals(NostromoBot robot){
 
-        int goldLocation = detectGoldMineral();
+        int goldLocation = detectGoldMineral(robot);
 
         switch (goldLocation) {
             case 1:
@@ -490,7 +499,87 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 break;
 
         }
-    }*/
+    }
+
+    /**
+     * will detect the gold mineral location
+     * @return the location of the gold mineral
+     */
+    public int detectGoldMineral(NostromoBot robot) {
+        int goldPostion = -1;
+
+        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+        // first.
+        robot.initVuforia();
+
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            robot.initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
+
+        if (opModeIsActive()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (robot.tfod != null) {
+                robot.tfod.activate();
+            }
+
+            while (opModeIsActive()) {
+                if (robot.tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = robot.tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+
+                        // Is the robot seeing 2 minerals
+                        if (updatedRecognitions.size() == 2){
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+
+                            // Did the robot just see two silver minerals?
+                            if (silverMineral2X != -1){
+
+                                // Yes, indicate the gold mineral is on the left
+                                goldPostion = 1;
+                            }
+                            // The robot saw a gold and silver mineral
+                            else {
+
+                                // Is the gold mineral to the left of the silver mineral?
+                                if(goldMineralX < silverMineral1X){
+
+                                    // Yes, indicate the gold mineral is in the center
+                                    goldPostion = 2;
+                                }
+                                else {
+
+                                    // No, the gold mineral is on the right
+                                    goldPostion = 3;
+                                }
+                            }
+                        }
+                        telemetry.update();
+                    }
+                }
+            }
+        }
+
+        if (robot.tfod != null) {
+            robot.tfod.shutdown();
+        }
+        return goldPostion;
+    }
 
     public void mineralLeft(NostromoBot robot) throws InterruptedException{
 

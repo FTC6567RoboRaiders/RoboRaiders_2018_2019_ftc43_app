@@ -82,16 +82,16 @@ public class NostromoBot {
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
      */
-    private VuforiaLocalizer vuforia;
+    public VuforiaLocalizer vuforia;
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
      * Detection engine.
      */
-    private TFObjectDetector tfod;
-    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
-    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+    public TFObjectDetector tfod;
+    public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    public static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    public static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 
 
 
@@ -348,7 +348,7 @@ public class NostromoBot {
     /**
      * Initialize the Vuforia localization engine.
      */
-    private void initVuforia() {
+    public void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
@@ -366,7 +366,7 @@ public class NostromoBot {
     /**
      * Initialize the Tensor Flow Object Detection engine.
      */
-    private void initTfod() {
+    public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
