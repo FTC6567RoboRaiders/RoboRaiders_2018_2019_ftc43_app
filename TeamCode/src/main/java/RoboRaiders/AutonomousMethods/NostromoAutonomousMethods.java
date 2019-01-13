@@ -279,13 +279,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
     public void moveDepotFromDepotStart(NostromoBot robot) {
-        EncoderDrivePID(robot, 50);//also mineral knocking
+        /*EncoderDrivePID(robot, 50);//also mineral knocking
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(50));
         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         robotSleep(500);
-
+*/
         imuTurn(robot, 90, .25, "right");
 
         rtd.displayRobotTelemetry("Turning");
@@ -585,11 +585,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 16.9, 1, "left");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 24);
+        EncoderDrivePID(robot, 30);
         robotSleep(200);
 
-        encodersMove(robot, 11, .95, "backward");
-        robotSleep(200);
 
         imuTurn(robot, 50, .35, "right");
         robotSleep(200);
@@ -602,11 +600,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 16.9, 1, "right");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 24);
+        EncoderDrivePID(robot, 30);
         robotSleep(200);
 
-        encodersMove(robot, 11, .95, "backward");
-        robotSleep(200);
 
         encodersMove(robot, 16.9, 1, "left");
 
@@ -614,12 +610,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenter(NostromoBot robot)  {
 
-        EncoderDrivePID(robot, 16);
+        EncoderDrivePID(robot, 30);
         robotSleep(200);
-
-        encodersMove(robot, 3, .95, "backward");
-        robotSleep(200);
-
+        
     }
 
 
