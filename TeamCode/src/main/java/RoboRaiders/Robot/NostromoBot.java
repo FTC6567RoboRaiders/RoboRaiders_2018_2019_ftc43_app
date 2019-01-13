@@ -18,6 +18,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
+import static org.firstinspires.ftc.robotcore.external.tfod.TfodRoverRuckus.LABEL_SILVER_MINERAL;
+
 /**
  * Created by Steve Kocik.
  */
@@ -41,6 +43,7 @@ public class NostromoBot {
     public Servo slider = null;
     public Servo intakeDoor = null;
     public Servo dumpWrist = null;
+
 
 //me too and because im stupid i didnt do any of it before work
     //I shouldn't (be)complain(ing) tho im sure I don't have as much as you
@@ -72,6 +75,23 @@ public class NostromoBot {
     public double dumpWristDump = 1.0;
     public double dumpWirstNotDump = 0.0;
     boolean robotDown;
+
+    private static final String VUFORIA_KEY = "AedUDNP/////AAAAGXH2ZpUID0KanSX9ZSR37LKFSFokxIqmy/g0BNepdA9EepixxnO00qygLnMJq3Fg9gZxnkUJaKgk14/UjhxPWVQIs90ZXJLc21NvQvOeZ3dOogagVP8yFnFQs2xCijGmC/CE30ojlAnbhAhqz1y4tZPW2QkK5Qt0xCakTTSAw3KPQX2mZxX+qMxI2ljrN0eaxaKVnKnAUl8x3naF1mez7f9c8Xdi1O5auL0ePdG6bJhWjEO1YwpSd8WkSzNDEkmw20zpQ7zaOOPw5MeUQUr9vAS0fef0GnLjlS1gb67ajUDlEcbbbIeSrLW/oyRGTil8ueQC2SWafdspSWL3SJNaQKWydies23BxJxM/FoLuYYjx";
+
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private VuforiaLocalizer vuforia;
+
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
+     * Detection engine.
+     */
+    private TFObjectDetector tfod;
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 
 
 
@@ -347,7 +367,7 @@ public class NostromoBot {
      * Initialize the Tensor Flow Object Detection engine.
      */
     private void initTfod() {
-        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+        int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
