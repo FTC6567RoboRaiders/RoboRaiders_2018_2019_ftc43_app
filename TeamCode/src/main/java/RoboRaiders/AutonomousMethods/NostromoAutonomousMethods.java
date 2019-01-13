@@ -459,8 +459,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         robotSleep(1200);
 
-        robot.collectionIn();
-
     }
 
    /* public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
