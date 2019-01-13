@@ -279,7 +279,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
     public void moveDepotFromDepotStart(NostromoBot robot) {
-        EncoderDrivePID(robot, 50);//also mineral knocking
+        EncoderDrivePID(robot, 6);//also mineral knocking was 50
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(50));
