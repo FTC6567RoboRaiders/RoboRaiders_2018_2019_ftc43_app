@@ -469,7 +469,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }*/
 
-    public void detectGoldMineral(){
+    public int detectGoldMineral(){
 
 
     }
@@ -496,19 +496,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         EncoderDrivePID(robot, 12);
         Thread.sleep(200);
-
-        imuTurn(robot, 50, .35, "left");
+//scan here?
+        encodersMove(robot, 16.9, 1, "left");
+        Thread.sleep(200);
 
         EncoderDrivePID(robot, 24);
         Thread.sleep(200);
 
-        encodersMove(robot, 24, .95, "backward");
+        encodersMove(robot, 11, .95, "backward");
         Thread.sleep(200);
 
         imuTurn(robot, 50, .35, "right");
-        Thread.sleep(200);
-
-        EncoderDrivePID(robot, 13);
         Thread.sleep(200);
 
     }
@@ -517,20 +515,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         EncoderDrivePID(robot, 12);
         Thread.sleep(200);
-
-        imuTurn(robot, 50, .35, "right");
+//scan here?
+        encodersMove(robot, 16.9, 1, "right");
+        Thread.sleep(200);
 
         EncoderDrivePID(robot, 24);
         Thread.sleep(200);
 
-        encodersMove(robot, 24, .95, "backward");
+        encodersMove(robot, 11, .95, "backward");
         Thread.sleep(200);
 
-        imuTurn(robot, 50, .35, "left");
-        Thread.sleep(200);
-
-        EncoderDrivePID(robot, 13);
-        Thread.sleep(200);
+        encodersMove(robot, 16.9, 1, "left");
 
     }
 
