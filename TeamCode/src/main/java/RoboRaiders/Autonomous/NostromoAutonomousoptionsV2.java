@@ -30,7 +30,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        robot.initialize(hardwareMap);
 
         // Ask drivers how they want autonomous to work
         AutoOptions myAO = new AutoOptions(this);
