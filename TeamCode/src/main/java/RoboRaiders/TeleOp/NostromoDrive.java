@@ -148,6 +148,7 @@ public class NostromoDrive extends OpMode {
         if (collection >= 0.2 ){
             robot.setLiftIntakePower(.50);
             //move collection up
+            //
         }
 
         else if (collection <= -0.2){
