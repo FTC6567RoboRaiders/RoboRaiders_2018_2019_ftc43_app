@@ -18,14 +18,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostormo");
 
-    public void
-    farRedDepot (RoboRaidersPID robotPID, NostromoBot robot) throws InterruptedException {
+    public void farRedDepot (RoboRaidersPID robotPID, NostromoBot robot) {
         EncoderDrivePID(robotPID, robot,50 );
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(50));
         rtd.displayRobotTelemetry("Encoder Count", String.valueOf(robot.getSortedEncoderCount()));
-        Thread.sleep(500);
+        robotSleep(500);
 
         imuTurn(robot, 90, .25, "right");
 
@@ -485,6 +484,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMinerals(NostromoBot robot){
 
+        // move forward until in view of the minerals
+
         int goldLocation = detectGoldMineral(robot);
 
         switch (goldLocation) {
@@ -581,13 +582,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         return goldPostion;
     }
 
-    public void mineralLeft(NostromoBot robot) throws InterruptedException{
+    public void mineralLeft(NostromoBot robot) {
 
         EncoderDrivePID(robot, 12);
-        Thread.sleep(200);
+        robotSleep(200);
+
 //scan here?
         encodersMove(robot, 16.9, 1, "left");
-        Thread.sleep(200);
+        try {
+            Thread.sleep(200);
+        }
+
 
         EncoderDrivePID(robot, 24);
         Thread.sleep(200);
@@ -708,6 +713,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
       robot.runWithoutEncoders(); //sets the mode back to run without encoder
   }
-    }
+
+  public void robotSleep(int timeToSleep) {
+      try {
+          Thread.sleep(timeToSleep);
+      } catch (InterruptedException ie) {
+
+      }
+  }
 
 
