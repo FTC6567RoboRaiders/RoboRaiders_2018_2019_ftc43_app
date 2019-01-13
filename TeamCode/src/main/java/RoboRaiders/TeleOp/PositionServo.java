@@ -72,7 +72,7 @@ public class PositionServo extends OpMode {
         currStateA = gamepad2.a;
         currStateB = gamepad2.b;
 
-        double newPosition;
+        double newPosition = 0.0;
 
 
         // send the info back to driver station using telemetry function.
@@ -81,15 +81,14 @@ public class PositionServo extends OpMode {
 
         if (currStateA) {
             newPosition = robot.dumpWrist.getPosition() + 0.1;
-            robot.dumpWrist.setPosition(newPosition);
         }
         else if (currStateB) {
             newPosition = robot.dumpWrist.getPosition() - 0.1;
-            robot.dumpWrist.setPosition(newPosition);
         }
         else {
 
         }
+        robot.dumpWrist.setPosition(newPosition);
         telemetry.addData("dumperWristServoPos","(%.2d)",newPosition);
 
 
