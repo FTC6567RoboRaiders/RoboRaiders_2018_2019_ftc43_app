@@ -65,7 +65,7 @@ public class NostromoBot {
     public double liftIntakedirectiondown = 0.0;
     public double intakeDoorOpen = 0.0;
     public double intakeDoorClosed = 1.0;
-    public double dumpWristDump = 1.0;
+    public double dumpWristDump = .1;
     public double dumpWirstNotDump = 0.0;
     boolean robotDown;
 
@@ -115,6 +115,7 @@ public class NostromoBot {
         motorBackRight.setDirection(DcMotor.Direction.FORWARD);
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         liftIntake.setDirection(DcMotor.Direction.FORWARD);
+        liftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         motorFrontRight.setPower(0);
