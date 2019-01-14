@@ -485,6 +485,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.dumperDown();
         again you may need to wait a 0.1 of second
         robotSleep(100);
+        robot.dumperStop();  need to stop it from moving and burning out the servo
 
         I think that is pretty much it
 
