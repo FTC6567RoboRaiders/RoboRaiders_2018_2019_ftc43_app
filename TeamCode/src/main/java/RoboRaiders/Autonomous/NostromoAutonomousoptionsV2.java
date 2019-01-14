@@ -110,23 +110,23 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         }
         // Is the robot starting facing the crater
         if (startLocation) {
-            moveDepotFromCraterStart(robot);
+           // moveDepotFromCraterStart(robot);
         }
         // Is the robot starting facing the crater
         else{
-            moveDepotFromDepotStart(robot);
+           // moveDepotFromDepotStart(robot);
         }
         // Are we claiming the depot
         if (claimDepot) {
-            //DeployTeamMarker(robot);
+            DeployTeamMarker(robot);
         }
         // Ending Parked in crater
         if (parkInCrater) {
-            parkFromCraterStart(robot);
+            //parkFromCraterStart(robot);
         }
         // Ending parked in depot
         else {
-            parkFromDepotStart(robot);
+            //parkFromDepotStart(robot);
         }
     }
 }

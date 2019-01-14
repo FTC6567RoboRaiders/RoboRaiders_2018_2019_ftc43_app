@@ -462,46 +462,30 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-   /* public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
+    public void DeployTeamMarker(NostromoBot robot) throws InterruptedException {
+        long t = System.currentTimeMillis();
+        long end = t + 500;
+        while (System.currentTimeMillis() < end) {
+            robot.dumpp1.setPosition(robot.dumpdirection1);
+            robot.dumpp2.setPosition(robot.dumpdirection2);
+            robotSleep(500);
+        }
+        robot.dumpp1.setPosition(robot.dumpdirectionstop);
+        robot.dumpp2.setPosition(robot.dumpdirectionstop);
 
-        Jason - here you would want to do a
-        robot.dumperUp();
-        robotSleep(100);  to let the servo arm move, then, it shouldnt need to be too high
-        robot.dumperStop(); then stop the arm moving
-
-        now
-        robot.dumpWrist.setPosition(robot.dumpTeamMarkerWristDump);
-        YOU WILL NEED TO CREATE dumpTeamMarkerWristDump THAT IS SET TO 1.0, THIS SHOULD DUMP THE
-        TEAM MARKER
-
-
-        you will need to wait probably no more than 1/4 of second so
-        robotSleep(250);
-
-        after that then you will need to position the servos back to there normal place, so
-        robot.dumpWrist.setPosition(robot.dumpWirstNotDump); to get it back to the right orientation
-
-        and then
-        robot.dumperDown();
-        again you may need to wait a 0.1 of second
-        robotSleep(100);
-        robot.dumperStop();  need to stop it from moving and burning out the servo
-
-        I think that is pretty much it
-
-
-
-
-        robot.markerDrop.setPosition(robot.markerDropDown);
-
+        robot.dumpWrist.setPosition(robot.dropTeamMarker);
         robotSleep(500);
 
-        robot.markerDrop.setPosition(robot.markerDropUp);
+        while (System.currentTimeMillis() < end) {
+            robot.dumpp1.setPosition(robot.dumpdirection1);
+            robot.dumpp2.setPosition(robot.dumpdirection2);
+            robotSleep(500);
+        }
+        robot.dumpp1.setPosition(robot.dumpdirectionstop);
+        robot.dumpp2.setPosition(robot.dumpdirectionstop);
 
-        robotSleep(500);
-
-    }*/
-
+        robot.dumpWrist.setPosition(robot.bringMarkerBack);
+        }
     /**
      * Will detect the location of the gold mineral
      *
