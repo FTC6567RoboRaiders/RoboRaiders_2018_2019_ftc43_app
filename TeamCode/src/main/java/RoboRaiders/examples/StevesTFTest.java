@@ -89,10 +89,10 @@ public class StevesTFTest extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
+     //   initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-            initTfod();
+       //     initTfod();
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }

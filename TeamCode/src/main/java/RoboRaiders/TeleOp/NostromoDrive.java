@@ -123,7 +123,7 @@ public class NostromoDrive extends OpMode {
 
 
         // "Set Lift motor power" functionality
-        lander = gamepad2.left_stick_y;
+        lander = gamepad2.right_stick_y;
         lander = Range.clip(lander, -1, 1);
         //lander = (float) scaleInput(lander);
 
@@ -141,7 +141,7 @@ public class NostromoDrive extends OpMode {
 
 
         // "Set collection extension" functionality
-        collection = gamepad2.right_stick_y;
+        collection = gamepad2.left_stick_y;
         collection = Range.clip(collection, -1, 1);
         //collection = (float) scaleInput(collection);
 
@@ -252,11 +252,11 @@ public class NostromoDrive extends OpMode {
         telemetry.addData("currStateDPadDown", currStateDPadDown);
 
         if (currStateDPadUp) {
-            robot.slider.setPosition(robot.sliderdirectionout);
+            robot.slider.setPosition(robot.sliderdirectionin);
             sliderStatus = "slider out";
         }
         else if (currStateDPadDown) {
-            robot.slider.setPosition(robot.sliderdirectionin);
+            robot.slider.setPosition(robot.sliderdirectionout);
             sliderStatus = "slider in ";
         }
         else {

@@ -464,6 +464,33 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
    /* public void DeployTeamMarker(NostromoBot robot) throws InterruptedException{
 
+        Jason - here you would want to do a
+        robot.dumperUp();
+        robotSleep(100);  to let the servo arm move, then, it shouldnt need to be too high
+        robot.dumperStop(); then stop the arm moving
+
+        now
+        robot.dumpWrist.setPosition(robot.dumpTeamMarkerWristDump);
+        YOU WILL NEED TO CREATE dumpTeamMarkerWristDump THAT IS SET TO 1.0, THIS SHOULD DUMP THE
+        TEAM MARKER
+
+
+        you will need to wait probably no more than 1/4 of second so
+        robotSleep(250);
+
+        after that then you will need to position the servos back to there normal place, so
+        robot.dumpWrist.setPosition(robot.dumpWirstNotDump); to get it back to the right orientation
+
+        and then
+        robot.dumperDown();
+        again you may need to wait a 0.1 of second
+        robotSleep(100);
+
+        I think that is pretty much it
+
+
+
+
         robot.markerDrop.setPosition(robot.markerDropDown);
 
         robotSleep(500);
@@ -518,6 +545,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
 
+        CameraDevice.getInstance().setFlashTorchMode(true);
+
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (robot.tfod != null) {
@@ -547,6 +576,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                                     silverMineral2X = (int) recognition.getLeft();
                                 }
                             }
+                            telemetry.addData("goldMineralX",String.valueOf(goldMineralX));
+                            telemetry.addData("silverMineral1X",String.valueOf(silverMineral1X));
+                            telemetry.addData("silverMineral2X",String.valueOf(silverMineral2X));
+
 
                             // Did the robot just see two silver minerals?
                             if (silverMineral2X != -1) {

@@ -53,6 +53,7 @@ import java.util.List;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection 2x", group = "Concept")
+@Disabled
 
 public class TestTFDetectionTwoTimes extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
