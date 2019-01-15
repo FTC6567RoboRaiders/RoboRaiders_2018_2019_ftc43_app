@@ -105,11 +105,21 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             DeployRobot(robot);
         }
 
-        if (sampling){
-            samplingMineralsDepot(robot);
+        if (sampling){//asking if sampling
+            if (startLocation){//are we starting from the crater?
+                samplingMineralsCrater(robot);
+            }
+            else {
+                samplingMineralsDepot(robot);
+            }
         }
-        else {
-            samplingMineralsCrater(robot);
+        else{
+            if (startLocation){
+                mineralCenterCrater(robot);
+            }
+            else{
+                mineralCenterDepot(robot);
+            }
         }
         // Is the robot starting facing the crater
         if (startLocation) {

@@ -627,11 +627,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 16.9, 1, "left");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 30);
+        encodersMove(robot, 30, .8, "forward");
         robotSleep(200);
 
-
         encodersMove(robot, 16.9, 1, "right");
+        robotSleep(200);
     }
 
     public void mineralRightDepot(NostromoBot robot) {
@@ -640,11 +640,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 16.9, 1, "right");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 30);
+        encodersMove(robot, 30, .8, "forward");
         robotSleep(200);
 
-
         encodersMove(robot, 16.9, 1, "left");
+        robotSleep(200);
 
     }
 
@@ -652,37 +652,27 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterDepot(NostromoBot robot)  {
 
-        EncoderDrivePID(robot, 30);
+        encodersMove(robot, 30, .8, "forward");
         robotSleep(200);
-
-
 
     }
 
 
-
-
-
-
-
-
     /////crater thing now
-
-
-
 
     public void mineralLeftCrater(NostromoBot robot) {
 
         encodersMove(robot, 16.9, 1, "left");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 17);
+        encodersMove(robot, 17, .8, "forward");
         robotSleep(200);
 
         encodersMove(robot, 4, 1, "backward");
         robotSleep(200);
 
         encodersMove(robot, 16.9, 1, "right");
+        robotSleep(200);
 
     }
 
@@ -692,7 +682,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 16.9, 1, "right");
         robotSleep(200);
 
-        EncoderDrivePID(robot, 17);
+        encodersMove(robot, 17, .8, "forward");
         robotSleep(200);
 
         encodersMove(robot, 4, 1, "backward");
@@ -704,11 +694,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterCrater(NostromoBot robot)  {
 
-        EncoderDrivePID(robot, 17);
+        encodersMove(robot, 17, .8, "forward");
         robotSleep(200);
 
         encodersMove(robot, 3, 1.0, "backward");
-
+        robotSleep(200);
 
     }
 
