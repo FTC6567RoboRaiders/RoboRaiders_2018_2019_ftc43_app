@@ -236,7 +236,7 @@ public class NostromoDrive extends OpMode {
         currStateLeftDpad = gamepad2.dpad_left;
         if (currStateLeftDpad && currStateLeftDpad != prevStateLeftDpad) {
 
-            robot.dumpWrist.setPosition(robot.dumpWirstNotDump);
+            robot.dumpWrist.setPosition(robot.dumpWristNotDump);
             prevStateLeftDpad = currStateLeftDpad;intakeDoorStatus = "Closed";
         }
         else if (!currStateLeftDpad && currStateLeftDpad != prevStateLeftDpad) {
@@ -355,7 +355,7 @@ public class NostromoDrive extends OpMode {
         }
         else if (currStateB) {
             robot.dumperDown();
-            robot.dumpWrist.setPosition(robot.dumpWirstNotDump);
+            robot.dumpWrist.setPosition(robot.dumpWristNotDump);
             dumperStatus = "Down?";
         }
         else {

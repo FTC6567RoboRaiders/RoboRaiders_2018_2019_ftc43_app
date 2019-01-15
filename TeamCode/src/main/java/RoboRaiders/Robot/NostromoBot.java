@@ -74,9 +74,10 @@ public class NostromoBot {
     public double intakeDoorOpen = 0.0;
     public double intakeDoorClosed = 1.0;
     public double dumpWristDump = .1;
-    public double dumpWirstNotDump = 0.0;
+    public double dumpWristNotDump = 0.0;
     public double dropTeamMarker = 0.5;
     public double bringMarkerBack = 0.1;
+    public double dumpTeamMarkerWristDump = 1.0;
     boolean robotDown;
 
     private static final String VUFORIA_KEY = "AedUDNP/////AAAAGXH2ZpUID0KanSX9ZSR37LKFSFokxIqmy/g0BNepdA9EepixxnO00qygLnMJq3Fg9gZxnkUJaKgk14/UjhxPWVQIs90ZXJLc21NvQvOeZ3dOogagVP8yFnFQs2xCijGmC/CE30ojlAnbhAhqz1y4tZPW2QkK5Qt0xCakTTSAw3KPQX2mZxX+qMxI2ljrN0eaxaKVnKnAUl8x3naF1mez7f9c8Xdi1O5auL0ePdG6bJhWjEO1YwpSd8WkSzNDEkmw20zpQ7zaOOPw5MeUQUr9vAS0fef0GnLjlS1gb67ajUDlEcbbbIeSrLW/oyRGTil8ueQC2SWafdspSWL3SJNaQKWydies23BxJxM/FoLuYYjx";

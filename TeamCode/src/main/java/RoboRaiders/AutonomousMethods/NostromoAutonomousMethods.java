@@ -462,10 +462,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void DeployTeamMarker(NostromoBot robot) throws InterruptedException {
-        long t = System.currentTimeMillis();
+    public void DeployTeamMarker(NostromoBot robot) {
+       /* long t = System.currentTimeMillis();
         long end = t + 500;
-        while (System.currentTimeMillis() < end) {
+        while (System.currentTimeMillis() < end) {//up
             robot.dumpp1.setPosition(robot.dumpdirection1);
             robot.dumpp2.setPosition(robot.dumpdirection2);
             robotSleep(500);
@@ -473,10 +473,18 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.dumpp1.setPosition(robot.dumpdirectionstop);
         robot.dumpp2.setPosition(robot.dumpdirectionstop);
 
-        robot.dumpWrist.setPosition(robot.dropTeamMarker);
+        robot.dumpWrist.setPosition(robot.dropTeamMarker);//put elbow down
         robotSleep(500);
 
-        while (System.currentTimeMillis() < end) {
+        while (System.currentTimeMillis() < end) {//down
+            robot.dumpp1.setPosition(robot.dumpdirection1);
+            robot.dumpp2.setPosition(robot.dumpdirection2);
+            robotSleep(500);
+        }
+        robot.dumpp1.setPosition(robot.dumpdirectionstop);
+        robot.dumpp2.setPosition(robot.dumpdirectionstop);
+
+        while (System.currentTimeMillis() < end){ //up
             robot.dumpp1.setPosition(robot.dumpdirection1);
             robot.dumpp2.setPosition(robot.dumpdirection2);
             robotSleep(500);
@@ -485,6 +493,21 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.dumpp2.setPosition(robot.dumpdirectionstop);
 
         robot.dumpWrist.setPosition(robot.bringMarkerBack);
+        robotSleep(500);*/
+
+       robot.dumperUp();
+       robotSleep(750);
+       robot.dumperStop();
+
+       robot.dumpWrist.setPosition(robot.dumpTeamMarkerWristDump);
+       robotSleep(500);
+
+       robot.dumpWrist.setPosition(robot.dumpWristNotDump);
+       robot.dumperDown();
+       robotSleep(1000);
+       robot.dumperStop();
+
+
         }
     /**
      * Will detect the location of the gold mineral
@@ -529,7 +552,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
-
         CameraDevice.getInstance().setFlashTorchMode(true);
 
         if (opModeIsActive()) {
@@ -547,8 +569,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
 
-                        // Is the robot seeing 2 minerals
-                        if (updatedRecognitions.size() == 2) {
+                        // Is the robot seeing at least one mineral  THIS IS CHANGED, WE NOW JUST CARE IF WE SEE AT LEAST ONE THING
+                        if (updatedRecognitions.size()>= 1) {
                             int goldMineralX = -1;
                             int silverMineral1X = -1;
                             int silverMineral2X = -1;
@@ -566,17 +588,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                             telemetry.addData("silverMineral2X",String.valueOf(silverMineral2X));
 
 
-                            // Did the robot just see two silver minerals?
-                            if (silverMineral2X != -1) {
+                            // Did the robot not see the gold mineral    THIS IS CHANGED
+                            if (goldMineralX != -1) {
 
                                 // Yes, indicate the gold mineral is on the left
                                 goldPostion = 1;
                             }
-                            // The robot saw a gold and silver mineral
+                            // The robot saw a gold mineral find where it is
                             else {
 
-                                // Is the gold mineral to the left of the silver mineral?
-                                if (goldMineralX < silverMineral1X) {
+                                // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
+                                if (goldMineralX < 500) {
 
                                     // Yes, indicate the gold mineral is in the center
                                     goldPostion = 2;
@@ -597,6 +619,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             robot.tfod.shutdown();
         }
         return goldPostion;
+
     }
 
     public void mineralLeft(NostromoBot robot) {
