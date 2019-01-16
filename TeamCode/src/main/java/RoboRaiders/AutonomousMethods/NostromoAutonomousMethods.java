@@ -261,7 +261,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void moveDepotFromDepotStart(NostromoBot robot) {
         encodersMove(robot, 6,0.8,"Forward");//also mineral knocking was 50
 
-
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(6));
         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
