@@ -494,6 +494,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         int goldLocation = detectGoldMineral(robot);
 
+        telemetry.addLine().addData("Mineral Seen", String.valueOf(goldLocation));
+        telemetry.update();
+
         switch (goldLocation) {
             case 1:
                 mineralLeftDepot(robot);
@@ -559,7 +562,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             }
             CameraDevice.getInstance().setFlashTorchMode(true);
 
-            while (opModeIsActive()) {
+            if (opModeIsActive()) {
                 if (robot.tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -587,7 +590,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
                             // Did the robot not see the gold mineral    THIS IS CHANGED
-                            if (goldMineralX != -1) {
+                            if (goldMineralX == -1) {
 
                                 // Yes, indicate the gold mineral is on the left
                                 goldPostion = 1;
