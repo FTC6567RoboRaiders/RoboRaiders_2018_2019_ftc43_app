@@ -628,27 +628,52 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralLeftDepot(NostromoBot robot) {
 
-        encodersMove(robot, 16.9, 1, "left");
-        robotSleep(200);
+        imuTurn(robot, 90, .45, "left");
+        robotSleep(500);
 
-        encodersMove(robot, 30, .8, "forward");
-        robotSleep(200);
+        encodersMove(robot, 6, .8, "forward");
+        robotSleep(500);
 
-        encodersMove(robot, 16.9, 1, "right");
-        robotSleep(200);
+        imuTurn(robot, 90, .45, "right");
+        robotSleep(500);
+
+        encodersMove(robot, 15.5, .8, "forward");
+        robotSleep(500);
+
+        imuTurn(robot, 95, .45, "right");
+        robotSleep(500);
+
+        encodersMove(robot, 4.5, .8, "forward");
+        robotSleep(500);
+
+        imuTurn(robot, 90, .45, "left");
+        robotSleep(500);
     }
 
     public void mineralRightDepot(NostromoBot robot) {
 
 
-        imuTurn(robot, 90, .35, "right");
-        robotSleep(1000);
+        imuTurn(robot, 90, .45, "right");
+        robotSleep(500);
 
-        encodersMove(robot, 30, .8, "forward");
-        robotSleep(1000);
+        encodersMove(robot, 6, .8, "forward");
+        robotSleep(500);
 
-        encodersMove(robot, 16.9, .5, "left");
-        robotSleep(1000);
+        imuTurn(robot, 90, .45, "left");
+        robotSleep(500);
+
+        encodersMove(robot, 15, .8, "forward");
+        robotSleep(500);
+
+        imuTurn(robot, 95, .45, "left");
+        robotSleep(500);
+
+        encodersMove(robot, 6, .8, "forward");
+        robotSleep(500);
+
+        imuTurn(robot, 90, .45, "right");
+        robotSleep(500);
+
 
     }
 
