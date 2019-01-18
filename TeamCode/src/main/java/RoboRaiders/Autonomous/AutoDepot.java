@@ -1,12 +1,14 @@
 package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBot;
 
 @Autonomous(name="Auto: Robot Starts Towards Depot")
+@Disabled
 
 public class AutoDepot extends NostromoAutonomousMethods {
 

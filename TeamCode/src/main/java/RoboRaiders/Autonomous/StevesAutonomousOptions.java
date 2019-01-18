@@ -1,6 +1,7 @@
 package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
@@ -9,6 +10,7 @@ import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous(name="Test: Steeeves Auto",group = "Hubbot")
+@Disabled
 
 public class StevesAutonomousOptions extends NostromoAutonomousMethods {
 
