@@ -13,13 +13,6 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 @Disabled
 public class StevesStrafing extends NostromoAutonomousMethods{
 
-    private boolean isRed             = false;
-    private boolean startLocation     = false;
-    private boolean deployFromLander  = false;
-    private boolean claimDepot        = false;
-    private boolean parkInCrater      = false;
-    private boolean selectionsAreGood = false;
-    private boolean sampling     = false;
     public NostromoBot robot = new NostromoBot();
 
 
@@ -30,14 +23,14 @@ public class StevesStrafing extends NostromoAutonomousMethods{
     //----------------------------------------------------------------------------------------------
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robot.initialize(hardwareMap);
 
         // Wait for start to be pushed
         waitForStart();
 
         while (opModeIsActive()) {
-            encodersMove(robot,24,1,"right")
+            encodersMove(robot,24,1,"right");
         }
     }
 }

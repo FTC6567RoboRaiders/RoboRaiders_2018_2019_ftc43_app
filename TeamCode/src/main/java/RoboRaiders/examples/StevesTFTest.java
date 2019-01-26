@@ -29,6 +29,7 @@
 
 package RoboRaiders.examples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -41,6 +42,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
+import RoboRaiders.Logger.Logger;
+import RoboRaiders.Robot.RobotTelemetryDisplay;
+
 /**
  * This 2018-2019 OpMode illustrates the basics of using the TensorFlow Object Detection API to
  * determine the position of the gold and silver minerals.
@@ -51,8 +55,8 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
+@Autonomous(name = "Steeeves Tensorflow Test", group = "Test")
+
 public class StevesTFTest extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -85,36 +89,104 @@ public class StevesTFTest extends LinearOpMode {
     private TFObjectDetector tfod;
     private int goldPostion = -1;
 
+    private long  startTimeInMillis  = 0;
+    private long  endTimeInMillis    = 0;
+    private int   numberOfRecognitions = 0;
+    private int   iterations           = 0;
+
+    private double elapsedTimeInSecs = 0.0;
+    private long  whileStartTimeInMillis = 0;
+    private long  whileEndTimeInMillis   = 0;
+    private double whileElapsedTimeInSecs = 0.0;
+
+    private List<Recognition> updatedRecognitions;
+    private RobotTelemetryDisplay rtd;
+    private Logger myLogger;
+
+
     @Override
     public void runOpMode() {
+
+        rtd = new RobotTelemetryDisplay(this, "HubBot");
+        myLogger = new Logger("SMKSMK");
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-     //   initVuforia();
+
+        startTimeInMillis = System.currentTimeMillis();
+        initVuforia();
+        endTimeInMillis   = System.currentTimeMillis();
+        elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+
+        rtd.displayRobotTelemetry("Elapsed Time");
+        rtd.displayRobotTelemetry("Vuforia",String.valueOf(elapsedTimeInSecs));
+        myLogger.Debug("Elapsed Time");
+        myLogger.Debug("Vuforia: ",elapsedTimeInSecs);
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-       //     initTfod();
+            startTimeInMillis = System.currentTimeMillis();
+            initTfod();
+            endTimeInMillis   = System.currentTimeMillis();
+            elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+            rtd.displayRobotTelemetry("TFObjectDetector",String.valueOf(elapsedTimeInSecs));
+            myLogger.Debug("TFObjectDector: ",elapsedTimeInSecs);
+
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
 
         /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start tracking");
-        telemetry.update();
+        //rtd.displayRobotTelemetry("Press Start","To Begin");
         waitForStart();
+        myLogger.Debug("Robot Started");
 
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
+                startTimeInMillis = System.currentTimeMillis();
                 tfod.activate();
+                endTimeInMillis   = System.currentTimeMillis();
+                elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+                rtd.displayRobotTelemetry("TFObjectDetector Activate",String.valueOf(elapsedTimeInSecs));
+                myLogger.Debug("TFObjectDetector Active: ",elapsedTimeInSecs);
             }
 
-            while (opModeIsActive()) {
+            whileStartTimeInMillis = System.currentTimeMillis();
+            while (opModeIsActive() && (updatedRecognitions == null || numberOfRecognitions < 3)) {
+
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
+                    startTimeInMillis = System.currentTimeMillis();
+                    updatedRecognitions = tfod.getUpdatedRecognitions();
+                    endTimeInMillis = System.currentTimeMillis();
+                    elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+                    rtd.displayRobotTelemetry("TFObjectDetector Recognitions", String.valueOf(elapsedTimeInSecs));
+                    if (updatedRecognitions == null) {
+                        numberOfRecognitions = 0;
+                    }
+                    else {
+                        numberOfRecognitions = updatedRecognitions.size();
+                    }
+                    rtd.displayRobotTelemetry("Number of Objects", String.valueOf(numberOfRecognitions));
+                    myLogger.Debug("TFObjectDetector Recognitions: ",elapsedTimeInSecs);
+                    myLogger.Debug("Number of Objects: ",numberOfRecognitions);
+                }
+
+                iterations++;
+                rtd.displayRobotTelemetry("interation #", String.valueOf(iterations));
+                myLogger.Debug("iteration #: ",iterations);
+            }
+            whileEndTimeInMillis = System.currentTimeMillis();
+            whileElapsedTimeInSecs = (double)(whileEndTimeInMillis - whileStartTimeInMillis) / 1000.0;
+            rtd.displayRobotTelemetry("While Loop", String.valueOf(whileElapsedTimeInSecs));
+            myLogger.Debug("While Loop: ",whileElapsedTimeInSecs);
+
+/*
+
                     if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
+
                       if (updatedRecognitions.size() == 3) {
                         int goldMineralX = -1;
                         int silverMineral1X = -1;
@@ -172,6 +244,7 @@ public class StevesTFTest extends LinearOpMode {
                     }
                 }
             }
+*/
         }
 
         if (tfod != null) {
@@ -182,7 +255,7 @@ public class StevesTFTest extends LinearOpMode {
     /**
      * Initialize the Vuforia localization engine.
      */
-    private void initVuforia() {
+    private void initVuforia(){
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
