@@ -101,7 +101,7 @@ public class GyroTest extends LinearOpMode
         // Loop and update the dashboard
         while (opModeIsActive()) {
             telemetry.update();
-            imu.initialize(parameters);
+         //   imu.initialize(parameters);
 
           /*  telemetry.update();
             //robotSleep(1500);

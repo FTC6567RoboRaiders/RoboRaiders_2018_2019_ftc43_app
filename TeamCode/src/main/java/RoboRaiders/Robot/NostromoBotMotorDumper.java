@@ -157,8 +157,8 @@ public class NostromoBotMotorDumper {
         liftClaw.setPosition(liftClawClosed);
        // markerDrop.setPosition(markerDropUp);
         intake.setPosition(0.5);
-        dumpp1.setPosition(0.5);
-        dumpp2.setPosition(0.5);
+      //  dumpp1.setPosition(0.5);
+      //  dumpp2.setPosition(0.5);
         slider.setPosition(0.5);
         intake.setPosition(0.5);
         intakeDoor.setPosition((intakeDoorClosed));
