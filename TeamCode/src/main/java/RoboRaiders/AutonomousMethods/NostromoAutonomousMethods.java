@@ -493,10 +493,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         telemetry.update();
 
         switch (goldLocation) {
+
             case 1:
                 mineralLeftDepot(robot);
                 break;
             case 2:
+            case -1:
                 mineralCenterDepot(robot);
                 break;
             case 3:
@@ -522,12 +524,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 mineralLeftCrater(robot);
                 break;
             case 2:
+            case -1:
                 mineralCenterCrater(robot);
                 break;
             case 3:
                 mineralRightCrater(robot);
                 break;
-
         }
     }
 
@@ -538,79 +540,76 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public int detectGoldMineral(NostromoBot robot) {
         int goldPostion = -1;
+        int numberofrecognized = 0;
+        List<Recognition> updatedRecognitions = null;
+        double startSamplingTime = System.currentTimeMillis();
 
-        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-        // first.
-        robot.initVuforia();
-
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
-            robot.initTfod();
-        } else {
-            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
-        }
         CameraDevice.getInstance().setFlashTorchMode(true);
 
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
-            if (robot.tfod != null) {
-                robot.tfod.activate();
-            }
-            CameraDevice.getInstance().setFlashTorchMode(true);
 
-            robotSleep(1500);
+            //took out turning on the flash for the second time
+            //took out a 1.5 second wait
+            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 1) {
+                // getUpdatedRecognitions() will return null if no new information is available since
+                // the last time that call was made.
+                updatedRecognitions = robot.tfod.getUpdatedRecognitions();
+                if (updatedRecognitions == null) {
+                    numberofrecognized = 0;
+                } else {
+                    numberofrecognized = updatedRecognitions.size();
+                }
 
-            if (opModeIsActive()) {
-                if (robot.tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = robot.tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+            }//while?
 
-                        // Is the robot seeing at least one mineral  THIS IS CHANGED, WE NOW JUST CARE IF WE SEE AT LEAST ONE THING
-                        if (updatedRecognitions.size()>= 1) {
-                            int goldMineralX = -1;
-                            int silverMineral1X = -1;
-                            int silverMineral2X = -1;
-                            for (Recognition recognition : updatedRecognitions) {
-                                if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
-                                    goldMineralX = (int) recognition.getLeft();
-                                } else if (silverMineral1X == -1) {
-                                    silverMineral1X = (int) recognition.getLeft();
-                                } else {
-                                    silverMineral2X = (int) recognition.getLeft();
-                                }
-                            }
-                            telemetry.addData("goldMineralX",String.valueOf(goldMineralX));
-                            telemetry.addData("silverMineral1X",String.valueOf(silverMineral1X));
-                            telemetry.addData("silverMineral2X",String.valueOf(silverMineral2X));
+            if (updatedRecognitions == null) {
+            } else {
+                telemetry.addData("# Object Detected", updatedRecognitions.size());
 
-
-                            // Did the robot not see the gold mineral    THIS IS CHANGED
-                            if (goldMineralX == -1) {
-
-                                // Yes, indicate the gold mineral is on the left
-                                goldPostion = 1;
-                            }
-                            // The robot saw a gold mineral find where it is
-                            else {
-
-                                // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
-                                if (goldMineralX < 500) {
-
-                                    // Yes, indicate the gold mineral is in the center
-                                    goldPostion = 2;
-                                } else {
-
-                                    // No, the gold mineral is on the right
-                                    goldPostion = 3;
-                                }
-                            }
+                // Is the robot seeing at least one mineral  THIS IS CHANGED, WE NOW JUST CARE IF WE SEE AT LEAST ONE THING
+                if (updatedRecognitions.size() >= 1) {
+                    int goldMineralX = -1;
+                    int silverMineral1X = -1;
+                    int silverMineral2X = -1;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
+                            goldMineralX = (int) recognition.getLeft();
+                        } else if (silverMineral1X == -1) {
+                            silverMineral1X = (int) recognition.getLeft();
+                        } else {
+                            silverMineral2X = (int) recognition.getLeft();
                         }
-                        telemetry.update();
+                    }
+                    telemetry.addData("goldMineralX", String.valueOf(goldMineralX));
+                    telemetry.addData("silverMineral1X", String.valueOf(silverMineral1X));
+                    telemetry.addData("silverMineral2X", String.valueOf(silverMineral2X));
+
+
+                    // Did the robot not see the gold mineral    THIS IS CHANGED
+                    if (goldMineralX == -1) {
+
+                        // Yes, indicate the gold mineral is on the left
+                        goldPostion = 1;
+                    }
+                    // The robot saw a gold mineral find where it is
+                    else {
+
+                        // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
+                        if (goldMineralX < 500) {
+
+                            // Yes, indicate the gold mineral is in the center
+                            goldPostion = 2;
+                        } else {
+
+                            // No, the gold mineral is on the right
+                            goldPostion = 3;
+                        }
                     }
                 }
+                telemetry.update();
             }
+
         }
 
         if (robot.tfod != null) {

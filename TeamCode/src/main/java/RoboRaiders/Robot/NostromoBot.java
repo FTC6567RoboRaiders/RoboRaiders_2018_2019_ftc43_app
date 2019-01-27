@@ -144,7 +144,7 @@ public class NostromoBot {
         motorLift.setDirection(DcMotor.Direction.FORWARD);
         liftIntake.setDirection(DcMotor.Direction.FORWARD);
         liftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+//have the motors on the drivetrain break here.
         // Set all motors to zero power
         motorFrontRight.setPower(0);
         motorFrontLeft.setPower(0);
