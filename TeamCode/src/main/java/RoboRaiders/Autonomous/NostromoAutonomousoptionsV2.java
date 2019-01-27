@@ -3,6 +3,8 @@ package RoboRaiders.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+
 import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
@@ -96,6 +98,22 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         rtd.displayRobotTelemetry("Deploy From Lander:",deployFromLander ? "Yes" : "No");
         rtd.displayRobotTelemetry("Park In Crater:",parkInCrater ? "Yes" : "No");
 
+        if (sampling == true) {
+            robot.initVuforia();
+
+            // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+            // first.
+
+            if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+                robot.initTfod();
+            } else {
+                telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+            }
+            if (robot.tfod != null) {
+                robot.tfod.activate();
+            }
+
+        }
 
         // Wait for start to be pushed
         waitForStart();
