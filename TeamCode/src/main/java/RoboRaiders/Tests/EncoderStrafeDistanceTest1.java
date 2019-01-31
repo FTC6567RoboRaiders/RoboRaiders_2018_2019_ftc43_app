@@ -3,7 +3,7 @@ package RoboRaiders.Tests;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
-import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 
@@ -15,7 +15,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 public class EncoderStrafeDistanceTest1 extends NostromoAutonomousMethods {
 
-    NostromoBot robot = new NostromoBot();
+    NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostromo");
 
     @Override

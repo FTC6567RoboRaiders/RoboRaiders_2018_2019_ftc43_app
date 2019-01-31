@@ -3,11 +3,11 @@ package RoboRaiders.Tests;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
-import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 
-@Autonomous (name="Encoder Strafe Distance Test 1", group="Test")
+@Autonomous (name="Encoder Strafe Distance Test 2", group="Test")
 
 /**
  * Created by Steve Kocik as a sample for RedStorm to build off of
@@ -15,7 +15,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 public class EncoderStrafeDistanceTest2 extends NostromoAutonomousMethods {
 
-    NostromoBot robot = new NostromoBot();
+    NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostromo");
     @Override
     public void runOpMode() {

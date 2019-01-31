@@ -10,6 +10,7 @@ import java.util.List;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 
@@ -765,7 +766,73 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.resetEncoders(); //resets encoders
         robot.runWithEncoders(); //sets the mode back to run with encoder
 
-        double COUNTS = robot.calculateCOUNTS(distance); //COUNTS is now equal to the value calculated
+        final double v = robot.calculateCOUNTS(distance);
+        double COUNTS = v; //COUNTS is now equal to the value calculated
+
+        if (direction.equals("forward")) { //if the desired direction is forward
+
+            robot.setDriveMotorPower(power, power, power, power); //start driving forward
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still less than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0, 0, 0, 0); //stop the robot
+        } else if (direction.equals("backward")) { //if the desired direction is backward
+
+            robot.setDriveMotorPower(-power, -power, -power, -power); //start driving backward
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still greater than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0, 0, 0, 0); //stop the robot
+        } else if (direction.equals("right")) { //if the desired direction is right
+
+            robot.setDriveMotorPower(power, -power, -power, power); //start strafing right
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still less than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
+        } else if (direction.equals("left")) { //if the desired direction is left
+
+            robot.setDriveMotorPower(-power, power, power, -power); //start strafing left
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still greater than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
+        }
+
+        robot.runWithoutEncoders(); //sets the mode back to run without encoder
+    }
+
+    public void encodersMove(NostromoBotMotorDumper robot, double distance, double power, String direction) { //sets the parameters
+
+        robot.resetEncoders(); //resets encoders
+        robot.runWithEncoders(); //sets the mode back to run with encoder
+
+        final double v = robot.calculateCOUNTS(distance);
+        double COUNTS = v; //COUNTS is now equal to the value calculated
 
         if (direction.equals("forward")) { //if the desired direction is forward
 
