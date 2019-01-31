@@ -31,12 +31,6 @@ public class EncoderStrafeTest extends LinearOpMode {
         // Wait for the start button to be pushed
         waitForStart();
 
-
-
-
-
-        // While the autonomous period is still active AND the robot has not reached the number
-        // of encoder counts to travel 24 inches
         while(opModeIsActive()) {
 
             telemetry.addData("Status ", "opModeIsActive");
