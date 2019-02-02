@@ -350,7 +350,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateA) {
             //robot.dumperUp();
-            robot.setMotorDumppPower(-0.5);
+            robot.setMotorDumppPower(-0.7);
             robot.dumpWrist.setPosition(robot.dumpWristDump);
             dumperStatus = "Up?";
 
