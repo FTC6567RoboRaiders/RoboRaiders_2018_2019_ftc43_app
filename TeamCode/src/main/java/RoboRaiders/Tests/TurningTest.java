@@ -32,19 +32,23 @@ public class TurningTest extends LinearOpMode {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-
         telemetry.update();
 
         waitForStart();
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         degreesToTurn = 20;
-        telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
+        //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
         currentHeading = angles.firstAngle;
         finalHeading = currentHeading + degreesToTurn;
-        telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+        //telemetry.update();
+
 
 
         while(opModeIsActive() && currentHeading < finalHeading) {
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            currentHeading = angles.firstAngle;
+            telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+            telemetry.update();
         }
 
     }
