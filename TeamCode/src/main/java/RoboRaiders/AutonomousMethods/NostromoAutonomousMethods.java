@@ -367,6 +367,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.update();
+
             }
         }
         else { //if the desired direction is left
@@ -547,7 +548,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 // the last time that call was made.
                 updatedRecognitions = robot.tfod.getUpdatedRecognitions();
                 if (updatedRecognitions == null) {
-                    numberofrecognized = 0;
+                    numberofrecognized = 2;
                 } else {
                     numberofrecognized = updatedRecognitions.size();
                 }
