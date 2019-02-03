@@ -30,6 +30,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public float iza_newHeading;
     public Orientation iza_angles;
 
+
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this, "Nostormo");
 
     public void farRedDepot(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
@@ -519,6 +520,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(200);
 
         int goldLocation = detectGoldMineral(robot);
+        telemetry.addLine().addData("GoldLocation", goldLocation);
 
         switch (goldLocation) {
             case 1:
@@ -660,7 +662,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 28, .8, "forward");
         robotSleep(500);
 
-        imuTurn(robot, 110, .45, "right");
+        imuTurn(robot, 100, .45, "right");
         robotSleep(500);
 
     }
