@@ -722,7 +722,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 5, .5, "backward");
         robotSleep(500);
 
-        imuTurn(robot, 100, .45, "left");
+        imuTurn(robot, 90, .45, "left");
         robotSleep(500);
 
         encodersMove(robot, 62, .5, "forward");
