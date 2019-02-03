@@ -473,7 +473,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMineralsDepot(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 6, .6, "forward");
+        encodersMove(robot, 4, .6, "forward");
+        robotSleep(200);
+
+        imuTurn(robot, 90, .45,"left");
         robotSleep(200);
 
         int goldLocation = detectGoldMineral(robot);
@@ -503,7 +506,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMineralsCrater(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 6, .6, "forward");
+        encodersMove(robot, 4, .6, "forward");
         robotSleep(200);
 
         imuTurn(robot, 90, .45,"left");
