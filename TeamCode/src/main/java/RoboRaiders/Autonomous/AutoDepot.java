@@ -21,9 +21,9 @@ public class AutoDepot extends NostromoAutonomousMethods {
 
         waitForStart();
 
-        DeployRobot(robot);
+       // DeployRobot(robot);
 
-        farRedDepot(robotPID, robot);
+        //farRedDepot(robotPID, robot);
 
         //moveTest(robotPID, robot);
 
