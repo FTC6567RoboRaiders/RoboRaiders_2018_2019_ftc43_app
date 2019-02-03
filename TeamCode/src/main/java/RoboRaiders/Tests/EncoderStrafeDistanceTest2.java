@@ -15,6 +15,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 public class EncoderStrafeDistanceTest2 extends NostromoAutonomousMethods {
 
+
     NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostromo");
     @Override
