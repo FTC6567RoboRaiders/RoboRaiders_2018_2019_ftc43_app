@@ -147,13 +147,13 @@ public class NostromoDriveMotorForDumper extends OpMode {
         //collection = (float) scaleInput(collection);
 
         if (collection >= 0.2 ){
-            robot.setLiftIntakePower(.50);
+            robot.setLiftIntakePower(0.75);
             //move collection up
             //
         }
 
         else if (collection <= -0.2){
-            robot.setLiftIntakePower(-.50);
+            robot.setLiftIntakePower(0.75);
             //move collection down
         }
 
@@ -253,18 +253,18 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("currStateDPadDown", currStateDPadDown);
 
         if (currStateDPadUp) {
-            robot.slider.setPosition(robot.sliderdirectionin);
+            robot.setMotorDrawerSlide(0.75);
             sliderStatus = "slider out";
         }
         else if (currStateDPadDown) {
-            robot.slider.setPosition(robot.sliderdirectionout);
+            robot.setMotorDrawerSlide(-0.75);
             sliderStatus = "slider in ";
         }
         else {
-            robot.slider.setPosition(0.5);
+            robot.setMotorDrawerSlide(0.0);
             sliderStatus = "Stopped";
         }
-        telemetry.addData("servoPos","(%.2s)",sliderStatus);
+        telemetry.addData("MotorStatus","(%.2s)",sliderStatus);
 
 
 
@@ -366,7 +366,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
             robot.setMotorDumppPower(0.0);
             dumperStatus = "Stopped";
         }
-        telemetry.addData("dumperServoPos","(%.2s)",dumperStatus);
+        telemetry.addData("MotorStatus","(%.2s)",dumperStatus);
 
 
         telemetry.update();

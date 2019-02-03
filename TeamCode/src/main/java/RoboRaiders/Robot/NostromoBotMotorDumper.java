@@ -31,14 +31,15 @@ public class NostromoBotMotorDumper {
     public DcMotor motorLift = null;
     public DcMotor liftIntake = null;
     public DcMotor motorDumpp = null;
+    public DcMotor drawerSlide = null;
     public BNO055IMU imu;
     public TouchSensor sensorTouch;
     public Servo liftClaw = null;
     public Servo markerDrop = null;
     public Servo intake = null;
-    public Servo dumpp1 = null;
-    public Servo dumpp2 = null;
-    public Servo slider = null;
+    //public Servo dumpp1 = null;
+    // public Servo dumpp2 = null;
+   // public Servo slider = null;
     public Servo intakeDoor = null;
     public Servo dumpWrist = null;
 
@@ -121,14 +122,17 @@ public class NostromoBotMotorDumper {
         motorBackRight = hwMap.get(DcMotor.class, "motorBackRight");
         motorLift = hwMap.get(DcMotor.class, "motorLift");
         liftIntake = hwMap.get(DcMotor.class,"liftintake");
+        motorDumpp = hwMap.get(DcMotor.class, "dumppmotor");
+        drawerSlide = hwMap.get(DcMotor.class, "drawerslidemotor");
+
+       //defines and initialized sensors and servos
         sensorTouch = hwMap.touchSensor.get("sensorTouch");
         liftClaw = hwMap.servo.get("liftClaw");
         //markerDrop= hwMap.servo.get("markerDrop");
         intake = hwMap.servo.get("intake");
         //dumpp1 = hwMap.servo.get("dumpp1");
         //dumpp2 = hwMap.servo.get("dumpp2");
-        motorDumpp = hwMap.get(DcMotor.class, "dumppMotor");
-        slider = hwMap.servo.get("slider");
+        //slider = hwMap.servo.get("slider");
         intakeDoor = hwMap.servo.get("intakedoor");
         dumpWrist = hwMap.servo.get("dumpwrist");
 
@@ -145,6 +149,8 @@ public class NostromoBotMotorDumper {
         motorDumpp.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftIntake.setDirection(DcMotor.Direction.FORWARD);
         liftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        drawerSlide.setDirection(DcMotor.Direction.FORWARD);
+        drawerSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         motorFrontRight.setPower(0);
@@ -159,7 +165,7 @@ public class NostromoBotMotorDumper {
         intake.setPosition(0.5);
       //  dumpp1.setPosition(0.5);
       //  dumpp2.setPosition(0.5);
-        slider.setPosition(0.5);
+        //slider.setPosition(0.5);
         intake.setPosition(0.5);
         intakeDoor.setPosition((intakeDoorClosed));
         // Set all motors to run without encoders.
@@ -210,6 +216,8 @@ public class NostromoBotMotorDumper {
 
     public void setMotorDumppPower(double dumppPower){ motorDumpp.setPower(dumppPower);}
 
+    public void setMotorDrawerSlide(double drawerSlidePower) {drawerSlide.setPower(drawerSlidePower);}
+
     public void collectionIn() {   intake.setPosition(1.0); }
 
     public void collectionOut() {   intake.setPosition(0.0); }
@@ -224,15 +232,11 @@ public class NostromoBotMotorDumper {
         intakeDoor.setPosition(intakeDoorOpen);
     }
 
-    public void pushIntakein () {
-        slider.setPosition(sliderdirectionin);
-    }
+    //public void pushIntakein () { slider.setPosition(sliderdirectionin);}
 
-    public void pushIntakeout () {
-        slider.setPosition(sliderdirectionout);
-    }
+    //public void pushIntakeout () {slider.setPosition(sliderdirectionout);}
 
-    public void dumperUp() {
+    /*public void dumperUp() {
 
         dumpp1.setPosition(dumpdirection1);
         dumpp2.setPosition(dumpdirection2);
@@ -248,7 +252,7 @@ public class NostromoBotMotorDumper {
 
         dumpp1.setPosition(0.5);
         dumpp2.setPosition(0.5);
-    }
+    }*/
 
 
 
