@@ -350,10 +350,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void imuTurn(NostromoBotMotorDumper robot, float degreesToTurn, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
-        robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
         currentHeading = robot.getIntegratedZAxis();
-        finalHeading = currentHeading + degreesToTurn;
+        //finalHeading = currentHeading + degreesToTurn;
         //telemetry.update();
 
         // robot.getHeading(); returns the current heading of the IMU
@@ -362,8 +362,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             finalHeading = currentHeading - degreesToTurn;
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
             while(opModeIsActive() && robot.getIntegratedZAxis() > finalHeading) {
-                robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                currentHeading = robot.getIntegratedZAxis();
+                //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                //currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.update();
@@ -373,8 +373,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             finalHeading = currentHeading + degreesToTurn;
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
             while(opModeIsActive() && robot.getIntegratedZAxis() < finalHeading) {
-                robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                currentHeading = robot.getIntegratedZAxis();
+                //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                //currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.update();
