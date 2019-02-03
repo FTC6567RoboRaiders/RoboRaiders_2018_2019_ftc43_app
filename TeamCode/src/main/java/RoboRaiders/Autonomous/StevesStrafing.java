@@ -7,13 +7,14 @@ import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
 @Disabled
 public class StevesStrafing extends NostromoAutonomousMethods{
 
-    public NostromoBot robot = new NostromoBot();
+    public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
 
 

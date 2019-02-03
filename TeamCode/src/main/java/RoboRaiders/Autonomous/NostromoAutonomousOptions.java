@@ -5,13 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 
 @Autonomous
 @Disabled
 
 public class NostromoAutonomousOptions extends NostromoAutonomousMethods {
 
-    public NostromoBot robot = new NostromoBot();
+    public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
     boolean cur_B_ButtonState;                                            // "b" button current state
     boolean cur_X_ButtonState;                                            // "x" button current state
