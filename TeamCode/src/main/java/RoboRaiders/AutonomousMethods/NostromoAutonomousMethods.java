@@ -279,7 +279,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void parkFromCraterStart(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 68, 0.8, "Forward");
+        encodersMove(robot, 68, 0.8, "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
@@ -479,10 +479,16 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 90, .45,"left");
         robotSleep(200);
 
+        imuTurn(robot, 90, .5, "left");
+        robotSleep(200);
+
         int goldLocation = detectGoldMineral(robot);
 
         telemetry.addLine().addData("Mineral Seen", String.valueOf(goldLocation));
         telemetry.update();
+
+        imuTurn(robot, 90, .5, "right");
+        robotSleep(200);
 
         switch (goldLocation) {
 
@@ -546,12 +552,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             //took out turning on the flash for the second time
             //took out a 1.5 second wait
-            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 1) {
+            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 2) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 updatedRecognitions = robot.tfod.getUpdatedRecognitions();
                 if (updatedRecognitions == null) {
-                    numberofrecognized = 2;
+                    numberofrecognized = 0;
                 } else {
                     numberofrecognized = updatedRecognitions.size();
                 }
@@ -739,6 +745,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void mineralCenterCrater(NostromoBotMotorDumper robot)  {
 
         imuTurn(robot, 90,.45,"right");
+        robotSleep(200);
 
         encodersMove(robot, 6, .8, "forward");
         robotSleep(500);
@@ -841,6 +848,45 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
 
+
+    public void encodersMoveStrafe(NostromoBotMotorDumper robot, double distance, double power, String direction) { //sets the parameters
+
+        robot.resetEncoders(); //resets encoders
+        robot.runWithEncoders(); //sets the mode back to run with encoder
+
+        final double v = robot.calculateCOUNTS(distance);
+        double COUNTS = v; //COUNTS is now equal to the value calculated
+
+        if (direction.equals("right")) { //if the desired direction is right
+
+            robot.setDriveMotorPower(power, -power-0.3, -power-0.3, power); //start strafing right
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still less than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
+        } else if (direction.equals("left")) { //if the desired direction is left
+
+            robot.setDriveMotorPower(-power, power, power, -power); //start strafing left
+
+            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
+                //still greater than the desired count and the opMode has not been stopped
+
+                telemetry.addData("COUNTS", COUNTS);
+                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                telemetry.update();
+            }
+
+            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
+        }
+
+        robot.runWithoutEncoders(); //sets the mode back to run without encoder
+    }
 
     /**
      * make the robot sleep (wait)

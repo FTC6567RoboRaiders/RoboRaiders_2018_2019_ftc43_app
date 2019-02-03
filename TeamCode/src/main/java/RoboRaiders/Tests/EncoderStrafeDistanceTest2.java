@@ -62,7 +62,7 @@ public class EncoderStrafeDistanceTest2 extends NostromoAutonomousMethods {
 
         if (opModeIsActive()) {
 
-            encodersMove(robot,adjustedDistance,0.5,"right");
+            encodersMoveStrafe(robot,adjustedDistance,0.5,"right");
 
         }
 
