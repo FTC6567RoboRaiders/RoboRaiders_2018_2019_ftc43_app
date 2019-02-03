@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
@@ -17,8 +21,17 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public double motor_power;
+    public double degreesToTurn;
+    public double currentHeading;
+    public double finalHeading;
+    public double integratedZAxis;
+    public double iza_lastHeading = 0.0;
+    public double iza_deltaHeading;
+    public float iza_newHeading;
+    public Orientation iza_angles;
 
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this, "Nostormo");
+    NostromoBotMotorDumper robotD = new NostromoBotMotorDumper();
 
     public void farRedDepot(RoboRaidersPID robotPID, NostromoBot robot) {
         EncoderDrivePID(robotPID, robot, 50);
@@ -335,29 +348,40 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void imuTurn(NostromoBot robot, float degrees, double power, String direction) { //gets hardware from
+    public void imuTurn(NostromoBot robot, float degreesToTurn, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
-        robot.resetIMU();
-        float finalHeading = robot.getHeading() + degrees;
+        robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
+        currentHeading = robotD.getIntegratedZAxis();
+        finalHeading = currentHeading + degreesToTurn;
+        //telemetry.update();
 
         // robot.getHeading(); returns the current heading of the IMU
 
         if (direction.equals("right")) { //if the desired direction is right
-
+            finalHeading = currentHeading - degreesToTurn;
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
-        } else if (direction.equals("left")) { //if the desired direction is left
-
+            while(opModeIsActive() && robotD.getIntegratedZAxis() > finalHeading) {
+                robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                currentHeading = robotD.getIntegratedZAxis();
+                telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                telemetry.addLine().addData("IntZ",String.valueOf(robotD.integratedZAxis));
+                telemetry.update();
+            }
+        }
+        else { //if the desired direction is left
+            finalHeading = currentHeading + degreesToTurn;
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
+            while(opModeIsActive() && robotD.getIntegratedZAxis() < finalHeading) {
+                robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                currentHeading = robotD.getIntegratedZAxis();
+                telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                telemetry.addLine().addData("IntZ",String.valueOf(robotD.integratedZAxis));
+                telemetry.update();
+            }
         }
 
-        while (robot.getHeading() < (finalHeading - 20) && opModeIsActive()) { //while the value of getHeading is
-            //less then the degree value
-            //and while opMode is active continue the while loop
-
-            telemetry.addData("Heading", robot.getHeading()); //feedback of getHeading value
-            telemetry.update(); //continuous update
-        }
 
         robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
     }
