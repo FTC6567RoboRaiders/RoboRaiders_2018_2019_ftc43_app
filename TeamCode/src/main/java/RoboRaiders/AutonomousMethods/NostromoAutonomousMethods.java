@@ -546,12 +546,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             //took out turning on the flash for the second time
             //took out a 1.5 second wait
-            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 1) {
+            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 2) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 updatedRecognitions = robot.tfod.getUpdatedRecognitions();
                 if (updatedRecognitions == null) {
-                    numberofrecognized = 2;
+                    numberofrecognized = 0;
                 } else {
                     numberofrecognized = updatedRecognitions.size();
                 }
