@@ -31,9 +31,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public Orientation iza_angles;
 
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this, "Nostormo");
-    NostromoBotMotorDumper robotD = new NostromoBotMotorDumper();
 
-    public void farRedDepot(RoboRaidersPID robotPID, NostromoBot robot) {
+    public void farRedDepot(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
         EncoderDrivePID(robotPID, robot, 50);
 
         rtd.displayRobotTelemetry("Moving");
@@ -88,7 +87,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void closeRedDepot(RoboRaidersPID robotPID, NostromoBot robot) {
+    public void closeRedDepot(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
         //DeployRobot(robot);
 
         EncoderDrivePID(robot, 28);
@@ -175,7 +174,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(250);
     }
 
-    public void farBlueDepot(RoboRaidersPID robotPID, NostromoBot robot) {
+    public void farBlueDepot(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
         EncoderDrivePID(robotPID, robot, 28);
         robotSleep(500);
 
@@ -204,7 +203,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(500);
     }
 
-    public void closeBlueDepot(RoboRaidersPID robotPID, NostromoBot robot) {
+    public void closeBlueDepot(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
         EncoderDrivePID(robotPID, robot, 48);
         robotSleep(500);
 
@@ -221,11 +220,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(500);
     }
 
-    public void moveTest(RoboRaidersPID robotPID, NostromoBot robot) {
+    public void moveTest(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
         EncoderDrivePID(robotPID, robot, 48);
     }
 
-    public void moveDepotFromCraterStart(NostromoBot robot) {
+    public void moveDepotFromCraterStart(NostromoBotMotorDumper robot) {
 
 
         EncoderDrivePID(robot, 35);   // was 40 now 41
@@ -268,7 +267,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void moveDepotFromDepotStart(NostromoBot robot) {
+    public void moveDepotFromDepotStart(NostromoBotMotorDumper robot) {
         encodersMove(robot, 6,0.8,"Forward");//also mineral knocking was 50
 
         rtd.displayRobotTelemetry("Moving");
@@ -278,7 +277,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void parkFromCraterStart(NostromoBot robot) {
+    public void parkFromCraterStart(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 68, 0.8, "Forward");
 
@@ -288,14 +287,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(250);
     }
 
-    public void parkFromDepotStart(NostromoBot robot) {
+    public void parkFromDepotStart(NostromoBotMotorDumper robot) {
 
        encodersMove(robot, 54.5,.5,"backward");
        robotSleep(500);
     }
 
 
-    public void EncoderDrivePID(RoboRaidersPID robotPID, NostromoBot robot, double wantedDistance) {
+    public void EncoderDrivePID(RoboRaidersPID robotPID, NostromoBotMotorDumper robot, double wantedDistance) {
         robot.resetEncoders();
         robot.runWithEncoders();
         robotPID.initialize();   // re-initialized the pid variables that we care about
@@ -339,7 +338,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
          robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
      }
      }*/
-    public void EncoderDrivePID(NostromoBot robot, double wantedDistance) {
+    public void EncoderDrivePID(NostromoBotMotorDumper robot, double wantedDistance) {
         //    robot.resetEncoders();
         //    robot.runWithEncoders();
         RoboRaidersPID pidClass = new RoboRaidersPID();   // create new pidClass
@@ -348,12 +347,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void imuTurn(NostromoBot robot, float degreesToTurn, double power, String direction) { //gets hardware from
+    public void imuTurn(NostromoBotMotorDumper robot, float degreesToTurn, double power, String direction) { //gets hardware from
         //Robot and defines degrees as a
         //float, power as a double, and direction as a string
-        robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
-        currentHeading = robotD.getIntegratedZAxis();
+        currentHeading = robot.getIntegratedZAxis();
         finalHeading = currentHeading + degreesToTurn;
         //telemetry.update();
 
@@ -362,22 +361,22 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         if (direction.equals("right")) { //if the desired direction is right
             finalHeading = currentHeading - degreesToTurn;
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
-            while(opModeIsActive() && robotD.getIntegratedZAxis() > finalHeading) {
-                robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                currentHeading = robotD.getIntegratedZAxis();
+            while(opModeIsActive() && robot.getIntegratedZAxis() > finalHeading) {
+                robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                telemetry.addLine().addData("IntZ",String.valueOf(robotD.integratedZAxis));
+                telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.update();
             }
         }
         else { //if the desired direction is left
             finalHeading = currentHeading + degreesToTurn;
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
-            while(opModeIsActive() && robotD.getIntegratedZAxis() < finalHeading) {
-                robotD.angles = robotD.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                currentHeading = robotD.getIntegratedZAxis();
+            while(opModeIsActive() && robot.getIntegratedZAxis() < finalHeading) {
+                robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                telemetry.addLine().addData("IntZ",String.valueOf(robotD.integratedZAxis));
+                telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.update();
             }
         }
@@ -387,7 +386,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
 
-    public void DeployRobot(NostromoBot robot) {
+    public void DeployRobot(NostromoBotMotorDumper robot) {
 
         double startDeployTime = System.currentTimeMillis();
 
@@ -419,7 +418,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void DeployTeamMarker(NostromoBot robot) {
+    public void DeployTeamMarker(NostromoBotMotorDumper robot) {
        /* long t = System.currentTimeMillis();
         long end = t + 500;
         while (System.currentTimeMillis() < end) {//up
@@ -452,7 +451,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.dumpWrist.setPosition(robot.bringMarkerBack);
         robotSleep(500);*/
 
-       robot.dumperUp();
+      /* robot.dumperUp();
        robotSleep(750);
        robot.dumperStop();
 
@@ -462,7 +461,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
        robot.dumpWrist.setPosition(robot.dumpWristNotDump);
        robot.dumperDown();
        robotSleep(1000);
-       robot.dumperStop();
+       robot.dumperStop();*/
 
 
         }
@@ -471,7 +470,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      *
      * @param robot - the robot to work with
      */
-    public void samplingMineralsDepot(NostromoBot robot) {
+    public void samplingMineralsDepot(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 6, .6, "forward");
         robotSleep(200);
@@ -501,7 +500,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      *
      * @param robot - the robot to work with
      */
-    public void samplingMineralsCrater(NostromoBot robot) {
+    public void samplingMineralsCrater(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 6, .6, "forward");
         robotSleep(200);
@@ -530,7 +529,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      *
      * @return the location of the gold mineral
      */
-    public int detectGoldMineral(NostromoBot robot) {
+    public int detectGoldMineral(NostromoBotMotorDumper robot) {
         int goldPostion = -1;
         int numberofrecognized = 0;
         List<Recognition> updatedRecognitions = null;
@@ -613,7 +612,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
 
-    public void mineralLeftDepot(NostromoBot robot) {
+    public void mineralLeftDepot(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 6, .8, "forward");
         robotSleep(500);
@@ -634,7 +633,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(500);
     }
 
-    public void mineralRightDepot(NostromoBot robot) {
+    public void mineralRightDepot(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 6, .8, "backward");
         robotSleep(500);
@@ -656,7 +655,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void mineralCenterDepot(NostromoBot robot)  {
+    public void mineralCenterDepot(NostromoBotMotorDumper robot)  {
 
         imuTurn(robot,90,.45,"right");
 
@@ -678,7 +677,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     /////crater thing now
 
-    public void  mineralLeftCrater(NostromoBot robot) {
+    public void  mineralLeftCrater(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 8, .5, "forward");
         robotSleep(500);
@@ -705,7 +704,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(500);
     }
 
-    public void mineralRightCrater(NostromoBot robot) {
+    public void mineralRightCrater(NostromoBotMotorDumper robot) {
 
         encodersMove(robot, 8, .5, "backward");
         robotSleep(500);
@@ -733,7 +732,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void mineralCenterCrater(NostromoBot robot)  {
+    public void mineralCenterCrater(NostromoBotMotorDumper robot)  {
 
         imuTurn(robot, 90,.45,"right");
 
@@ -772,71 +771,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             telemetry.update();
 
         }*/
-    public void encodersMove(NostromoBot robot, double distance, double power, String direction) { //sets the parameters
-
-        robot.resetEncoders(); //resets encoders
-        robot.runWithEncoders(); //sets the mode back to run with encoder
-
-        final double v = robot.calculateCOUNTS(distance);
-        double COUNTS = v; //COUNTS is now equal to the value calculated
-
-        if (direction.equals("forward")) { //if the desired direction is forward
-
-            robot.setDriveMotorPower(power, power, power, power); //start driving forward
-
-            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
-                //still less than the desired count and the opMode has not been stopped
-
-                telemetry.addData("COUNTS", COUNTS);
-                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-                telemetry.update();
-            }
-
-            robot.setDriveMotorPower(0, 0, 0, 0); //stop the robot
-        } else if (direction.equals("backward")) { //if the desired direction is backward
-
-            robot.setDriveMotorPower(-power, -power, -power, -power); //start driving backward
-
-            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
-                //still greater than the desired count and the opMode has not been stopped
-
-                telemetry.addData("COUNTS", COUNTS);
-                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-                telemetry.update();
-            }
-
-            robot.setDriveMotorPower(0, 0, 0, 0); //stop the robot
-        } else if (direction.equals("right")) { //if the desired direction is right
-
-            robot.setDriveMotorPower(power, -power, -power, power); //start strafing right
-
-            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
-                //still less than the desired count and the opMode has not been stopped
-
-                telemetry.addData("COUNTS", COUNTS);
-                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-                telemetry.update();
-            }
-
-            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
-        } else if (direction.equals("left")) { //if the desired direction is left
-
-            robot.setDriveMotorPower(-power, power, power, -power); //start strafing left
-
-            while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
-                //still greater than the desired count and the opMode has not been stopped
-
-                telemetry.addData("COUNTS", COUNTS);
-                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-                telemetry.update();
-            }
-
-            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stop the robot
-        }
-
-        robot.runWithoutEncoders(); //sets the mode back to run without encoder
-    }
-
     public void encodersMove(NostromoBotMotorDumper robot, double distance, double power, String direction) { //sets the parameters
 
         robot.resetEncoders(); //resets encoders
@@ -901,6 +835,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         robot.runWithoutEncoders(); //sets the mode back to run without encoder
     }
+
+
 
     /**
      * make the robot sleep (wait)

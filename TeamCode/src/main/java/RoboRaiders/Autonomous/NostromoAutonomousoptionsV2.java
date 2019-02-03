@@ -9,6 +9,7 @@ import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
@@ -21,7 +22,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean parkInCrater      = false;
     private boolean selectionsAreGood = false;
     private boolean sampling     = false;
-    public NostromoBot robot = new NostromoBot();
+    public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
 
 
