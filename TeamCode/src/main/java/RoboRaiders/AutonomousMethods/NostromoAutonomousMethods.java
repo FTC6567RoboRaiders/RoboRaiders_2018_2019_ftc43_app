@@ -546,7 +546,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         int goldPostion = -1;
         int numberofrecognized = 0;
         List<Recognition> updatedRecognitions = null;
-        double startSamplingTime = System.currentTimeMillis();
+
 
         CameraDevice.getInstance().setFlashTorchMode(true);
 
@@ -555,7 +555,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             //took out turning on the flash for the second time
             //took out a 1.5 second wait
-            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized < 2) {
+            double startSamplingTime = System.currentTimeMillis();
+            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 2500 && numberofrecognized < 2) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 updatedRecognitions = robot.tfod.getUpdatedRecognitions();
@@ -698,10 +699,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 50, .45, "right");
         robotSleep(500);
 
-        encodersMove(robot, 10, .5, "forward");
+        encodersMove(robot, 12, .5, "forward");
         robotSleep(500);
 
-        encodersMove(robot, 6, .5, "backward");
+        encodersMove(robot, 5, .5, "backward");
         robotSleep(500);
 
         imuTurn(robot, 50, .45, "left");
@@ -759,13 +760,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 95, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot,46,.5, "forward");
+        encodersMove(robot,40,.5, "forward");
         robotSleep(500);
 
         imuTurn(robot, 45, .45,"left");
         robotSleep(500);
 
-        encodersMove(robot,42,.5,"forward");
+        encodersMove(robot,25,.5,"forward");
         robotSleep(500);
     }
 
