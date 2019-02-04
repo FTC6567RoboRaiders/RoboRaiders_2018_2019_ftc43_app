@@ -421,17 +421,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
     public void DeployTeamMarker(NostromoBotMotorDumper robot) {
-        long t = System.currentTimeMillis();
+         /*long t = System.currentTimeMillis();
         long end = t + 500;
         while (System.currentTimeMillis() < end) {//up
             robot.motorDumpp.setPower(-0.7);
         }
-        robot.motorDumpp.setPower(0);
+        robot.motorDumpp.setPower(0); */
 
         robot.dumpWrist.setPosition(robot.dropTeamMarker);//put elbow down
-        robotSleep(500);
+        robotSleep(1000);
 
-        while (System.currentTimeMillis() < end) {//down
+         /*while (System.currentTimeMillis() < end) {//down
             robot.motorDumpp.setPower(0.7);
         }
         robot.motorDumpp.setPower(0);
@@ -440,7 +440,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             robot.motorDumpp.setPower(-0.7);
         }
         robot.motorDumpp.setPower(0);
-
+*/
         robot.dumpWrist.setPosition(robot.bringMarkerBack);
         robotSleep(500);
     }
@@ -509,7 +509,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurn(robot, 75, .45,"left");
         //robotSleep(200);
-        encodersMove(robot, 1, .6, "forward");
+        encodersMove(robot, 1, .4, "forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -571,10 +571,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
+                            telemetry.addData("goldConfidence:",recognition.getConfidence());
                         } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
+                            telemetry.addData("silverConfidence:",recognition.getConfidence());
                         } else {
                             silverMineral2X = (int) recognition.getLeft();
+                            telemetry.addData("silverConfidence:",recognition.getConfidence());
                         }
                     }
                     telemetry.addData("goldMineralX", String.valueOf(goldMineralX));
@@ -702,7 +705,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 29,.5,"forward");
         robotSleep(500);
 
-        imuTurn(robot, 45, .45, "left");
+        imuTurn(robot, 40, .45, "left");
         robotSleep(500);
 
         encodersMove(robot,42,.5,"forward");
@@ -732,7 +735,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 45, .45,"left");
         robotSleep(500);
 
-        encodersMove(robot,42,.5,"forward");
+        encodersMove(robot,30,.5,"forward");
         robotSleep(500);
 
     }
@@ -748,13 +751,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 3, 1.0, "backward");
         robotSleep(500);
 
-        imuTurn(robot, 95, .45, "left");
+        imuTurn(robot, 90, .45, "left");
         robotSleep(500);
 
         encodersMove(robot,40,.5, "forward");
         robotSleep(500);
 
-        imuTurn(robot, 40, .45,"left");
+        imuTurn(robot, 38, .45,"left");
         robotSleep(500);
 
         encodersMove(robot,25,.5,"forward");
