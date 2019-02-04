@@ -74,8 +74,8 @@ public class NostromoBotMotorDumper {
     public double intakeDoorClosed = 1.0;
     public double dumpWristDump = .1;
     public double dumpWristNotDump = 0.0;
-    public double dropTeamMarker = 1;
-    public double bringMarkerBack = 0;
+    public double dropTeamMarker = 1.0;
+    public double bringMarkerBack = 0.0;
     public double dumpTeamMarkerWristDump = 1.0;
     boolean robotDown;
 
@@ -168,6 +168,7 @@ public class NostromoBotMotorDumper {
         //slider.setPosition(0.5);
         intake.setPosition(0.5);
         intakeDoor.setPosition((intakeDoorClosed));
+        dumpWrist.setPosition(dumpWristNotDump);
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //will use them in teleop.
