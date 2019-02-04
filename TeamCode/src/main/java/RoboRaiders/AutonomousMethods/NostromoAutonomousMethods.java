@@ -518,7 +518,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurn(robot, 75, .45,"left");
         //robotSleep(200);
-        encodersMove(robot, 2, .6, "forward");
+        encodersMove(robot, 1, .6, "forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -528,10 +528,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 mineralLeftCrater(robot);
                 break;
             case 2:
-            case -1:
                 mineralCenterCrater(robot);
                 break;
             case 3:
+            case -1:
                 mineralRightCrater(robot);
                 break;
         }
@@ -695,19 +695,19 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //encodersMove(robot, 8, .5, "forward");
         //robotSleep(500);
 
-        imuTurn(robot, 75, .45, "right");
+        imuTurn(robot, 50, .45, "right");
         robotSleep(500);
 
-        encodersMove(robot, 7, .5, "forward");
+        encodersMove(robot, 10, .5, "forward");
         robotSleep(500);
 
-        encodersMove(robot, 5, .5, "backward");
+        encodersMove(robot, 6, .5, "backward");
         robotSleep(500);
 
-        imuTurn(robot, 100, .45, "left");
+        imuTurn(robot, 50, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot, 28,.5,"forward");
+        encodersMove(robot, 29,.5,"forward");
         robotSleep(500);
 
         imuTurn(robot, 45, .45, "left");
@@ -725,16 +725,16 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 90, .45, "right");
         robotSleep(500);
 
-        encodersMove(robot, 7, .5, "forward");
+        encodersMove(robot, 10, .5, "forward");
         robotSleep(500);
 
-        encodersMove(robot, 5, .5, "backward");
+        encodersMove(robot, 6, .5, "backward");
         robotSleep(500);
 
         imuTurn(robot, 90, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot, 62, .5, "forward");
+        encodersMove(robot, 48, .5, "forward");
         robotSleep(500);
 
         imuTurn(robot, 45, .45,"left");
