@@ -518,7 +518,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurn(robot, 75, .45,"left");
         //robotSleep(200);
-        encodersMove(robot, 3, .6, "forward");
+        encodersMove(robot, 2, .6, "forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
