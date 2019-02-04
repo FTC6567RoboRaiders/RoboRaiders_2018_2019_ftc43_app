@@ -153,7 +153,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
         }
 
         else if (collection <= -0.2){
-            robot.setLiftIntakePower(0.75);
+            robot.setLiftIntakePower(-0.75);
             //move collection down
         }
 
