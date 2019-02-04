@@ -539,7 +539,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         List<Recognition> updatedRecognitions = null;
 
 
-        CameraDevice.getInstance().setFlashTorchMode(true);
+        //CameraDevice.getInstance().setFlashTorchMode(true);
 
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
@@ -560,6 +560,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             }//while?
 
             if (updatedRecognitions == null) {
+                telemetry.addLine("updatedRecognitionsIsNull");
             } else {
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
 
