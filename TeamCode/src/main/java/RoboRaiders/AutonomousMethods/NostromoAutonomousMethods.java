@@ -421,38 +421,29 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
     public void DeployTeamMarker(NostromoBotMotorDumper robot) {
-       /* long t = System.currentTimeMillis();
-        long end = t + 500;
+        long t = System.currentTimeMillis();
+        long end = t + 300;
         while (System.currentTimeMillis() < end) {//up
-            robot.dumpp1.setPosition(robot.dumpdirection1);
-            robot.dumpp2.setPosition(robot.dumpdirection2);
-            robotSleep(500);
+            robot.motorDumpp.setPower(-0.7);
         }
-        robot.dumpp1.setPosition(robot.dumpdirectionstop);
-        robot.dumpp2.setPosition(robot.dumpdirectionstop);
+        robot.motorDumpp.setPower(0);
 
         robot.dumpWrist.setPosition(robot.dropTeamMarker);//put elbow down
         robotSleep(500);
 
         while (System.currentTimeMillis() < end) {//down
-            robot.dumpp1.setPosition(robot.dumpdirection1);
-            robot.dumpp2.setPosition(robot.dumpdirection2);
-            robotSleep(500);
+            robot.motorDumpp.setPower(0.7);
         }
-        robot.dumpp1.setPosition(robot.dumpdirectionstop);
-        robot.dumpp2.setPosition(robot.dumpdirectionstop);
+        robot.motorDumpp.setPower(0);
 
-        while (System.currentTimeMillis() < end){ //up
-            robot.dumpp1.setPosition(robot.dumpdirection1);
-            robot.dumpp2.setPosition(robot.dumpdirection2);
-            robotSleep(500);
+        while (System.currentTimeMillis() < end) { //up
+            robot.motorDumpp.setPower(-0.7);
         }
-        robot.dumpp1.setPosition(robot.dumpdirectionstop);
-        robot.dumpp2.setPosition(robot.dumpdirectionstop);
+        robot.motorDumpp.setPower(0);
 
         robot.dumpWrist.setPosition(robot.bringMarkerBack);
-        robotSleep(500);*/
-
+        robotSleep(500);
+    }
       /* robot.dumperUp();
        robotSleep(750);
        robot.dumperStop();
@@ -463,7 +454,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
        robot.dumpWrist.setPosition(robot.dumpWristNotDump);
        robot.dumperDown();
        robotSleep(1000);
-       robot.dumperStop();*/
+       robot.dumperStop();
 
 
         }
