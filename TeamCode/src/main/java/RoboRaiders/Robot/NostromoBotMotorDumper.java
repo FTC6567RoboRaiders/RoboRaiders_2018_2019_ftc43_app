@@ -74,8 +74,8 @@ public class NostromoBotMotorDumper {
     public double intakeDoorClosed = 1.0;
     public double dumpWristDump = .1;
     public double dumpWristNotDump = 0.0;
-    public double dropTeamMarker = 0.5;
-    public double bringMarkerBack = 0.1;
+    public double dropTeamMarker = 1;
+    public double bringMarkerBack = 0;
     public double dumpTeamMarkerWristDump = 1.0;
     boolean robotDown;
 

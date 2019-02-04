@@ -422,7 +422,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void DeployTeamMarker(NostromoBotMotorDumper robot) {
         long t = System.currentTimeMillis();
-        long end = t + 300;
+        long end = t + 500;
         while (System.currentTimeMillis() < end) {//up
             robot.motorDumpp.setPower(-0.7);
         }
