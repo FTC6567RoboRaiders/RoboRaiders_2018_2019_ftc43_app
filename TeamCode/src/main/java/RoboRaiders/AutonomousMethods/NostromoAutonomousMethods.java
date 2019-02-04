@@ -365,9 +365,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             while(opModeIsActive() && robot.getIntegratedZAxis() > finalHeading) {
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
-                telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
-                telemetry.update();
+                //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
+                //telemetry.update();
 
             }
         }
@@ -377,9 +377,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             while(opModeIsActive() && robot.getIntegratedZAxis() < finalHeading) {
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
-                telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
-                telemetry.update();
+                //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
+                //telemetry.update();
             }
         }
 
@@ -516,8 +516,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 4, .6, "forward");
         robotSleep(200);
 
-        imuTurn(robot, 90, .45,"left");
-        robotSleep(200);
+        imuTurn(robot, 75, .45,"left");
+        //robotSleep(200);
+        encodersMove(robot, 3, .6, "forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -554,7 +555,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             //took out turning on the flash for the second time
             //took out a 1.5 second wait
-            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized <= 2) {
+            while (opModeIsActive() && System.currentTimeMillis() - startSamplingTime <= 1500 && numberofrecognized < 2) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 updatedRecognitions = robot.tfod.getUpdatedRecognitions();
@@ -592,8 +593,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     // Did the robot not see the gold mineral    THIS IS CHANGED
                     if (goldMineralX == -1) {
 
-                        // Yes, indicate the gold mineral is on the left
-                        goldPostion = 1;
+                        // Yes, indicate the gold mineral is on the right
+                        goldPostion = 3;
                     }
                     // The robot saw a gold mineral find where it is
                     else {
@@ -601,12 +602,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                         // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
                         if (goldMineralX < 500) {
 
-                            // Yes, indicate the gold mineral is in the center
-                            goldPostion = 2;
+                            // Yes, indicate the gold mineral is in the left
+                            goldPostion = 1;
                         } else {
 
-                            // No, the gold mineral is on the right
-                            goldPostion = 3;
+                            // No, the gold mineral is on the center
+                            goldPostion = 2;
                         }
                     }
                 }
@@ -691,10 +692,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void  mineralLeftCrater(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 8, .5, "forward");
-        robotSleep(500);
+        //encodersMove(robot, 8, .5, "forward");
+        //robotSleep(500);
 
-        imuTurn(robot, 90, .45, "right");
+        imuTurn(robot, 75, .45, "right");
         robotSleep(500);
 
         encodersMove(robot, 7, .5, "forward");
@@ -799,9 +800,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             while (robot.getSortedEncoderCount() < COUNTS && opModeIsActive()) { //while the current count is
                 //still less than the desired count and the opMode has not been stopped
 
-                telemetry.addData("COUNTS", COUNTS);
-                telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
-                telemetry.update();
+                //telemetry.addData("COUNTS", COUNTS);
+                //telemetry.addData("Encoder Count", robot.getSortedEncoderCount());
+                //telemetry.update();
             }
 
             robot.setDriveMotorPower(0, 0, 0, 0); //stop the robot
