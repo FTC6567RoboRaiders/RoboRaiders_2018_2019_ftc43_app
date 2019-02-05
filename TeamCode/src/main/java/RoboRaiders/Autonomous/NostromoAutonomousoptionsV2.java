@@ -111,9 +111,9 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             } else {
                 telemetry.addData("Sorry!", "This device is not compatible with TFOD");
             }
-            if (robot.tfod != null) {
+            /*if (robot.tfod != null) {
                 robot.tfod.activate();
-            }
+            }*/
 
         }
 

@@ -539,10 +539,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         List<Recognition> updatedRecognitions = null;
 
 
-        //CameraDevice.getInstance().setFlashTorchMode(true);
+        CameraDevice.getInstance().setFlashTorchMode(true);
 
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
+
+            if (robot.tfod != null) {
+                robot.tfod.activate();
+            }
 
             //took out turning on the flash for the second time
             //took out a 1.5 second wait
