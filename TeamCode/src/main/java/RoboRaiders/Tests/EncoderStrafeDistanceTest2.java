@@ -1,6 +1,7 @@
 package RoboRaiders.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
@@ -8,7 +9,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 
 @Autonomous (name="Encoder Strafe Distance Test 2", group="Test")
-
+@Disabled
 /**
  * Created by Steve Kocik as a sample for RedStorm to build off of
  */

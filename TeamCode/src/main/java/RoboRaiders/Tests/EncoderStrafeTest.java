@@ -1,13 +1,14 @@
 package RoboRaiders.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import RoboRaiders.Robot.NostromoBot;
 
 
 @Autonomous (name="Encoder Strafe Test", group="Test")
-
+@Disabled
 /**
  * Created by Steve Kocik as a sample for RedStorm to build off of...
  */

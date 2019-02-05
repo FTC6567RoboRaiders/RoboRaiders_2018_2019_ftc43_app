@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "HubbotTest", group = "Hubbot")
-
+@Disabled
 
 public class HubBotTest extends LinearOpMode {
 

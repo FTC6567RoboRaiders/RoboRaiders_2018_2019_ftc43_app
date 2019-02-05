@@ -56,7 +56,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
  * is explained below.
  */
 @Autonomous(name = "Steeeves Tensorflow Test", group = "Test")
-
+@Disabled
 public class StevesTFTest extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";

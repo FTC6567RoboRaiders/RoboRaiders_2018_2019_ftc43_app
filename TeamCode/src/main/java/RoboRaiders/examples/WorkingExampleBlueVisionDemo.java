@@ -1,5 +1,6 @@
 package RoboRaiders.examples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -48,6 +49,7 @@ import RoboRaiders.Logger.Logger;
  * Additionally, the centers of the bounding rectangles of the contours are sent to telemetry.
  */
 @TeleOp(name="Example: Working Blue Vision Demo")
+@Disabled
 public class WorkingExampleBlueVisionDemo extends OpMode {
     private WorkingExampleBlueVision blueVision;
     private Logger l = new Logger("JQ");
