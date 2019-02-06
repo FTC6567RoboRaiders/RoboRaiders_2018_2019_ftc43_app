@@ -576,6 +576,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     int silverMineral1X = -1;
                     int silverMineral2X = -1;
                     for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData("Position", recognition.getLeft());
                         if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
                             telemetry.addData("goldConfidence:",recognition.getConfidence());
