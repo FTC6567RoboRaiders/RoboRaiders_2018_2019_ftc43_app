@@ -157,11 +157,9 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         }
         // Ending Parked in crater
         if (parkInCrater) {
-            parkFromCraterStart(robot);
+            if (startLocation){ parkFromCraterStart(robot); }
+            else { parkFromDepotStart(robot); }
         }
-        // Ending parked in depot
-        else {
-            parkFromDepotStart(robot);
-        }
+
     }
 }
