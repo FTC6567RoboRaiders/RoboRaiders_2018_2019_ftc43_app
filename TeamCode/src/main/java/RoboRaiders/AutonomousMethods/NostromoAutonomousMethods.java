@@ -280,14 +280,24 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void parkFromCraterStart(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 55, 0.8, "backward");
+        encodersMove(robot, 25, 0.8, "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         robotSleep(250);
 
-        encodersMove(robot, 5, 0.5, "backward");
+        imuTurn(robot, 10, .35, "left");
+        robotSleep(250);
+
+        encodersMove(robot, 10, 0.8, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
+        robotSleep(250);
+
+        encodersMove(robot, 10, 0.5, "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
@@ -716,25 +726,25 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 50, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot, 29,.5,"forward");
+        encodersMove(robot, 30,.5,"forward");
         robotSleep(500);
 
-        imuTurn(robot, 40, .45, "left");
+        imuTurn(robot, 42, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot,42,.5,"forward");
+        encodersMove(robot,38,.5,"forward");
         robotSleep(500);
     }
 
     public void mineralRightCrater(NostromoBotMotorDumper robot) {
 
-        imuTurn(robot, 110, .45, "right");
+        imuTurn(robot, 115, .45, "right");
         robotSleep(500);
 
         encodersMove(robot, 20, .5, "forward");
         robotSleep(500);
 
-        encodersMove(robot, 12, .5, "backward");
+        encodersMove(robot, 10, .5, "backward");
         robotSleep(500);
 
         imuTurn(robot, 110, .45, "left");
@@ -743,7 +753,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 48, .5, "forward");
         robotSleep(500);
 
-        imuTurn(robot, 45, .45,"left");
+        imuTurn(robot, 52, .45,"left");
         robotSleep(500);
 
         encodersMove(robot,30,.5,"forward");
@@ -753,7 +763,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterCrater(NostromoBotMotorDumper robot)  {
 
-        imuTurn(robot, 85,.45,"right");
+        imuTurn(robot, 82,.45,"right");
         robotSleep(200);
 
         encodersMove(robot, 10, .8, "forward");
@@ -762,13 +772,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 3, 1.0, "backward");
         robotSleep(500);
 
-        imuTurn(robot, 85, .45, "left");
+        imuTurn(robot, 82, .45, "left");
         robotSleep(500);
 
         encodersMove(robot,40,.5, "forward");
         robotSleep(500);
 
-        imuTurn(robot, 42, .45,"left");
+        imuTurn(robot, 45, .45,"left");
         robotSleep(500);
 
         encodersMove(robot,25,.5,"forward");
