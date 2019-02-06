@@ -280,7 +280,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void parkFromCraterStart(NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 68, 0.8, "backward");
+        encodersMove(robot, 55, 0.8, "backward");
+
+        rtd.displayRobotTelemetry("Moving");
+        rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
+        rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
+        robotSleep(250);
+
+        encodersMove(robot, 5, 0.5, "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
@@ -474,8 +481,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 90, .5, "left");
         robotSleep(200);
 
-        robotSleep(500);
-
         int goldLocation = detectGoldMineral(robot);
 
         telemetry.addLine().addData("Mineral Seen", String.valueOf(goldLocation));
@@ -540,6 +545,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         int numberofrecognized = 0;
         List<Recognition> updatedRecognitions = null;
 
+        robotSleep(500);
 
         CameraDevice.getInstance().setFlashTorchMode(true);
 
@@ -576,10 +582,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     int silverMineral1X = -1;
                     int silverMineral2X = -1;
                     for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData("Position", recognition.getLeft());
                         if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
                             telemetry.addData("goldConfidence:",recognition.getConfidence());
+                            telemetry.addData("Position", recognition.getLeft());
                         } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
                             telemetry.addData("silverConfidence:",recognition.getConfidence());
@@ -603,7 +609,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     else {
 
                         // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
-                        if (goldMineralX < 500) {
+                        if (goldMineralX < 250) {
 
                             // Yes, indicate the gold mineral is in the left
                             goldPostion = 1;
