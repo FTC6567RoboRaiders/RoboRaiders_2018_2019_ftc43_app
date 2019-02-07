@@ -307,8 +307,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void parkFromDepotStart(NostromoBotMotorDumper robot) {
 
-       encodersMove(robot, 54.5,.5,"backward");
+       encodersMove(robot, 48.0,.5,"backward");
        robotSleep(500);
+
+       imuTurn(robot, 5, .5, "right");
+
+       encodersMove(robot, 6, .5, "backward");
     }
 
 
@@ -495,8 +499,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         telemetry.addLine().addData("Mineral Seen", String.valueOf(goldLocation));
         telemetry.update();
 
-        imuTurn(robot, 90, .5, "right");
-        robotSleep(200);
 
         switch (goldLocation) {
 
@@ -645,13 +647,16 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralLeftDepot(NostromoBotMotorDumper robot) {
 
-        imuTurn(robot, 50, .45, "right"); //turn towards mineral
+        imuTurn(robot, 55, .45, "right"); //turn towards mineral
         robotSleep(500);
 
-        encodersMove(robot, 16, .5, "forward"); //push the mineral
+        encodersMove(robot, 36, .5, "forward"); //push the mineral
         robotSleep(500);
 
-        imuTurn(robot, 45, .45, "right"); //turn towards depot
+        encodersMove(robot, 3, .5, "backward"); //push the mineral
+        robotSleep(500);
+
+        imuTurn(robot, 60, .45, "right"); //turn towards depot
         robotSleep(500);
 
         encodersMove(robot, 6, .5, "forward"); //ready to deploy team marker
@@ -661,19 +666,19 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralRightDepot(NostromoBotMotorDumper robot) {
 
-        imuTurn(robot, 115, .45, "right"); //turn towards mineral
+        imuTurn(robot, 113, .45, "right"); //turn towards mineral
         robotSleep(500);
 
-        encodersMove(robot, 16, .5, "forward"); //push the mineral
+        encodersMove(robot, 30, .5, "forward"); //push the mineral
         robotSleep(500);
 
-        imuTurn(robot, 45, .45, "left"); //turn towards depot
+        imuTurn(robot, 75, .45, "left"); //turn towards depot
         robotSleep(500);
 
-        encodersMove(robot, 6, .5, "forward"); //ready to deploy team marker
+        encodersMove(robot, 28, .5, "forward"); //ready to deploy team marker
         robotSleep(500);
 
-        imuTurn(robot, 90, .45, "right"); //turn towards depot
+        imuTurn(robot, 85, .45, "right"); //turn towards depot
         robotSleep(500);
 
         encodersMove(robot, 6, .5, "backward"); //ready to deploy team marker
@@ -683,12 +688,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterDepot(NostromoBotMotorDumper robot)  {
 
-        imuTurn(robot,90,.45,"right");
+        imuTurn(robot,75,.45,"right");
 
-        encodersMove(robot, 18, .8, "forward");
+        encodersMove(robot, 48, .8, "forward");
         robotSleep(200);
 
-        imuTurn(robot,45,.45,"right");
+        imuTurn(robot,40,.45,"right");
         robotSleep(200);
 
         encodersMove(robot,15,.5,"backward");
