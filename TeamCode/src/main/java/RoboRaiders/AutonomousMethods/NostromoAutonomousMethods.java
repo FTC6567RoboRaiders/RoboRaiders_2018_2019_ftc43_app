@@ -664,6 +664,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
+
     public void mineralRightDepot(NostromoBotMotorDumper robot) {
 
         imuTurn(robot, 113, .45, "right"); //turn towards mineral
