@@ -195,9 +195,9 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
-            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
+            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
             prevStateLeftBumper1 = currStateLeftBumper1;
-            intakeDoorStatus = "Open";
+            intakeDoorStatus = "Closed";
         }
         else if (!currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
@@ -208,9 +208,9 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
 
-            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
+            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
             prevStateRightBumper1 = currStateRightBumper1;
-            intakeDoorStatus = "Closed";
+            intakeDoorStatus = "Open";
         }
         else if (!currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
 

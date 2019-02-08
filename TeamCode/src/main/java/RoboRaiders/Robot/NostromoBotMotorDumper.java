@@ -70,8 +70,8 @@ public class NostromoBotMotorDumper {
     public double sliderdirectionin = 0.0;
     public double liftIntakedirectionup = 1.0;
     public double liftIntakedirectiondown = 0.0;
-    public double intakeDoorOpen = 0.0;
-    public double intakeDoorClosed = 1.0;
+    public double intakeDoorClosed = 0.0;
+    public double intakeDoorOpen = 1.0;
     public double dumpWristDump = .1;
     public double dumpWristNotDump = 0.0;
     public double dropTeamMarker = 0.6;
