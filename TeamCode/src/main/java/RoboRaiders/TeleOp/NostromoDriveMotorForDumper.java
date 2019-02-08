@@ -253,12 +253,12 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("currStateDPadDown", currStateDPadDown);
 
         if (currStateDPadUp) {
-            robot.setMotorDrawerSlide(0.75);
-            sliderStatus = "slider out";
+            robot.setMotorDrawerSlide(-0.75);
+            sliderStatus = "slider in";
         }
         else if (currStateDPadDown) {
-            robot.setMotorDrawerSlide(-0.75);
-            sliderStatus = "slider in ";
+            robot.setMotorDrawerSlide(0.75);
+            sliderStatus = "slider out ";
         }
         else {
             robot.setMotorDrawerSlide(0.0);
