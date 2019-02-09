@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -123,6 +124,7 @@ public class StevesTFTest extends LinearOpMode {
         myLogger.Debug("Elapsed Time");
         myLogger.Debug("Vuforia: ",elapsedTimeInSecs);
 
+
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             startTimeInMillis = System.currentTimeMillis();
             initTfod();
@@ -137,46 +139,55 @@ public class StevesTFTest extends LinearOpMode {
 
         /** Wait for the game to begin */
         //rtd.displayRobotTelemetry("Press Start","To Begin");
+
+        if (tfod != null) {
+            startTimeInMillis = System.currentTimeMillis();
+            tfod.activate();
+            endTimeInMillis   = System.currentTimeMillis();
+            elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+            rtd.displayRobotTelemetry("TFObjectDetector Activate",String.valueOf(elapsedTimeInSecs));
+            myLogger.Debug("TFObjectDetector Active: ",elapsedTimeInSecs);
+        }
         waitForStart();
         myLogger.Debug("Robot Started");
 
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
-            if (tfod != null) {
-                startTimeInMillis = System.currentTimeMillis();
-                tfod.activate();
-                endTimeInMillis   = System.currentTimeMillis();
-                elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
-                rtd.displayRobotTelemetry("TFObjectDetector Activate",String.valueOf(elapsedTimeInSecs));
-                myLogger.Debug("TFObjectDetector Active: ",elapsedTimeInSecs);
-            }
+
 
             whileStartTimeInMillis = System.currentTimeMillis();
-            while (opModeIsActive() && (updatedRecognitions == null || numberOfRecognitions < 3)) {
+            CameraDevice.getInstance().setFlashTorchMode(true);
+            while (opModeIsActive()) { // && (updatedRecognitions == null || numberOfRecognitions < 3)) {
 
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
 
-                    startTimeInMillis = System.currentTimeMillis();
+              //      startTimeInMillis = System.currentTimeMillis();
                     updatedRecognitions = tfod.getUpdatedRecognitions();
-                    endTimeInMillis = System.currentTimeMillis();
-                    elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
-                    rtd.displayRobotTelemetry("TFObjectDetector Recognitions", String.valueOf(elapsedTimeInSecs));
+              //      endTimeInMillis = System.currentTimeMillis();
+              //      elapsedTimeInSecs = (double)(endTimeInMillis - startTimeInMillis) / 1000.0;
+              //      rtd.displayRobotTelemetry("TFObjectDetector Recognitions", String.valueOf(elapsedTimeInSecs));
                     if (updatedRecognitions == null) {
                         numberOfRecognitions = 0;
                     }
                     else {
                         numberOfRecognitions = updatedRecognitions.size();
                     }
-                    rtd.displayRobotTelemetry("Number of Objects", String.valueOf(numberOfRecognitions));
-                    myLogger.Debug("TFObjectDetector Recognitions: ",elapsedTimeInSecs);
-                    myLogger.Debug("Number of Objects: ",numberOfRecognitions);
+                    if (numberOfRecognitions > 0) {
+                        rtd.displayRobotTelemetry("Number of Objects", String.valueOf(numberOfRecognitions));
+                        for (Recognition recognition : updatedRecognitions) {
+                            rtd.displayRobotTelemetry("confidence", String.valueOf(recognition.getConfidence()));
+                        }
+
+                    }
+               //     myLogger.Debug("TFObjectDetector Recognitions: ",elapsedTimeInSecs);
+               //     myLogger.Debug("Number of Objects: ",numberOfRecognitions);
                 }
 
-                iterations++;
-                rtd.displayRobotTelemetry("interation #", String.valueOf(iterations));
-                myLogger.Debug("iteration #: ",iterations);
+              //  iterations++;
+             //   rtd.displayRobotTelemetry("interation #", String.valueOf(iterations));
+             //   myLogger.Debug("iteration #: ",iterations);
             }
             whileEndTimeInMillis = System.currentTimeMillis();
             whileElapsedTimeInSecs = (double)(whileEndTimeInMillis - whileStartTimeInMillis) / 1000.0;
@@ -277,6 +288,8 @@ public class StevesTFTest extends LinearOpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minimumConfidence = 0.80;
+
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }

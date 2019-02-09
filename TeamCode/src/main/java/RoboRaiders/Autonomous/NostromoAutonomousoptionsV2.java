@@ -154,12 +154,12 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         }*/
         // Are we claiming the depot
         if (claimDepot) {
-            DeployTeamMarker(robot);
+            DeployTeamMarker(robot, startLocation);
         }
         // Ending Parked in crater
         if (parkInCrater) {
-            if (startLocation){ parkFromCraterStart(robot); }
-            else { parkFromDepotStart(robot); }
+            if (startLocation){ parkFromCraterStart(robot); } // started crater side
+            else { parkFromDepotStart(robot); } // started depot side
         }
 
     }

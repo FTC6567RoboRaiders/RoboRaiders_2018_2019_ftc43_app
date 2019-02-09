@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import RoboRaiders.Robot.NostromoBot;
+import RoboRaiders.Robot.NostromoBotMotorDumper;
 
 /**
  *  Created by Steve Kocik
@@ -16,7 +17,7 @@ import RoboRaiders.Robot.NostromoBot;
 
 public class PositionServo extends OpMode {
 
-    public NostromoBot robot = new NostromoBot();
+    public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
     /* Define variables */
     float LeftBack;   // Power for left back motor
