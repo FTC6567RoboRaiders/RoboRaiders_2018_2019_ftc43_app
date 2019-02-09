@@ -497,7 +497,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurn(robot, 75, .45,"left");
         //robotSleep(200);
-        encodersMove(robot, 1, .4, "forward");
+        encodersMove(robot, 2, .4, "forward");
 
 
         int goldLocation = detectGoldMineral(robot);
@@ -533,7 +533,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurn(robot, 75, .45,"left");
         //robotSleep(200);
-        encodersMove(robot, 1, .4, "forward");
+        encodersMove(robot, 2, .4, "forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -685,7 +685,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 28, .5, "forward"); //ready to deploy team marker
         robotSleep(500);
 
-        imuTurn(robot, 85, .45, "right"); //turn towards depot
+        imuTurn(robot, 70, .45, "right"); //turn towards depot
         robotSleep(500);
 
         encodersMove(robot, 6, .5, "backward"); //ready to deploy team marker
@@ -732,35 +732,35 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 27,.5,"forward");
         robotSleep(250);
 
-        imuTurn(robot, 48, .45, "left");
+        imuTurn(robot, 41, .45, "left");
         robotSleep(250);
 
-        encodersMove(robot,38,.5,"forward");
+        encodersMove(robot,30,.5,"forward");
         robotSleep(250);
     }
 
     public void mineralRightCrater(NostromoBotMotorDumper robot) {
 
         imuTurn(robot, 115, .45, "right");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot, 20, .5, "forward");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot, 10, .5, "backward");
-        robotSleep(500);
+        robotSleep(250);
 
         imuTurn(robot, 110, .45, "left");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot, 40, .5, "forward");
-        robotSleep(500);
+        robotSleep(250);
 
         imuTurn(robot, 56, .45,"left");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot,30,.5,"forward");
-        robotSleep(500);
+        robotSleep(250);
 
     }
 
@@ -770,22 +770,22 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(200);
 
         encodersMove(robot, 10, .8, "forward");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot, 3, 1.0, "backward");
-        robotSleep(500);
+        robotSleep(250);
 
         imuTurn(robot, 82, .45, "left");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot,36,.5, "forward");
-        robotSleep(500);
+        robotSleep(250);
 
         imuTurn(robot, 45, .45,"left");
-        robotSleep(500);
+        robotSleep(250);
 
         encodersMove(robot,25,.5,"forward");
-        robotSleep(500);
+        robotSleep(250);
     }
 
 
