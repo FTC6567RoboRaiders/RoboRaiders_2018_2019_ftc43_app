@@ -70,8 +70,8 @@ public class NostromoBotMotorDumper {
     public double sliderdirectionin = 0.0;
     public double liftIntakedirectionup = 1.0;
     public double liftIntakedirectiondown = 0.0;
-    public double intakeDoorOpen = 0.0;
-    public double intakeDoorClosed = 1.0;
+    public double intakeDoorClosed = 0.0;
+    public double intakeDoorOpen = 1.0;
     public double dumpWristDump = .1;
     public double dumpWristNotDump = 0.0;
     public double dropTeamMarker = 0.6;
@@ -414,7 +414,7 @@ public class NostromoBotMotorDumper {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hwMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minimumConfidence = 0.70;
+        tfodParameters.minimumConfidence = 0.700;
 
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);

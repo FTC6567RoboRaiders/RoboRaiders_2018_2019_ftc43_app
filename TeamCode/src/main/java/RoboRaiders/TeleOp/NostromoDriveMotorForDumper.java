@@ -195,9 +195,9 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
-            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
+            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
             prevStateLeftBumper1 = currStateLeftBumper1;
-            intakeDoorStatus = "Open";
+            intakeDoorStatus = "Closed";
         }
         else if (!currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
@@ -208,9 +208,9 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
 
-            robot.intakeDoor.setPosition(robot.intakeDoorClosed);
+            robot.intakeDoor.setPosition(robot.intakeDoorOpen);
             prevStateRightBumper1 = currStateRightBumper1;
-            intakeDoorStatus = "Closed";
+            intakeDoorStatus = "Open";
         }
         else if (!currStateRightBumper1 && currStateRightBumper1 != prevStateRightBumper1) {
 
@@ -253,12 +253,12 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("currStateDPadDown", currStateDPadDown);
 
         if (currStateDPadUp) {
-            robot.setMotorDrawerSlide(0.75);
-            sliderStatus = "slider out";
+            robot.setMotorDrawerSlide(-0.75);
+            sliderStatus = "slider in";
         }
         else if (currStateDPadDown) {
-            robot.setMotorDrawerSlide(-0.75);
-            sliderStatus = "slider in ";
+            robot.setMotorDrawerSlide(0.75);
+            sliderStatus = "slider out ";
         }
         else {
             robot.setMotorDrawerSlide(0.0);
@@ -350,7 +350,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currStateA) {
             //robot.dumperUp();
-            robot.setMotorDumppPower(-0.7);
+            robot.setMotorDumppPower(-0.6);  // was 0.7
             robot.dumpWrist.setPosition(robot.dumpWristDump);
             dumperStatus = "Up?";
 
