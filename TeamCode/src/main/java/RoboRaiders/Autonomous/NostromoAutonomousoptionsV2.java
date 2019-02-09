@@ -118,7 +118,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
         }
 
 
-        // Wait for start to be pushed
+        // Wait for start to be pushed.
         waitForStart();
 
         // Deploy From Lander

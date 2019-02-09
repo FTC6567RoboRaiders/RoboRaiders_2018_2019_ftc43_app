@@ -449,6 +449,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         }
         robot.motorDumpp.setPower(0); */
 
+        imuTurn(robot, 520, .5, "right");
+
         robot.dumpWrist.setPosition(robot.dropTeamMarker);//put elbow down
         robotSleep(1000);
 
@@ -461,10 +463,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             robot.motorDumpp.setPower(-0.7);
         }
         robot.motorDumpp.setPower(0);
-*/
+        */
         robot.dumpWrist.setPosition(robot.bringMarkerBack);
         robotSleep(500);
+
+        imuTurn(robot, 20, .5, "left");
+
     }
+
       /* robot.dumperUp();
        robotSleep(750);
        robot.dumperStop();
@@ -747,7 +753,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurn(robot, 110, .45, "left");
         robotSleep(500);
 
-        encodersMove(robot, 48, .5, "forward");
+        encodersMove(robot, 45, .5, "forward");
         robotSleep(500);
 
         imuTurn(robot, 52, .45,"left");
