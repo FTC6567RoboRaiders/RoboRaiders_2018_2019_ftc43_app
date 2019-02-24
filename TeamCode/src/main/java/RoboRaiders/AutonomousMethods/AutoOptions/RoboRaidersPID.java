@@ -30,6 +30,8 @@ public class RoboRaidersPID {
 
     public double CalculatePIDPowers(double Target, double currentValueFromSensor) {
 
+        Target = Math.abs(Target);
+
         currentTime = (double)System.currentTimeMillis();
         timeChange = currentTime - previous_time;
 

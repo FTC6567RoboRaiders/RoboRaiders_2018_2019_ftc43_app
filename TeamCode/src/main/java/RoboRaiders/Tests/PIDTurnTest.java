@@ -1,11 +1,13 @@
 package RoboRaiders.Tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.PidUdpReceiver;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
-
+@Autonomous
 public class PIDTurnTest extends NostromoAutonomousMethods {
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
@@ -24,7 +26,7 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
     public void runOpMode() throws InterruptedException {
 
         // Create new instance of robot telemetry display
-        rtd = new RobotTelemetryDisplay(this,"Nostromo");
+        //rtd = new RobotTelemetryDisplay(this,"Nostromo");
 
         // Create new instance of receiver
         pidUdpReceiver = new PidUdpReceiver();
@@ -45,13 +47,13 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
         // Wait for start to be pushed
         waitForStart();
 
-        while (opModeIsActive()) {
+        if (opModeIsActive()) {
 
             updatePIDCoefficients();
 
             rrPID.setCoeffecients(kP,kI,kD);
 
-            imuTurnWithPID(robot, rrPID, 90, "right");
+            imuTurnWithPID(robot, rrPID, 90, String.valueOf("right"));
         }
 
         pidUdpReceiver.shutdown();
@@ -63,7 +65,7 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
         kI = pidUdpReceiver.getI();
         kD = pidUdpReceiver.getD();
 
-        rtd.displayRobotTelemetry("kP",String.valueOf(kP));
+        //rtd.displayRobotTelemetry("kP",String.valueOf(kP));
     }
 }
 

@@ -433,6 +433,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
                 //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 //telemetry.update();
+                telemetry.addLine().addData("right", "right");
+                telemetry.addLine().addData("IntZ",String.valueOf(robot.getIntegratedZAxis()));
+                telemetry.addLine().addData("finalHeading",String.valueOf(finalHeading));
+                telemetry.addLine().addData("difference",String.valueOf(finalHeading - robot.getIntegratedZAxis()));
+                telemetry.update();
 
             }
         }
@@ -446,8 +451,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
                 //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
-                //telemetry.update();
+                telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
+                telemetry.addLine().addData("finalHeading",String.valueOf(finalHeading));
+                telemetry.addLine().addData("difference",String.valueOf(finalHeading - robot.getIntegratedZAxis()));
+                telemetry.update();
             }
         }
 
