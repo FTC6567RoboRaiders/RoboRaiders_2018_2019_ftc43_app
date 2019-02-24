@@ -3,15 +3,16 @@ package RoboRaiders.AutonomousMethods.AutoOptions;
 public class RoboRaidersPID {
 
 
-    public double Kp = 0.001;
-    public double Ki = 0.0;
-    public double Kd = 0.0;
+    //public double Kp = 0.001;
+    //public double Ki = 0.0;
+    //public double Kd = 0.0;
     //public double Kd = 0.00009;
     public double error;
     public double integral;
     public double derivative;
     public double previous_error;
     public double power;
+    private double kp,ki,kd;
 
     private double currentTime;
     private double previous_time = 0;
@@ -19,7 +20,30 @@ public class RoboRaidersPID {
 
 
 
+    public void setCoeffecients(double Kp, double Ki, double Kd) {
+        kp = Kp;
+        ki = Ki;
+        kd = Kd;
+    }
 
+
+
+    public double CalculatePIDPowers(double Target, double currentValueFromSensor) {
+
+        currentTime = (double)System.currentTimeMillis();
+        timeChange = currentTime - previous_time;
+
+        error = (Target) - (currentValueFromSensor);
+        integral = integral + (error * timeChange);
+        derivative = (error - previous_error) / timeChange;
+        previous_error = error;
+        power = (kp * error) + (ki * integral) + (kd * derivative);
+
+        previous_time = (double) System.currentTimeMillis();
+        return power;
+    }
+
+    /*
     public double pidWithCounts(double Target, double Sensor) {
 
         currentTime = (double)System.currentTimeMillis();
@@ -31,9 +55,9 @@ public class RoboRaidersPID {
         if (error == 0) {
             integral = 0;
         }
-       /* if (Math.abs(error) > 100) {
-            integral = 0;
-        }*/
+       // if (Math.abs(error) > 100) {
+            //integral = 0;
+        //}
         derivative = (error - previous_error) / timeChange;
         previous_error = error;
         power = (Kp * error) + (Ki * integral) + (Kd * derivative);
@@ -43,6 +67,7 @@ public class RoboRaidersPID {
 
 
     }
+    */
 
     /**
      * Will re-initialize variables
@@ -74,7 +99,7 @@ public class RoboRaidersPID {
          }
          derivative = (error - previous_error) / timeChange;
          previous_error = error;
-         power = Kp * error + Ki * integral + Kd * derivative;
+         power = kp * error + ki * integral + kd * derivative;
 
 
          return power;
@@ -84,7 +109,7 @@ public class RoboRaidersPID {
         timeChange = integral + (error * timeChange);
 
 
-        power = Kp * error + Ki * integral + Kd * derivative;
+        power = kp * error + ki * integral + kd * derivative;
         previous_time = (double) System.currentTimeMillis();
         return power;
     }
