@@ -9,10 +9,10 @@ import RoboRaiders.Robot.PidUdpReceiver;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
-@Disabled
+
 public class StevesPIDTuner extends NostromoAutonomousMethods{
 
-    public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
+   // public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
 
     private PidUdpReceiver pidUdpReceiver;
@@ -37,7 +37,7 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
         pidUdpReceiver.beginListening();
 
         // initialize the robot
-        robot.initialize(hardwareMap);
+     //   robot.initialize(hardwareMap);
 
         // set the transmission interval to 50 milliseconds
         telemetry.setMsTransmissionInterval(50);
@@ -55,6 +55,8 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
             rtd.displayRobotTelemetry("ki", String.valueOf(kI));
             rtd.displayRobotTelemetry("kD", String.valueOf(kD));
         }
+
+        pidUdpReceiver.shutdown();
     }
 
     public void updatePIDCoefficients() {
@@ -62,5 +64,7 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
         kP = pidUdpReceiver.getP();
         kI = pidUdpReceiver.getI();
         kD = pidUdpReceiver.getD();
+
+        rtd.displayRobotTelemetry("kP",String.valueOf(kP));
     }
 }
