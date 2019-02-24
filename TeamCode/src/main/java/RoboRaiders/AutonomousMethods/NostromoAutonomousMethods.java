@@ -440,6 +440,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 telemetry.update();
 
             }
+
         }
         else { //if the desired direction is left
             finalHeading = currentHeading + degreesToTurn;
