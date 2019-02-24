@@ -409,6 +409,53 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
     }
 
+    public void imuTurnWithPID(NostromoBotMotorDumper robot, RoboRaidersPID rrPID, float degreesToTurn, String direction) { //gets hardware from
+        double power;
+        //Robot and defines degrees as a
+        //float, power as a double, and direction as a string
+        //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
+        currentHeading = robot.getIntegratedZAxis();
+        //finalHeading = currentHeading + degreesToTurn;
+        //telemetry.update();
+
+        // robot.getHeading(); returns the current heading of the IMU
+
+        if (direction.equals("right")) { //if the desired direction is right
+            finalHeading = currentHeading - degreesToTurn;
+            power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
+            robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
+            while(opModeIsActive() && robot.getIntegratedZAxis() > finalHeading) {
+                power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
+                robot.setDriveMotorPower(power, -power, power, -power);
+                //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                //currentHeading = robot.getIntegratedZAxis();
+                //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
+                //telemetry.update();
+
+            }
+        }
+        else { //if the desired direction is left
+            finalHeading = currentHeading + degreesToTurn;
+            power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
+            robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
+            while(opModeIsActive() && robot.getIntegratedZAxis() < finalHeading) {
+                power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
+                robot.setDriveMotorPower(-power, power, -power, power);
+                //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                //currentHeading = robot.getIntegratedZAxis();
+                //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
+                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
+                //telemetry.update();
+            }
+        }
+
+
+        robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
+    }
+
+
 
     public void DeployRobot(NostromoBotMotorDumper robot) {
 

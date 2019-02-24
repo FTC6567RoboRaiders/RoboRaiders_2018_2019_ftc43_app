@@ -43,7 +43,7 @@ public class RoboRaidersPID {
         return power;
     }
 
-    /*
+
     public double pidWithCounts(double Target, double Sensor) {
 
         currentTime = (double)System.currentTimeMillis();
@@ -60,14 +60,14 @@ public class RoboRaidersPID {
         //}
         derivative = (error - previous_error) / timeChange;
         previous_error = error;
-        power = (Kp * error) + (Ki * integral) + (Kd * derivative);
+        power = (kp * error) + (ki * integral) + (kd * derivative);
 
         previous_time = (double) System.currentTimeMillis();
         return power;
 
 
     }
-    */
+
 
     /**
      * Will re-initialize variables
