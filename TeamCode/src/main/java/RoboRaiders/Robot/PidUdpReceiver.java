@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 public class PidUdpReceiver
 {
     private int port;
-    private double p, i, d;
+    private double p, i, d, degrees, direction;
     private Thread backgroundThread;
 
     public PidUdpReceiver(int port)
@@ -61,12 +61,22 @@ public class PidUdpReceiver
         return d;
     }
 
+    public synchronized double getDegrees()
+    {
+        return degrees;
+    }
+
+    public synchronized double getDirection()
+    {
+        return direction;
+    }
+
     private void listen()
     {
         try
         {
             DatagramSocket serverSocket = new DatagramSocket(port);
-            byte[] packet = new byte[24];
+            byte[] packet = new byte[40];
 
             System.out.printf("Listening on udp:%s:%d%n", InetAddress.getLocalHost().getHostAddress(), port);
             DatagramPacket receivePacket = new DatagramPacket(packet, packet.length);
@@ -78,14 +88,20 @@ public class PidUdpReceiver
                 byte[] pVal = new byte[8];
                 byte[] iVal = new byte[8];
                 byte[] dVal = new byte[8];
+                byte[] degVal = new byte[8];
+                byte[] dirVal = new byte[8];
 
                 System.arraycopy(packet, 0, pVal, 0, 8);
                 System.arraycopy(packet, 8, iVal, 0, 8);
                 System.arraycopy(packet, 16, dVal, 0, 8);
+                System.arraycopy(packet, 24, degVal, 0, 8);
+                System.arraycopy(packet, 32, dirVal, 0, 8);
 
                 p = toDouble(pVal);
                 i = toDouble(iVal);
                 d = toDouble(dVal);
+                degrees = toDouble(degVal);
+                direction = toDouble(dirVal);
             }
 
             serverSocket.close();

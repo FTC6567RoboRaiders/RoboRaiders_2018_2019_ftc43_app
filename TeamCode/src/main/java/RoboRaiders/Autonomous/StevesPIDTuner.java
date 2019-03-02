@@ -17,7 +17,7 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
 
     private PidUdpReceiver pidUdpReceiver;
     private RobotTelemetryDisplay rtd;
-    private double kP, kI, kD;
+    private double kP, kI, kD, degrees, direction;
 
 
     //----------------------------------------------------------------------------------------------
@@ -54,6 +54,10 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
             rtd.displayRobotTelemetry("kP", String.valueOf(kP));
             rtd.displayRobotTelemetry("ki", String.valueOf(kI));
             rtd.displayRobotTelemetry("kD", String.valueOf(kD));
+            rtd.displayRobotTelemetry("Degrees", String.valueOf(degrees));
+
+            if (direction == 0.0) {rtd.displayRobotTelemetry("Turn Direction","Right");}
+            else {rtd.displayRobotTelemetry("Turn Direction","Left");}
         }
 
         pidUdpReceiver.shutdown();
@@ -64,7 +68,7 @@ public class StevesPIDTuner extends NostromoAutonomousMethods{
         kP = pidUdpReceiver.getP();
         kI = pidUdpReceiver.getI();
         kD = pidUdpReceiver.getD();
-
-        rtd.displayRobotTelemetry("kP",String.valueOf(kP));
+        degrees = pidUdpReceiver.getDegrees();
+        direction = pidUdpReceiver.getDirection();
     }
 }
