@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.AutoOptions;
+import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
@@ -23,6 +24,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean selectionsAreGood = false;
     private boolean sampling     = false;
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
+    public RoboRaidersPID robotPID = new RoboRaidersPID();
 
 
 
@@ -128,7 +130,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
         if (sampling){//asking if sampling
             if (startLocation){//are we starting from the crater?
-                samplingMineralsCrater(robot);
+                samplingMineralsCrater(robotPID, robot);
             }
             else {
                 samplingMineralsDepot(robot);

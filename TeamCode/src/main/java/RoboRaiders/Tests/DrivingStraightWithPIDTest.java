@@ -54,7 +54,7 @@ public class DrivingStraightWithPIDTest extends NostromoAutonomousMethods {
 
             rrPID.setCoeffecients(kP,kI,kD);
 
-            EncoderDrivePID(rrPID, robot,degrees);
+            EncoderDrivePID(rrPID, robot, degrees, direction);
         }
 
         pidUdpReceiver.shutdown();
