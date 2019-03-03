@@ -318,16 +318,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
     public void EncoderDrivePID(RoboRaidersPID robotPID, NostromoBotMotorDumper robot, double wantedDistance) {
+
+
         robot.resetEncoders();
         robot.runWithEncoders();
         robotPID.initialize();   // re-initialized the pid variables that we care about
 
         double EncoderCount = robot.calculateCOUNTS(wantedDistance);
         double currentEncoderCount = robot.getSortedEncoderCount();
-        while (opModeIsActive() &&
-                (currentEncoderCount <= EncoderCount - 30.0 || currentEncoderCount >= EncoderCount + 30.0)) {
-
-            motor_power = robotPID.pidWithCounts(EncoderCount, robot.getSortedEncoderCount());
+        while (opModeIsActive() && (currentEncoderCount <= EncoderCount || currentEncoderCount >= EncoderCount ))
+                {
+            motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
             robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
             currentEncoderCount = robot.getSortedEncoderCount();
 
