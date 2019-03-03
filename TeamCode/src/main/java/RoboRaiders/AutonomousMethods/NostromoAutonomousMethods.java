@@ -440,6 +440,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 telemetry.update();
 
             }
+            robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
 
         }
         else { //if the desired direction is left

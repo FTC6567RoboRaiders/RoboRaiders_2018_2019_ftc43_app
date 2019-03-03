@@ -15,7 +15,7 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
     private PidUdpReceiver pidUdpReceiver;
     private RoboRaidersPID rrPID;
     private RobotTelemetryDisplay rtd;
-    private double kP, kI, kD;
+    private double kP, kI, kD, direction, degrees;
 
 
     //----------------------------------------------------------------------------------------------
@@ -53,7 +53,12 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
 
             rrPID.setCoeffecients(kP,kI,kD);
 
-            imuTurnWithPID(robot, rrPID, 90, String.valueOf("right"));
+            if (direction == 0.0){
+                imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("right"));
+            }
+            else{
+                imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("left"));
+            }
         }
 
         pidUdpReceiver.shutdown();
@@ -65,6 +70,8 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
         kP = pidUdpReceiver.getP();
         kI = pidUdpReceiver.getI();
         kD = pidUdpReceiver.getD();
+        direction = pidUdpReceiver.getDirection();
+        degrees = pidUdpReceiver.getDegrees();
 
         //rtd.displayRobotTelemetry("kP",String.valueOf(kP));
     }
