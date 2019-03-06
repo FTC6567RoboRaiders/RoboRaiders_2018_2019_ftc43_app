@@ -564,6 +564,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMineralsDepot(NostromoBotMotorDumper robot) {
 
+
         encodersMove(robot, 2, .6, "forward");
         robotSleep(200);
 
