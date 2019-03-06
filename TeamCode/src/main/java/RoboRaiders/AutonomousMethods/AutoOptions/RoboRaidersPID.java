@@ -18,6 +18,10 @@ public class RoboRaidersPID {
     private double previous_time = 0;
     private double timeChange;
 
+    public RoboRaidersPID (double Kp, double Ki, double Kd) {
+        this.setCoeffecients(Kp, Ki, Kd);
+    }
+
 
 
     public void setCoeffecients(double Kp, double Ki, double Kd) {
