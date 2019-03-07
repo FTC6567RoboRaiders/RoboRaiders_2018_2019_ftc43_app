@@ -316,8 +316,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
        encodersMove(robot, 6, .5, "backward");
     }
 
-
-    public void EncoderDrivePID(RoboRaidersPID robotPID, NostromoBotMotorDumper robot, double wantedDistance, double direction) {
+    /**
+     * Tuner method to tune the PID variables for driving straight
+     * @param robotPID
+     * @param robot
+     * @param wantedDistance
+     * @param direction
+     */
+    public void encoderDrivePIDTuner(RoboRaidersPID robotPID, NostromoBotMotorDumper robot, double wantedDistance, double direction) {
 
 
         robot.resetEncoders();
@@ -420,15 +426,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
     }
 
-    public void imuTurnWithPID(NostromoBotMotorDumper robot, RoboRaidersPID rrPID, float degreesToTurn, String direction) { //gets hardware from
+    /**
+     * turning with PID
+     * @param robot
+     * @param rrPID
+     * @param degreesToTurn
+     * @param direction
+     */
+    public void imuTurnPID(RoboRaidersPID rrPID, NostromoBotMotorDumper robot, float degreesToTurn, String direction) { //gets hardware from
         double power;
-        //Robot and defines degrees as a
-        //float, power as a double, and direction as a string
-        //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        //telemetry.addLine().addData("degreesToTurn",String.valueOf(degreesToTurn));
+
         currentHeading = robot.getIntegratedZAxis();
-        //finalHeading = currentHeading + degreesToTurn;
-        //telemetry.update();
 
         // robot.getHeading(); returns the current heading of the IMU
 
@@ -441,9 +449,6 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 robot.setDriveMotorPower(power, -power, power, -power);
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
-                //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
-                //telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
-                //telemetry.update();
                 telemetry.addLine().addData("right", "right");
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.getIntegratedZAxis()));
                 telemetry.addLine().addData("finalHeading",String.valueOf(finalHeading));
@@ -476,36 +481,31 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     }
 
 
-
+    /**
+     * This will lower the robot from the lander and opens the claw
+     * @param robot
+     */
     public void DeployRobot(NostromoBotMotorDumper robot) {
 
         double startDeployTime = System.currentTimeMillis();
+        //lower at full power until either the touch sensor is touched, or 1.5 seconds is elapsed
 
         robot.setLiftMotorPower(-0.95);
         while (opModeIsActive() && System.currentTimeMillis() - startDeployTime < 1500 && !robot.sensorTouch.isPressed()) {
-
         }
 
-        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 1500 && System.currentTimeMillis() - startDeployTime < 5000 && !robot.sensorTouch.isPressed()) {
+        //as long as its after 1.5 seconds, less than 5 seconds, and the touch sensor isn't pressed, go at half speed down
+        while (opModeIsActive() && System.currentTimeMillis() - startDeployTime >= 1500 &&
+                System.currentTimeMillis() - startDeployTime < 5000 && !robot.sensorTouch.isPressed()) {
             robot.setLiftMotorPower(-.45);
         }
 
-
-        //while (opModeIsActive() && !robot.sensorTouch.isPressed() && System.currentTimeMillis()-startDeployTime < 7800) {
-        // System.currentTimeMillis()-startDeployTime is the elapsed time (the current time minus the start time)
-        //}
-
         robot.setLiftMotorPower(0);
 
-        //robotSleep (250);
-
-        //encodersMove(robot, 1.5, .5, "backward");
-
-        robotSleep(500);
-
         robot.liftClaw.setPosition(robot.liftClawOpen);
-
+        //open that claw
         robotSleep(1200);
+        //Maybe we can eliminate this sleep
 
     }
 
@@ -543,33 +543,20 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-      /* robot.dumperUp();
-       robotSleep(750);
-       robot.dumperStop();
-
-       robot.dumpWrist.setPosition(robot.dumpTeamMarkerWristDump);
-       robotSleep(500);
-
-       robot.dumpWrist.setPosition(robot.dumpWristNotDump);
-       robot.dumperDown();
-       robotSleep(1000);
-       robot.dumperStop();
-
-
-        }
     /**
-     * Will detect the location of the gold mineral
-     *
-     * @param robot - the robot to work with
+     * * Will detect the location of the gold mineral
+     * @param drivePID
+     * @param turningPID
+     * @param robot
      */
-    public void samplingMineralsDepot(NostromoBotMotorDumper robot) {
+    public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turningPID, NostromoBotMotorDumper robot) {
 
 
-        encodersMove(robot, 2, .6, "forward");
-        robotSleep(200);
+        encodersMovePID(drivePID, robot, 2, "forward");
+        //robotSleep(200);
 
         imuTurn(robot, 75, .45,"left");
-        //robotSleep(200);
+
         encodersMove(robot, 2, .4, "forward");
 
 
@@ -594,19 +581,21 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         }
     }
-    /**
-     * Will detect the location of the gold mineral
-     *
-     * @param robot - the robot to work with
-     */
-    public void samplingMineralsCrater(RoboRaidersPID robotPID, NostromoBotMotorDumper robot) {
 
-        EncoderDrivePID(robotPID, robot, 2, 0.0);
+    /**
+     * * Will detect the location of the gold mineral
+     * @param drivePID
+     * @param turnPID
+     * @param robot
+     */
+    public void samplingMineralsCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
+
+        EncoderDrivePID(drivePID, robot, 2, 0.0);
         robotSleep(200);
 
-        imuTurnWithPID(robot, robotPID, 75, 1.0);
-        //robotSleep(200);
-        EncoderDrivePID(robotPID, robot, 2,  0.0);
+        imuTurnPID(robot, turnPID, 75, 1.0);
+
+        EncoderDrivePID(drivePID, robot, 2,  0.0);
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -943,6 +932,41 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         }
 
         robot.runWithoutEncoders(); //sets the mode back to run without encoder
+    }
+
+    /**
+     * Tuner method to tune the PID variables for driving straight
+     * @param robotPID
+     * @param robot
+     * @param distance
+     * @param direction- "forward" drive forward, "backward" drive backwards
+     */
+    public void encodersMovePID(RoboRaidersPID robotPID, NostromoBotMotorDumper robot, double distance, String direction) {
+
+
+        robot.resetEncoders();
+        robot.runWithEncoders();
+        robotPID.initialize();   // re-initialized the pid variables that we care about
+
+        double EncoderCount = Math.abs(robot.calculateCOUNTS(distance));
+        double currentEncoderCount = robot.getSortedEncoderCount(); //we need to play with a range
+        if (direction.equals("forward")) {
+            while (opModeIsActive() && (currentEncoderCount <= EncoderCount || currentEncoderCount >= EncoderCount ))
+            {
+                motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
+                robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
+                currentEncoderCount = robot.getSortedEncoderCount();
+            }
+
+        }
+        else {
+            while (opModeIsActive() && (currentEncoderCount <= EncoderCount || currentEncoderCount >= EncoderCount ))
+            {
+                motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
+                robot.setDriveMotorPower(-motor_power, -motor_power, -motor_power, -motor_power);
+                currentEncoderCount = robot.getSortedEncoderCount();
+            }
+        }
     }
 
 

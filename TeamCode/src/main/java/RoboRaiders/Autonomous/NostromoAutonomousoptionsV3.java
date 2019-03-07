@@ -23,7 +23,7 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
     private boolean sampling     = false;
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
     public RoboRaidersPID turningPID = new RoboRaidersPID(0.02,0.0,0.1);
-    public RoboRaidersPID straightPID = new RoboRaidersPID(0.002,0.0,0.005);
+    public RoboRaidersPID drivePID = new RoboRaidersPID(0.002,0.0,0.005);
 
 
 
@@ -127,10 +127,10 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
 
         if (sampling){//asking if sampling
             if (startLocation){//are we starting from the crater?
-                samplingMineralsCrater(robot);
+                samplingMineralsCrater(drivePID, turningPID, robot);
             }
             else {
-                samplingMineralsDepot(robot);
+                samplingMineralsDepot(drivePID, turningPID, robot);
             }
         }
         else{
