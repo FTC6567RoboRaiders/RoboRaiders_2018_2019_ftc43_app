@@ -442,10 +442,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         if (direction.equals("right")) { //if the desired direction is right
             finalHeading = currentHeading - degreesToTurn;
-            power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
+            telemetry.addLine().addData("currentHeading", currentHeading);
+            telemetry.addLine().addData("finalHeading", finalHeading);
+            power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,currentHeading));
+            telemetry.addLine().addData("power", power);
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
-            while(opModeIsActive() && robot.getIntegratedZAxis() > finalHeading) {
-                power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
+            while(opModeIsActive() &&
+                    !(robot.getIntegratedZAxis() > finalHeading + 3.0 && robot.getIntegratedZAxis() < finalHeading - 3.0)) {
+                power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis()));
                 robot.setDriveMotorPower(power, -power, power, -power);
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
@@ -463,11 +467,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             finalHeading = currentHeading + degreesToTurn;
             power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
-            while(opModeIsActive() && robot.getIntegratedZAxis() < finalHeading) {
+            while(opModeIsActive() &&
+                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
                 robot.setDriveMotorPower(-power, power, -power, power);
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
+                telemetry.addLine().addData("left", "left");
                 //telemetry.addLine().addData("getHeading",String.valueOf(currentHeading));
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.integratedZAxis));
                 telemetry.addLine().addData("finalHeading",String.valueOf(finalHeading));
@@ -552,7 +558,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
 
-        encodersMovePID(drivePID, robot, 2, "forward");
+        encodersMove(robot, 2, .45, "forward");
         //robotSleep(200);
 
         imuTurn(robot, 75, .45,"left");
@@ -949,9 +955,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotPID.initialize();   // re-initialized the pid variables that we care about
 
         double EncoderCount = Math.abs(robot.calculateCOUNTS(distance));
+        double error = Math.abs(robot.calculateCOUNTS(1.0));
         double currentEncoderCount = robot.getSortedEncoderCount(); //we need to play with a range
         if (direction.equals("forward")) {
-            while (opModeIsActive() && (currentEncoderCount <= EncoderCount || currentEncoderCount >= EncoderCount ))
+            while (opModeIsActive() &&
+                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ))
             {
                 motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
                 robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
@@ -960,7 +968,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         }
         else {
-            while (opModeIsActive() && (currentEncoderCount <= EncoderCount || currentEncoderCount >= EncoderCount ))
+            while (opModeIsActive() &&
+                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ))
             {
                 motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
                 robot.setDriveMotorPower(-motor_power, -motor_power, -motor_power, -motor_power);

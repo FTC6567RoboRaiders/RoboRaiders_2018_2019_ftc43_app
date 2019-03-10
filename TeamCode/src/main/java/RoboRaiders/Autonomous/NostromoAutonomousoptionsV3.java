@@ -120,6 +120,8 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
         // Wait for start to be pushed.
         waitForStart();
 
+        telemetry.setAutoClear(true);
+        telemetry.update();
         // Deploy From Lander
         if (deployFromLander) {
             DeployRobot(robot);
