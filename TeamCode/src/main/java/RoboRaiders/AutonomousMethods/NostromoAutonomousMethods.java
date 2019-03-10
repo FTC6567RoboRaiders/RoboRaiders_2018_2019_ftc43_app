@@ -278,19 +278,19 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 */
-    public void parkFromCraterStart(NostromoBotMotorDumper robot) {
+    public void parkFromCraterStart(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 35, 0.8, "backward");
+        encodersMovePID(drivePID, robot, 35,  "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
         rtd.displayRobotTelemetry("Encoder Counts", String.valueOf(robot.getSortedEncoderCount()));
         robotSleep(250);
 
-        imuTurn(robot, 6, .35, "left");
+        imuTurnPID(turnPID, robot, 6,  "left");
         robotSleep(250);
 
-        encodersMove(robot, 10, 0.8, "backward");
+        encodersMovePID(drivePID, robot, 10,  "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
@@ -305,15 +305,15 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(250);
     }
 
-    public void parkFromDepotStart(NostromoBotMotorDumper robot) {
+    public void parkFromDepotStart(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
        //imuTurn(robot, 5, .5, "right");
-       encodersMove(robot, 48.0,.5,"backward");
+       encodersMovePID(drivePID, robot, 48.0,"backward");
        robotSleep(500);
 
-       imuTurn(robot, 5, .5, "right");
+       imuTurnPID(turnPID, robot, 5,  "right");
 
-       encodersMove(robot, 6, .5, "backward");
+       encodersMovePID(drivePID, robot, 6,  "backward");
     }
 
     /**
@@ -509,7 +509,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     }
 
-    public void DeployTeamMarker(NostromoBotMotorDumper robot, boolean startLocation) {
+    public void DeployTeamMarker(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot, boolean startLocation) {
          /*long t = System.currentTimeMillis();
         long end = t + 500;
         while (System.currentTimeMillis() < end) {//up
@@ -517,7 +517,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         }
         robot.motorDumpp.setPower(0); */
         if (startLocation) {//are we starting from the crater?)
-            imuTurn(robot, 20, .5, "right");
+            imuTurnPID(turnPID, robot, 20,  "right");
         }
 
         robot.dumpWrist.setPosition(robot.dropTeamMarker);//put elbow down
@@ -537,7 +537,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robotSleep(500);
 
         if (startLocation) {//are we starting from the crater?)
-            imuTurn(robot, 20, .5, "left");
+            imuTurnPID(turnPID, robot, 20, "left");
         }
 
 
@@ -546,10 +546,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     /**
      * * Will detect the location of the gold mineral
      * @param drivePID
-     * @param turningPID
+     * @param turnPID
      * @param robot
      */
-    public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turningPID, NostromoBotMotorDumper robot) {
+    public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
 
         encodersMovePID(drivePID, robot, 2, "forward");
@@ -569,14 +569,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         switch (goldLocation) {
 
             case 1:
-                mineralLeftDepot(robot);
+                mineralLeftDepot(drivePID, turnPID, robot);
                 break;
             case 2:
             case -1:
-                mineralCenterDepot(robot);
+                mineralCenterDepot(drivePID, turnPID, robot);
                 break;
             case 3:
-                mineralRightDepot(robot);
+                mineralRightDepot(drivePID, turnPID, robot);
                 break;
 
         }
@@ -602,14 +602,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         switch (goldLocation) {
             case 1:
-                mineralLeftCrater(robot);
+                mineralLeftCrater(drivePID, turnPID, robot);
                 break;
             case 2:
-                mineralCenterCrater(robot);
+                mineralCenterCrater(drivePID, turnPID, robot);
                 break;
             case 3:
             case -1:
-                mineralRightCrater(robot);
+                mineralRightCrater(drivePID, turnPID, robot);
                 break;
         }
     }
@@ -713,63 +713,63 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
 
-    public void mineralLeftDepot(NostromoBotMotorDumper robot) {
+    public void mineralLeftDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        imuTurn(robot, 55, .45, "right"); //turn towards mineral
-        robotSleep(500);
+        imuTurnPID(turnPID, robot, 55, "right"); //turn towards mineral
+        //robotSleep(500);
 
-        encodersMove(robot, 36, .5, "forward"); //push the mineral
-        robotSleep(500);
+        encodersMovePID(drivePID, robot, 36, "forward"); //push the mineral
+        //robotSleep(500);
 
-        encodersMove(robot, 3, .5, "backward"); //pull back
-        robotSleep(500);
+        encodersMovePID(drivePID, robot, 3, "backward"); //pull back
+        //robotSleep(500);
 
-        imuTurn(robot, 50, .45, "right"); //turn towards depot was 60
-        robotSleep(500);
+        imuTurnPID(turnPID, robot, 50,  "right"); //turn towards depot was 60
+        //robotSleep(500);
 
-        encodersMove(robot, 6, .5, "forward"); //ready to deploy team marker
-        robotSleep(500);
-
-    }
-
-
-    public void mineralRightDepot(NostromoBotMotorDumper robot) {
-
-        imuTurn(robot, 113, .45, "right"); //turn towards mineral
-        robotSleep(250);
-
-        encodersMove(robot, 35, .5, "forward"); //push the mineral
-        robotSleep(250);
-
-        encodersMove(robot, 3, .5, "backward"); //push the mineral
-        robotSleep(250);
-
-        imuTurn(robot, 75, .45, "left"); //turn towards depot
-        robotSleep(250);
-
-        encodersMove(robot, 28, .5, "forward"); //ready to deploy team marker
-        robotSleep(250);
-
-        imuTurn(robot, 75, .45, "right"); //turn towards depot
-        robotSleep(250);
-
-        encodersMove(robot, 6, .5, "backward"); //ready to deploy team marker
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 6, "forward"); //ready to deploy team marker
+        //robotSleep(500);
 
     }
 
-    public void mineralCenterDepot(NostromoBotMotorDumper robot)  {
 
-        imuTurn(robot,80,.45,"right");
+    public void mineralRightDepot (RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        encodersMove(robot, 48, .5, "forward");
-        robotSleep(200);
+        imuTurnPID(turnPID, robot, 113, "right"); //turn towards mineral
+        //robotSleep(250);
 
-        imuTurn(robot,37,.45,"right");
-        robotSleep(200);
+        encodersMovePID(drivePID, robot, 35,  "forward"); //push the mineral
+        //robotSleep(250);
 
-        encodersMove(robot,15,.5,"backward");
-        robotSleep(200);
+        encodersMovePID(drivePID, robot, 3,  "backward"); //push the mineral
+        //robotSleep(250);
+
+        imuTurnPID(turnPID, robot, 75,  "left"); //turn towards depot
+        //robotSleep(250);
+
+        encodersMovePID(drivePID, robot, 28,  "forward"); //ready to deploy team marker
+       //robotSleep(250);
+
+        imuTurnPID(turnPID, robot, 75, "right"); //turn towards depot
+        //robotSleep(250);
+
+        encodersMovePID(drivePID, robot, 6, "backward"); //ready to deploy team marker
+       // robotSleep(250);
+
+    }
+
+    public void mineralCenterDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot)  {
+
+        imuTurnPID(turnPID, robot,80,"right");
+
+        encodersMovePID(drivePID, robot, 48, "forward");
+       // robotSleep(200);
+
+        imuTurnPID(turnPID, robot,37,"right");
+        //robotSleep(200);
+
+        encodersMovePID(drivePID, robot,15,"backward");
+        //robotSleep(200);
 
 
     }
@@ -782,75 +782,75 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //encodersMove(robot, 8, .5, "forward");
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot,45, "right");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot,50, "right");
+        //robotSleep(250);
 
-        encodersMovePID(robot, 16, .5, "forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,16, "forward");
+        //robotSleep(250);
 
-        encodersMove(robot, 5, .5, "backward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,5,"backward");
+        //robotSleep(250);
 
-        imuTurn(robot, 50, .45, "left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 50,"left");
+        //robotSleep(250);
 
-        encodersMove(robot, 27,.5,"forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 27,"forward");
+        //robotSleep(250);
 
-        imuTurn(robot, 41, .45, "left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 41,  "left");
+        //robotSleep(250);
 
-        encodersMove(robot,30,.5,"forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,30,"forward");
+        //robotSleep(250);
     }
 
-    public void mineralRightCrater(NostromoBotMotorDumper robot) {
+    public void mineralRightCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        imuTurn(robot, 115, .45, "right");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 115, "right");
+        //robotSleep(250);
 
-        encodersMove(robot, 20, .5, "forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 20, "forward");
+       //robotSleep(250);
 
-        encodersMove(robot, 10, .5, "backward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 10, "backward");
+        //robotSleep(250);
 
-        imuTurn(robot, 110, .45, "left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 110, "left");
+        //robotSleep(250);
 
-        encodersMove(robot, 40, .5, "forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 40, "forward");
+        //robotSleep(250);
 
-        imuTurn(robot, 56, .45,"left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 56,"left");
+        //robotSleep(250);
 
-        encodersMove(robot,30,.5,"forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,30,"forward");
+        //robotSleep(250);
 
     }
 
-    public void mineralCenterCrater(NostromoBotMotorDumper robot)  {
+    public void mineralCenterCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot)  {
 
-        imuTurn(robot, 82,.45,"right");
-        robotSleep(200);
+        imuTurnPID(turnPID, robot, 82,"right");
+        //robotSleep(200);
 
-        encodersMove(robot, 10, .8, "forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 10, "forward");
+        //robotSleep(250);
 
-        encodersMove(robot, 3, 1.0, "backward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot, 3,  "backward");
+        //robotSleep(250);
 
-        imuTurn(robot, 82, .45, "left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 82, "left");
+        //robotSleep(250);
 
-        encodersMove(robot,36,.5, "forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,36, "forward");
+        //robotSleep(250);
 
-        imuTurn(robot, 45, .45,"left");
-        robotSleep(250);
+        imuTurnPID(turnPID, robot, 45, "left");
+        //robotSleep(250);
 
-        encodersMove(robot,25,.5,"forward");
-        robotSleep(250);
+        encodersMovePID(drivePID, robot,25,"forward");
+        //robotSleep(250);
     }
 
 

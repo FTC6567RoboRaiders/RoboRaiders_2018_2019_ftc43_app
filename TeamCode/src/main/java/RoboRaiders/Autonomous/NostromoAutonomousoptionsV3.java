@@ -135,10 +135,10 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
         }
         else{
             if (startLocation){
-                mineralCenterCrater(robot);
+                mineralCenterCrater(drivePID, turningPID, robot);
             }
             else{
-                mineralCenterDepot(robot);
+                mineralCenterDepot(drivePID, turningPID, robot);
             }
         }
 
@@ -154,12 +154,12 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
         }*/
         // Are we claiming the depot
         if (claimDepot) {
-            DeployTeamMarker(robot, startLocation);
+            DeployTeamMarker(drivePID, turningPID, robot, startLocation);
         }
         // Ending Parked in crater
         if (parkInCrater) {
-            if (startLocation){ parkFromCraterStart(robot); } // started crater side
-            else { parkFromDepotStart(robot); } // started depot side
+            if (startLocation){ parkFromCraterStart(drivePID, turningPID, robot); } // started crater side
+            else { parkFromDepotStart(drivePID, turningPID, robot); } // started depot side
         }
 
     }
