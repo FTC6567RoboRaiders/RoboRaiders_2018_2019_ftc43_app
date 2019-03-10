@@ -15,7 +15,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 public class AutoCrater extends NostromoAutonomousMethods {
 
     NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
-    RoboRaidersPID robotPID = new RoboRaidersPID();
+    RoboRaidersPID robotPID = new RoboRaidersPID(0,0,0);
     RobotTelemetryDisplay rtd = new RobotTelemetryDisplay(this,"Nostormo");
     @Override
     public void runOpMode() throws InterruptedException {

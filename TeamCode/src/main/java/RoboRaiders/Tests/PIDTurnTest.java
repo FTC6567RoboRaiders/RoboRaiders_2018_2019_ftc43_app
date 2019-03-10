@@ -32,7 +32,7 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
         pidUdpReceiver = new PidUdpReceiver();
 
         //Create new rrPID
-        rrPID = new RoboRaidersPID();
+        rrPID = new RoboRaidersPID(0,0,0);
 
         // Start listening
         pidUdpReceiver.beginListening();
@@ -54,10 +54,10 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
             rrPID.setCoeffecients(kP,kI,kD);
 
             if (direction == 0.0){
-                imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("right"));
+                //imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("right"));
             }
             else{
-                imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("left"));
+                //imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("left"));
             }
         }
 

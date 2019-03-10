@@ -13,9 +13,10 @@ import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
-@Autonomous
-public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
-
+//@Autonomous
+public class NostromoAutonomousoptionsV2 //extends NostromoAutonomousMethods
+ {
+/*
     private boolean isRed             = false;
     private boolean startLocation     = false;
     private boolean deployFromLander  = false;
@@ -24,7 +25,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
     private boolean selectionsAreGood = false;
     private boolean sampling     = false;
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
-    public RoboRaidersPID robotPID = new RoboRaidersPID();
+
 
 
 
@@ -115,7 +116,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             }
             /*if (robot.tfod != null) {
                 robot.tfod.activate();
-            }*/
+            }
 
         }
 
@@ -130,7 +131,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
         if (sampling){//asking if sampling
             if (startLocation){//are we starting from the crater?
-                samplingMineralsCrater(robotPID, robot);
+                samplingMineralsCrater(robot);
             }
             else {
                 samplingMineralsDepot(robot);
@@ -145,7 +146,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             }
         }
         // Is the robot starting facing the crater
-        /*if (startLocation) {
+        if (startLocation) {
             moveDepotFromCraterStart(robot);
         }
         // Is the robot starting facing the crater
@@ -153,7 +154,7 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
 
 
             moveDepotFromDepotStart(robot);
-        }*/
+        }
         // Are we claiming the depot
         if (claimDepot) {
             DeployTeamMarker(robot, startLocation);
@@ -164,5 +165,5 @@ public class NostromoAutonomousoptionsV2 extends NostromoAutonomousMethods{
             else { parkFromDepotStart(robot); } // started depot side
         }
 
-    }
+    }*/
 }

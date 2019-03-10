@@ -33,7 +33,7 @@ public class DrivingStraightWithPIDTest extends NostromoAutonomousMethods {
         pidUdpReceiver = new PidUdpReceiver();
 
         //Create new rrPID
-        rrPID = new RoboRaidersPID();
+        rrPID = new RoboRaidersPID(0,0,0);
 
         // Start listening
         pidUdpReceiver.beginListening();
@@ -54,7 +54,7 @@ public class DrivingStraightWithPIDTest extends NostromoAutonomousMethods {
 
             rrPID.setCoeffecients(kP,kI,kD);
 
-            EncoderDrivePID(rrPID, robot, degrees, direction);
+            //EncoderDrivePID(rrPID, robot, degrees, direction);
         }
 
         pidUdpReceiver.shutdown();

@@ -14,7 +14,7 @@ import RoboRaiders.Robot.NostromoBotMotorDumper;
 public class AutoDepot extends NostromoAutonomousMethods {
 
     NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
-    RoboRaidersPID robotPID = new RoboRaidersPID();
+    RoboRaidersPID robotPID = new RoboRaidersPID(0,0,0);
     @Override
     public void runOpMode() throws InterruptedException {
         robot.initialize(hardwareMap);
