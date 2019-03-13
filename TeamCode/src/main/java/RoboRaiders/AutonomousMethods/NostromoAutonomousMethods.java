@@ -788,26 +788,35 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //encodersMove(robot, 8, .5, "forward");
         //robotSleep(500);
 
+        turnPID.initialize();
+
         imuTurnPID(turnPID, robot,50, "right");
         //robotSleep(250);
+        drivePID.initialize();
 
         encodersMovePID(drivePID, robot,16, "forward");
         //robotSleep(250);
+        drivePID.initialize();
 
         encodersMovePID(drivePID, robot,5,"backward");
         //robotSleep(250);
+        drivePID.initialize();
 
         imuTurnPID(turnPID, robot, 50,"left");
         //robotSleep(250);
+        turnPID.initialize();
 
         encodersMovePID(drivePID, robot, 27,"forward");
         //robotSleep(250);
+        drivePID.initialize();
 
         imuTurnPID(turnPID, robot, 41,  "left");
         //robotSleep(250);
+        turnPID.initialize();
 
         encodersMovePID(drivePID, robot,30,"forward");
         //robotSleep(250);
+        drivePID.initialize();
     }
 
     public void mineralRightCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
