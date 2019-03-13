@@ -437,6 +437,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         double power;
 
         rrPID.initialize();
+        telemetry.addLine().addData("in", "imuTurnPID");
 
         currentHeading = robot.getIntegratedZAxis();
 
@@ -699,7 +700,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     else {
 
                         // Is the gold mineral to the left of the silver mineral?  THIS IS CHANGED
-                        if (goldMineralX < 250) {
+                        if (goldMineralX > -1 && goldMineralX < silverMineral1X) {
 
                             // Yes, indicate the gold mineral is in the left
                             goldPostion = 1;
@@ -735,7 +736,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot, 50,  "right"); //turn towards depot was 60
+        imuTurnPID(turnPID, robot, 60,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
         encodersMovePID(drivePID, robot, 6, "forward"); //ready to deploy team marker
