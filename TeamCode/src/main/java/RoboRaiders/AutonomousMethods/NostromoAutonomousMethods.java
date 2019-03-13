@@ -448,12 +448,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             telemetry.addLine().addData("power", power);
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading + 3.0 && robot.getIntegratedZAxis() < finalHeading - 3.0)) {
+                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5) &&
+                    power > 0.1) {
                 power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis()));
                 robot.setDriveMotorPower(power, -power, power, -power);
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("right", "right");
+                telemetry.addLine().addData("power", String.valueOf(power));
                 telemetry.addLine().addData("IntZ",String.valueOf(robot.getIntegratedZAxis()));
                 telemetry.addLine().addData("finalHeading",String.valueOf(finalHeading));
                 telemetry.addLine().addData("difference",String.valueOf(finalHeading - robot.getIntegratedZAxis()));
@@ -468,7 +470,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)) {
+                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5) &&
+                    power > 0.1) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
                 robot.setDriveMotorPower(-power, power, -power, power);
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -962,13 +965,15 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         robot.resetEncoders();
         robot.runWithEncoders();
         robotPID.initialize();   // re-initialized the pid variables that we care about
+        motor_power = 0.5;
 
         double EncoderCount = Math.abs(robot.calculateCOUNTS(distance));
         double error = Math.abs(robot.calculateCOUNTS(1.0));
         double currentEncoderCount = robot.getSortedEncoderCount(); //we need to play with a range
         if (direction.equals("forward")) {
             while (opModeIsActive() &&
-                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ))
+                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ) &&
+                    motor_power > 0.1)
             {
                 motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
                 robot.setDriveMotorPower(motor_power, motor_power, motor_power, motor_power);
@@ -978,7 +983,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         }
         else {
             while (opModeIsActive() &&
-                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ))
+                    !(currentEncoderCount > EncoderCount - error && currentEncoderCount < EncoderCount - error ) &&
+                    motor_power > 0.1)
             {
                 motor_power = robotPID.CalculatePIDPowers(EncoderCount, robot.getSortedEncoderCount());
                 robot.setDriveMotorPower(-motor_power, -motor_power, -motor_power, -motor_power);
