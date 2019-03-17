@@ -602,12 +602,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void samplingMineralsCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        encodersMovePID(drivePID, robot, 2, "forward");
+        encodersMove(robot, 2, .45,"forward");
         robotSleep(200);
 
         imuTurnPID(turnPID, robot,75, "left");
 
-        encodersMovePID(drivePID, robot, 2,  "forward");
+        encodersMove(robot, 2, .45,"forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -773,7 +773,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot)  {
 
-        imuTurnPID(turnPID, robot,80,"right");
+        imuTurnPID(turnPID, robot,90,"right");
 
         encodersMovePID(drivePID, robot, 48, "forward");
        // robotSleep(200);
