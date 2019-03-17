@@ -848,10 +848,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 82,"right");
         //robotSleep(200);
 
-        encodersMovePID(drivePID, robot, 10, "forward");
+        encodersMovePID(drivePID, robot, 24, "forward");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 3,  "backward");
+        encodersMove(robot, 3, .45, "backward");
         //robotSleep(250);
 
         imuTurnPID(turnPID, robot, 82, "left");
