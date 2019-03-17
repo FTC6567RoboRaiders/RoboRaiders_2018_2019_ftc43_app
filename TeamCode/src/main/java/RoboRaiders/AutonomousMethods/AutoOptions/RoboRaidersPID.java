@@ -35,8 +35,8 @@ public class RoboRaidersPID {
 
     public double CalculatePIDPowers(double Target, double currentValueFromSensor) {
 
-        Target = Math.abs(Target);
-        currentValueFromSensor = Math.abs(currentValueFromSensor);
+        //Target = Math.abs(Target);
+        //currentValueFromSensor = Math.abs(currentValueFromSensor);
 
 
 
