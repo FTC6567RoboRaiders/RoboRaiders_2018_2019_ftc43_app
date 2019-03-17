@@ -313,6 +313,7 @@ public class NostromoBotMotorDumper {
         encoderArray[2] = Math.abs(motorBackLeft.getCurrentPosition());
         encoderArray[3] = Math.abs(motorBackRight.getCurrentPosition());
 
+
         int I;
         int J;
         int Temp;
