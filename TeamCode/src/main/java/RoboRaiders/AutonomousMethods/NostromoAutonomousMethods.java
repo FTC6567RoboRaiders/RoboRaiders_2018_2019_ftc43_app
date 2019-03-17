@@ -308,12 +308,17 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void parkFromDepotStart(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
        //imuTurn(robot, 5, .5, "right");
-       encodersMovePID(drivePID, robot, 48.0,"backward");
-       robotSleep(500);
+       //encodersMovePID(drivePID, robot, 48.0,"backward");
+       encodersMovePID(drivePID, robot, 36.0,"backward");
+       //robotSleep(500);
 
-       imuTurnPID(turnPID, robot, 5,  "right");
+       //imuTurnPID(turnPID, robot, 5,  "right");
+       imuTurnPID(turnPID, robot, 170,  "right");
+       robot.setMotorDrawerSlide(-0.75);
+       robotSleep(2000);
+       robot.setMotorDrawerSlide(0);
 
-       encodersMovePID(drivePID, robot, 6,  "backward");
+       //encodersMovePID(drivePID, robot, 6,  "backward");
     }
 
     /**
@@ -733,7 +738,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 36, "forward"); //push the mineral
         //robotSleep(500);
 
-        encodersMove(robot, 3, .5, "backward"); //pull back
+        //encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
         imuTurnPID(turnPID, robot, 60,  "right"); //turn towards depot was 60
@@ -751,7 +756,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 113, "right"); //turn towards mineral
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 35,  "forward"); //push the mineral
+        encodersMovePID(drivePID, robot, 39,  "forward"); //push the mineral
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 3,  "backward"); //push the mineral
@@ -773,9 +778,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralCenterDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot)  {
 
-        imuTurnPID(turnPID, robot,90,"right");
+        imuTurnPID(turnPID, robot,80,"right");
 
-        encodersMovePID(drivePID, robot, 48, "forward");
+        encodersMovePID(drivePID, robot, 52, "forward");
        // robotSleep(200);
 
         imuTurnPID(turnPID, robot,37,"right");
