@@ -343,6 +343,30 @@ public class NostromoBotMotorDumper {
 
     }
     /**
+     * This method will set the mode of the intake motor to run using encoder
+     */
+    public void runIntakeWithEncoders() {
+
+        liftIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    /**
+     * This method will stop intake motor from using encoders
+     */
+    public void runIntakeWithoutEncoders() {
+
+        liftIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    /**
+     * This method will reset the intake motor encoders
+     */
+    public void resetIntakeEncoders() {
+
+        liftIntake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    /**
      * This method will set the mode of all of the motors to run using encoder
      */
     public void runWithEncoders() {
@@ -352,6 +376,7 @@ public class NostromoBotMotorDumper {
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
 
     /**
      * This method will set the mode of all of the drive train motors to run without encoder
@@ -388,6 +413,7 @@ public class NostromoBotMotorDumper {
     public double getBackRightDriveEncoderCounts() { return motorBackRight.getCurrentPosition(); }
     public double getFrontLeftDriveEncoderCounts() { return motorFrontLeft.getCurrentPosition(); }
     public double getFrontRightDriveEncoderCounts() { return motorFrontRight.getCurrentPosition(); }
+    public double getIntakeEncoderCounts() {return liftIntake.getCurrentPosition(); }
 
 
     /**
