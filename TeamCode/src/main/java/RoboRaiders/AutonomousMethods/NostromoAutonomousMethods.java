@@ -314,7 +314,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
        //imuTurnPID(turnPID, robot, 5,  "right");
        imuTurnPID(turnPID, robot, 170,  "right");
-       double intakeCOUNTS = Math.abs(robot.calculateCOUNTS(3.5));
+       encodersMovePID(drivePID, robot, 10.0, "forwards");
+       double intakeCOUNTS = Math.abs(robot.calculateCOUNTSREVMotor(3.5));
        robot.resetIntakeEncoders();
        robot.runIntakeWithEncoders();
 
