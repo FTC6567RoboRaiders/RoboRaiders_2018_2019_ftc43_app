@@ -309,12 +309,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
        //imuTurn(robot, 5, .5, "right");
        //encodersMovePID(drivePID, robot, 48.0,"backward");
-       encodersMovePID(drivePID, robot, 36.0,"backward");
+       encodersMovePID(drivePID, robot, 55.0,"backward");
        //robotSleep(500);
 
        //imuTurnPID(turnPID, robot, 5,  "right");
+        /*
        imuTurnPID(turnPID, robot, 170,  "right");
-       encodersMovePID(drivePID, robot, 10.0, "forwards");
+       encodersMovePID(drivePID, robot, 10.0, "forward");
        double intakeCOUNTS = Math.abs(robot.calculateCOUNTSREVMotor(3.5));
        robot.resetIntakeEncoders();
        robot.runIntakeWithEncoders();
@@ -325,9 +326,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
        robot.setLiftIntakePower(0.0);
 
-       robot.setMotorDrawerSlide(-0.75);
-       robotSleep(2000);
-       robot.setMotorDrawerSlide(0);
+       robot.runIntakeWithoutEncoders();
+
+       //robot.setMotorDrawerSlide(-0.75);
+       //robotSleep(2000);
+       //robot.setMotorDrawerSlide(0);
+       */
 
 
        //encodersMovePID(drivePID, robot, 6,  "backward");
@@ -777,13 +781,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 75,  "left"); //turn towards depot
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 28,  "forward"); //ready to deploy team marker
+        encodersMovePID(drivePID, robot, 36,  "forward"); //ready to deploy team marker
        //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 75, "right"); //turn towards depot
+        imuTurnPID(turnPID, robot, 72, "right"); //turn towards depot
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 6, "backward"); //ready to deploy team marker
+        encodersMove(robot, 6, 0.5,"backward"); //ready to deploy team marker
        // robotSleep(250);
 
     }
@@ -792,10 +796,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurnPID(turnPID, robot,80,"right");
 
-        encodersMovePID(drivePID, robot, 52, "forward");
+        encodersMovePID(drivePID, robot, 55, "forward");
        // robotSleep(200);
 
-        imuTurnPID(turnPID, robot,37,"right");
+        imuTurnPID(turnPID, robot,33,"right");
         //robotSleep(200);
 
         encodersMovePID(drivePID, robot,15,"backward");
