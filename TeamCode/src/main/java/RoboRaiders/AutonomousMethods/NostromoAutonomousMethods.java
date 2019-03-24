@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import java.util.List;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
+import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
@@ -453,10 +454,14 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void imuTurnPID(RoboRaidersPID rrPID, NostromoBotMotorDumper robot, float degreesToTurn, String direction) { //gets hardware from
         double power;
 
+        Logger L = new Logger("imuTurnPID")
         rrPID.initialize();
         telemetry.addLine().addData("in", "imuTurnPID");
 
         currentHeading = robot.getIntegratedZAxis();
+
+        L.Debug("Start");
+        L.Debug("currentHeading: ", currentHeading);
 
         // robot.getHeading(); returns the current heading of the IMU
 
@@ -464,14 +469,29 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             finalHeading = currentHeading - degreesToTurn;
             telemetry.addLine().addData("currentHeading", currentHeading);
             telemetry.addLine().addData("finalHeading", finalHeading);
+
+            L.Debug("Turning Right");
+            L.Debug("finalHeading: ",finalHeading);
+
             power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,currentHeading));
             telemetry.addLine().addData("power", power);
+
+            L.Debug("Calculated PID Power (power): ",power);
+
             robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
             while(opModeIsActive() &&
                     !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5) &&
                     power > 0.1) {
                 power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis()));
+
+                L.Debug("In While Loop");
+                L.Debug("IntZ: ",robot.getIntegratedZAxis());
+                L.Debug("Remaining Degrees: ",finalHeading - robot.getIntegratedZAxis());
+                L.Debug("Calculated PID Power (power): ",power);
+
+
                 robot.setDriveMotorPower(power, -power, power, -power);
+
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("right", "right");
@@ -484,16 +504,32 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             }
             robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
 
+
         }
         else { //if the desired direction is left
-            finalHeading = currentHeading + degreesToTurn;
+           finalHeading = currentHeading + degreesToTurn;
+
             power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
+
+            L.Debug("Turning Left");
+            L.Debug("finalHeading: ",finalHeading);
+            L.Debug("Calculated PID Power (power): ",power);
+
+
             robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
             while(opModeIsActive() &&
                     !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5) &&
                     power > 0.1) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
+
+                L.Debug("In While Loop");
+                L.Debug("IntZ: ",robot.getIntegratedZAxis());
+                L.Debug("Remaining Degrees: ",finalHeading - robot.getIntegratedZAxis());
+                L.Debug("Calculated PID Power (power): ",power);
+
+
                 robot.setDriveMotorPower(-power, power, -power, power);
+
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
                 telemetry.addLine().addData("left", "left");
@@ -507,6 +543,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
         robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
+
+        L.Debug("End");
     }
 
 
