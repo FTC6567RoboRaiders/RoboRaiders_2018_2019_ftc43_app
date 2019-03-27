@@ -1,5 +1,6 @@
 package RoboRaiders.TeleOp;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -47,6 +48,12 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public boolean prevStateB = false;
     public boolean currStateA = false;
     public boolean prevStateA = false;
+    public boolean currState1B = false;
+    public boolean prevState1B = false;
+    public boolean currState1X = false;
+    public boolean prevState1X = false;
+    public boolean currState1Y = false;
+    public boolean prevState1Y = false;
     public boolean currStateDPadUp = false;
     public boolean currStateDPadDown = false;
     public String intakeStatus = null;
@@ -54,6 +61,10 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public String collectionStatus = null;
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
+    public String LEDStatus = null;
+
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
 
     @Override
     public void init() {
@@ -62,6 +73,8 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         telemetry.addData("Initialized", true);
         telemetry.update();
+
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
     }
 
     @Override
@@ -253,11 +266,11 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("currStateDPadDown", currStateDPadDown);
 
         if (currStateDPadUp) {
-            robot.setMotorDrawerSlide(-0.75);
+            robot.setMotorDrawerSlide(-1.0);
             sliderStatus = "slider in";
         }
         else if (currStateDPadDown) {
-            robot.setMotorDrawerSlide(0.75);
+            robot.setMotorDrawerSlide(1.0);
             sliderStatus = "slider out ";
         }
         else {
@@ -367,6 +380,43 @@ public class NostromoDriveMotorForDumper extends OpMode {
             dumperStatus = "Stopped";
         }
         telemetry.addData("MotorStatus","(%.2s)",dumperStatus);
+
+
+        telemetry.update();
+
+        currState1X = gamepad1.x;
+        currState1B = gamepad1.b;
+        currState1Y = gamepad1.y;
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("currState1X", currState1X);
+        telemetry.addData("currState1B", currState1B);
+        telemetry.addData("currState1Y", currState1Y);
+
+        if (currState1X) {
+            //robot.dumperUp();
+            pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
+            blinkinLedDriver.setPattern(pattern);
+            LEDStatus = "BLUE";
+
+        }
+        else if (currState1B) {
+            //robot.dumperDown();
+            pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
+            blinkinLedDriver.setPattern(pattern);
+            LEDStatus = "RED";
+        }
+        else if (currState1Y) {
+            //robot.dumperDown();
+            pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            blinkinLedDriver.setPattern(pattern);
+            LEDStatus = "HANG";
+        }
+        else {
+
+            LEDStatus = "OFF";
+        }
+        telemetry.addData("LED Status","(%.2s)", LEDStatus);
 
 
         telemetry.update();

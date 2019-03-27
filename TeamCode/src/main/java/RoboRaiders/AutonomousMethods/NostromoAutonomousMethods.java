@@ -458,7 +458,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void imuTurnPID(RoboRaidersPID rrPID, NostromoBotMotorDumper robot, float degreesToTurn, String direction) { //gets hardware from
         double power;
 
-        Logger L = new Logger("imuTurnPID")
+        Logger L = new Logger("imuTurnPID");
         rrPID.initialize();
         telemetry.addLine().addData("in", "imuTurnPID");
 
@@ -586,7 +586,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         while (System.currentTimeMillis() < end) {//up
             robot.motorDumpp.setPower(-0.7);
         }
+
+
+
         robot.motorDumpp.setPower(0); */
+
         if (startLocation) {//are we starting from the crater?)
             imuTurnPID(turnPID, robot, 20,  "right");
         }
