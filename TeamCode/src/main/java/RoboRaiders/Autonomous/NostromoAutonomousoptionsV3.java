@@ -22,7 +22,8 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
     private boolean selectionsAreGood = false;
     private boolean sampling     = false;
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
-    public RoboRaidersPID turningPID = new RoboRaidersPID(0.02,0.0,0.1);
+    //public RoboRaidersPID turningPID = new RoboRaidersPID(0.02,0.0,0.1);
+    public RoboRaidersPID turningPID = new RoboRaidersPID(0.024,0.0,0.02);
     public RoboRaidersPID drivePID = new RoboRaidersPID(0.002,0.0,0.005);
 
 
