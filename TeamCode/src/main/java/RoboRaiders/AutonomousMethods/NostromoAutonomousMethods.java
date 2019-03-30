@@ -458,6 +458,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      */
     public void imuTurnPID(RoboRaidersPID rrPID, NostromoBotMotorDumper robot, float degreesToTurn, String direction) { //gets hardware from
         double power = 0.0;
+        int loopcount = 0;
 
 
         robot.motorFrontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -492,17 +493,21 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
           //  robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
 
-            while(opModeIsActive() &&
-                    !(currentHeading < finalHeading + 3.5 && currentHeading > finalHeading - 3.5)){
+            while((opModeIsActive() &&
+                    !(currentHeading < finalHeading + 3.5 && currentHeading > finalHeading - 3.5)) ||
+                    loopcount < 10 ){
                     //&& Math.abs(power) > 0.1) {
                 currentHeading = robot.getIntegratedZAxis();
-                power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
+                power = rrPID.CalculatePIDPowers(finalHeading,currentHeading) * 0.75;
+
+                loopcount++;
 
                 L.Debug("In While Loop");
                 L.Debug("finalHeading: ",finalHeading);
                 L.Debug("currentHeading: ",currentHeading);
                 L.Debug("Remaining Degrees: ",finalHeading - currentHeading);
                 L.Debug("Calculated PID Power (power): ",power);
+                L.Debug("loopcount", loopcount);
 
 
                 robot.setDriveMotorPower(power, power, power, power);
@@ -819,7 +824,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot, 53,  "right"); //turn towards depot was 60
+        imuTurnPID(turnPID, robot, 58,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
         encodersMove(robot, 10, .5,"forward"); //ready to deploy team marker
@@ -831,7 +836,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralRightDepot (RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        imuTurnPID(turnPID, robot, 113, "right"); //turn towards mineral
+        imuTurnPID(turnPID, robot, 120, "right"); //turn towards mineral
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 39,  "forward"); //push the mineral
@@ -840,7 +845,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 3,  "backward"); //push the mineral
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 75,  "left"); //turn towards depot
+        imuTurnPID(turnPID, robot, 80,  "left"); //turn towards depot
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 36,  "forward"); //ready to deploy team marker
@@ -859,12 +864,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 2, .45, "backward");
         robotSleep(200);
 
-        imuTurnPID(turnPID, robot,92,"right");
+        imuTurnPID(turnPID, robot,87,"right");
 
-        encodersMovePID(drivePID, robot, 55, "forward");
+        encodersMovePID(drivePID, robot, 52, "forward");
        // robotSleep(200);
 
-        imuTurnPID(turnPID, robot,34,"right");
+        imuTurnPID(turnPID, robot,45,"right");
         //robotSleep(200);
 
         encodersMovePID(drivePID, robot,15,"backward");
