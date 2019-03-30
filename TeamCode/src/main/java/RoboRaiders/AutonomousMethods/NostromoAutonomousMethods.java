@@ -486,7 +486,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             L.Debug("Calculated PID Power (power): ",power);
 
-            robot.setDriveMotorPower(power, -power, power, -power); //the robot will turn right
+            robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
             while(opModeIsActive() &&
                     !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5) &&
                     power > 0.1) {
@@ -524,7 +524,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             L.Debug("Calculated PID Power (power): ",power);
 
 
-            robot.setDriveMotorPower(-power, power, -power, power); //the robot will turn left
+            robot.setDriveMotorPower(power, power, power, power); //the robot will turn left
             while(opModeIsActive() &&
                     !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5) &&
                     power > 0.1) {
