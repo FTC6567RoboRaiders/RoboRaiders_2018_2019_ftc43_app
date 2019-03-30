@@ -512,6 +512,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             }
             robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
+            L.Debug("Out of While Loop");
+            L.Debug("IntZ: ",robot.getIntegratedZAxis());
+            L.Debug("Remaining Degrees: ",finalHeading - robot.getIntegratedZAxis());
 
 
 
