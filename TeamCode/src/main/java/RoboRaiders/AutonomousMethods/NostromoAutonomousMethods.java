@@ -1,6 +1,7 @@
 package RoboRaiders.AutonomousMethods;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -458,6 +459,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
     public void imuTurnPID(RoboRaidersPID rrPID, NostromoBotMotorDumper robot, float degreesToTurn, String direction) { //gets hardware from
         double power;
 
+        robot.motorFrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        robot.motorBackLeft.setDirection(DcMotor.Direction.FORWARD);
+
         Logger L = new Logger("imuTurnPID");
         rrPID.initialize();
         telemetry.addLine().addData("in", "imuTurnPID");
@@ -477,7 +481,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             L.Debug("Turning Right");
             L.Debug("finalHeading: ",finalHeading);
 
-            power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,currentHeading));
+            power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
             telemetry.addLine().addData("power", power);
 
             L.Debug("Calculated PID Power (power): ",power);
@@ -486,7 +490,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             while(opModeIsActive() &&
                     !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5) &&
                     power > 0.1) {
-                power = Math.abs(rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis()));
+                power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
                 L.Debug("IntZ: ",robot.getIntegratedZAxis());
@@ -547,6 +551,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
         robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
+
+        robot.motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        robot.motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
+
 
         L.Debug("End");
     }
