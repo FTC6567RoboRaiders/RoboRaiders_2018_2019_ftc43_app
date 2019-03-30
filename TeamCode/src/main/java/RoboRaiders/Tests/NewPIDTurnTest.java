@@ -13,10 +13,10 @@ public class NewPIDTurnTest extends NostromoAutonomousMethods {
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
 
-    private PidUdpReceiver pidUdpReceiver;
+
     private RoboRaidersPID rrPID;
     private RobotTelemetryDisplay rtd;
-    private double kP, kI, kD, direction, degrees = 45;
+    private double kP, kI, kD, direction, degrees = 45.0;
 
 
     //----------------------------------------------------------------------------------------------
@@ -52,20 +52,8 @@ public class NewPIDTurnTest extends NostromoAutonomousMethods {
 
         }
 
-        pidUdpReceiver.shutdown();
     }
 
-
-    public void updatePIDCoefficients() {
-
-        kP = pidUdpReceiver.getP();
-        kI = pidUdpReceiver.getI();
-        kD = pidUdpReceiver.getD();
-        direction = pidUdpReceiver.getDirection();
-        degrees = pidUdpReceiver.getDegrees();
-
-        //rtd.displayRobotTelemetry("kP",String.valueOf(kP));
-    }
 }
 
 
