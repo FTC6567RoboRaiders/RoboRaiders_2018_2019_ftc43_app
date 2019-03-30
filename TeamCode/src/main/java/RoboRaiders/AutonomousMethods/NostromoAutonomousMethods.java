@@ -493,9 +493,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
           //  robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
 
-            while((opModeIsActive() &&
-                    !(currentHeading < finalHeading + 3.5 && currentHeading > finalHeading - 3.5)) ||
-                    loopcount < 10 ){
+            while((opModeIsActive() && (loopcount < 10 &&
+                    !(currentHeading < finalHeading + 3.5 && currentHeading > finalHeading - 3.5)))){
                     //&& Math.abs(power) > 0.1) {
                 currentHeading = robot.getIntegratedZAxis();
                 power = rrPID.CalculatePIDPowers(finalHeading,currentHeading) * 0.75;
