@@ -489,8 +489,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5)){
-                   // && Math.abs(power) < 0.1) {
+                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5)
+                    && Math.abs(power) > 0.16) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
@@ -527,8 +527,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn left
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)){
-                   // && Math.abs(power) > 0.1) {
+                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)
+                    && Math.abs(power) > 0.16) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
@@ -802,7 +802,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 55, "right"); //turn towards mineral
         //robotSleep(500);
 
-        encodersMovePID(drivePID, robot, 36, "forward"); //push the mineral
+        encodersMovePID(drivePID, robot, 38, "forward"); //push the mineral
         //robotSleep(500);
 
         //encodersMove(robot, 3, .5, "backward"); //pull back

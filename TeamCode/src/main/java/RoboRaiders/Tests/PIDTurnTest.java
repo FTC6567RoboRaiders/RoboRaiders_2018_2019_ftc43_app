@@ -54,10 +54,10 @@ public class PIDTurnTest extends NostromoAutonomousMethods {
             rrPID.setCoeffecients(kP,kI,kD);
 
             if (direction == 0.0){
-                //imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("right"));
+                imuTurnPID(rrPID, robot, (float)degrees, String.valueOf("right"));
             }
             else{
-                //imuTurnWithPID(robot, rrPID, (float)degrees, String.valueOf("left"));
+                imuTurnPID(rrPID, robot, (float)degrees, String.valueOf("left"));
             }
         }
 
