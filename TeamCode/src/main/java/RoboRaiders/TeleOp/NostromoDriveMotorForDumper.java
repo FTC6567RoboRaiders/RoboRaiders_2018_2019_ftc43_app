@@ -73,7 +73,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("Initialized", true);
         telemetry.update();
 
-        robot.blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        //robot.blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
     }
 
     @Override
@@ -296,8 +296,8 @@ public class NostromoDriveMotorForDumper extends OpMode {
             robot.liftClaw.setPosition(robot.liftClawClosed);
             prevStateRightTrigger = currStateRightTrigger;
 
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
         }
         else if (!currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
 
@@ -397,21 +397,21 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currState1X) {
             //robot.dumperUp();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "BLUE";
 
         }
         else if (currState1B) {
             //robot.dumperDown();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "RED";
         }
         else if (currState1Y) {
             //robot.dumperDown();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "HANG";
         }
         else {

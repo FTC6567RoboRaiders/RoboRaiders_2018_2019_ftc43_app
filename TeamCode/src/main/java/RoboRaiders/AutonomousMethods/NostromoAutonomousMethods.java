@@ -489,8 +489,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5)
-                    && Math.abs(power) > 0.16) {
+                    !(robot.getIntegratedZAxis() > finalHeading + 3.5 && robot.getIntegratedZAxis() < finalHeading - 3.5)){
+                    //&& Math.abs(power) > 0.16) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
@@ -528,8 +528,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn left
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)
-                    && Math.abs(power) > 0.16) {
+                    !(robot.getIntegratedZAxis() > finalHeading - 3.5 && robot.getIntegratedZAxis() < finalHeading + 3.5)){
+                    //&& Math.abs(power) > 0.16) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
