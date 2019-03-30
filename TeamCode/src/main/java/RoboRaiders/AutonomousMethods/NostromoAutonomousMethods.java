@@ -514,6 +514,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
 
 
+
         }
         else { //if the desired direction is left
            finalHeading = currentHeading + degreesToTurn;
