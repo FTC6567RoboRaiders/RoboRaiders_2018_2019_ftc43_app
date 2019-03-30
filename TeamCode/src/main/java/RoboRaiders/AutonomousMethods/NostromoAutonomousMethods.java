@@ -499,6 +499,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 power = rrPID.CalculatePIDPowers(finalHeading,currentHeading);
 
                 L.Debug("In While Loop");
+                L.Debug("finalHeading: ",finalHeading);
                 L.Debug("currentHeading: ",currentHeading);
                 L.Debug("Remaining Degrees: ",finalHeading - currentHeading);
                 L.Debug("Calculated PID Power (power): ",power);
@@ -518,6 +519,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             }
             robot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0); //stops robot
             L.Debug("Out of While Loop");
+            L.Debug("finalHeading: ",finalHeading);
             L.Debug("currentHeading: ",robot.getIntegratedZAxis());
             L.Debug("Remaining Degrees: ",finalHeading - robot.getIntegratedZAxis());
 
