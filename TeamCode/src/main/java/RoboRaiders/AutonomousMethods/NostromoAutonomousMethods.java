@@ -470,6 +470,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         L.Debug("Start");
         L.Debug("currentHeading: ", currentHeading);
+        L.Debug("degreesToTurn", degreesToTurn);
 
         // robot.getHeading(); returns the current heading of the IMU
 
@@ -488,8 +489,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5) &&
-                    power > 0.1) {
+                    !(robot.getIntegratedZAxis() > finalHeading + 0.5 && robot.getIntegratedZAxis() < finalHeading - 0.5)){
+                   // && Math.abs(power) < 0.1) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
@@ -498,7 +499,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 L.Debug("Calculated PID Power (power): ",power);
 
 
-                robot.setDriveMotorPower(power, -power, power, -power);
+                robot.setDriveMotorPower(power, power, power, power);
 
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
@@ -526,8 +527,8 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             robot.setDriveMotorPower(power, power, power, power); //the robot will turn left
             while(opModeIsActive() &&
-                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5) &&
-                    power > 0.1) {
+                    !(robot.getIntegratedZAxis() > finalHeading - 0.5 && robot.getIntegratedZAxis() < finalHeading + 0.5)){
+                   // && Math.abs(power) > 0.1) {
                 power = rrPID.CalculatePIDPowers(finalHeading,robot.getIntegratedZAxis());
 
                 L.Debug("In While Loop");
@@ -536,7 +537,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 L.Debug("Calculated PID Power (power): ",power);
 
 
-                robot.setDriveMotorPower(-power, power, -power, power);
+                robot.setDriveMotorPower(power, power, power, power);
 
                 //robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 //currentHeading = robot.getIntegratedZAxis();
