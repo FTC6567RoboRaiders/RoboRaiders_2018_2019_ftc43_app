@@ -282,7 +282,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 */
     public void parkFromCraterStart(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        encodersMovePID(drivePID, robot, 35,  "backward");
+        encodersMovePID(drivePID, robot, 43,  "backward");
 
         rtd.displayRobotTelemetry("Moving");
         rtd.displayRobotTelemetry("Driving Forward", String.valueOf(68));
@@ -310,10 +310,12 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
        //imuTurn(robot, 5, .5, "right");
        //encodersMovePID(drivePID, robot, 48.0,"backward");
-       encodersMovePID(drivePID, robot, 55.0,"backward");
+       encodersMovePID(drivePID, robot, 43.0,"backward");
        //robotSleep(500);
 
-       //imuTurnPID(turnPID, robot, 5,  "right");
+       imuTurn(robot, 20, .45, "right");
+       robotSleep(500);
+       encodersMove(robot, 5, .45,"backward");
         /*
        imuTurnPID(turnPID, robot, 170,  "right");
        encodersMovePID(drivePID, robot, 10.0, "forward");
@@ -655,9 +657,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 2, .45, "forward");
         //robotSleep(200);
 
-        imuTurn(robot, 75, .45,"left");
+        imuTurnPID(turnPID, robot, 90,"left");
 
-        encodersMove(robot, 2, .4, "forward");
+        encodersMove(robot, 2.5, .4, "forward");
 
 
         int goldLocation = detectGoldMineral(robot);
@@ -723,7 +725,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         int goldPostion = -1;
         int numberofrecognized = 0;
         List<Recognition> updatedRecognitions = null;
+        double prevGoldConfidence = 0.0;
         Logger  L = new Logger("detectGoldMineral");
+        int numberOfGoldDetected = 0;
+
 
         robotSleep(500);
 
@@ -754,6 +759,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
             if (updatedRecognitions == null) {
                 telemetry.addLine("updatedRecognitionsIsNull");
+                L.Debug("No recognitions found");
             } else {
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
 
@@ -764,17 +770,20 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     int silverMineral2X = -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(robot.LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                            telemetry.addData("goldConfidence:",recognition.getConfidence());
-                            telemetry.addData("Position", recognition.getLeft());
+                            numberOfGoldDetected++;
+                            L.Debug("numberOfGoldDetected", numberOfGoldDetected);
                             L.Debug("goldConfidence", recognition.getConfidence());
+                            L.Debug("gold position ",recognition.getLeft());
+                            if (prevGoldConfidence < recognition.getConfidence()) {
+                                goldMineralX = (int) recognition.getLeft();
+                                prevGoldConfidence = recognition.getConfidence();
+
+                            }
                         } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
-                            telemetry.addData("silverConfidence:",recognition.getConfidence());
                             L.Debug("silverConfidence", recognition.getConfidence());
                         } else {
                             silverMineral2X = (int) recognition.getLeft();
-                            telemetry.addData("silverConfidence:",recognition.getConfidence());
                             L.Debug("silverConfidence", recognition.getConfidence());
                         }
                     }
@@ -785,10 +794,19 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     L.Debug("goldMineralX", goldMineralX);
                     L.Debug("silverMineral1X", silverMineral1X);
                     L.Debug("silverMineral2X", silverMineral2X);
+                    L.Debug("numberofGoldDetected",numberOfGoldDetected);
+
+
+                    //subtract one gold detected to not fall into mineralRight
+                    //when number of gold detected > 1 we have found more than one gold mineral one is false
+                    if (numberOfGoldDetected > 1){
+                        numberofrecognized--;
+                    }
+                    L.Debug("numberofGoldDetected",numberOfGoldDetected);
 
 
                     // Did the robot not see the gold mineral    THIS IS CHANGED
-                    if (goldMineralX == -1) {
+                    if (goldMineralX == -1 || numberofrecognized == 3) {
 
                         // Yes, indicate the gold mineral is on the right
                         goldPostion = 3;
@@ -831,10 +849,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 37, "forward"); //push the mineral
         //robotSleep(500);
 
-        //encodersMove(robot, 3, .5, "backward"); //pull back
+        encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot, 58,  "right"); //turn towards depot was 60
+        imuTurnPID(turnPID, robot, 80,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
         encodersMove(robot, 10, .5,"forward"); //ready to deploy team marker
@@ -846,7 +864,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralRightDepot (RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        imuTurnPID(turnPID, robot, 120, "right"); //turn towards mineral
+        encodersMove(robot, 2, .45, "backward");
+
+        imuTurnPID(turnPID, robot, 130, "right"); //turn towards mineral
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 39,  "forward"); //push the mineral
@@ -858,13 +878,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 80,  "left"); //turn towards depot
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 36,  "forward"); //ready to deploy team marker
+        encodersMovePID(drivePID, robot, 32.,  "forward"); //ready to deploy team marker
        //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 72, "right"); //turn towards depot
+        imuTurnPID(turnPID, robot, 84, "right"); //turn towards depot
         //robotSleep(250);
 
-        encodersMove(robot, 6, 0.5,"backward"); //ready to deploy team marker
+        encodersMove(robot, 9, 0.5,"backward"); //ready to deploy team marker
        // robotSleep(250);
 
     }
@@ -882,7 +902,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot,45,"right");
         //robotSleep(200);
 
-        encodersMovePID(drivePID, robot,15,"backward");
+        encodersMovePID(drivePID, robot,18,"backward");
         //robotSleep(200);
 
 
@@ -896,7 +916,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //encodersMove(robot, 8, .5, "forward");
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot,60, "right");
+        imuTurnPID(turnPID, robot,65, "right");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot,20, "forward");
@@ -911,10 +931,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 26,"forward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 54,  "left");
+        imuTurnPID(turnPID, robot, 60,  "left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,30,"forward");
+        encodersMovePID(drivePID, robot,34,"forward");
         //robotSleep(250);
 
     }
@@ -929,7 +949,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 25, "forward");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 20, "backward");
+        encodersMovePID(drivePID, robot, 18, "backward");
         //robotSleep(250);
 
         imuTurnPID(turnPID, robot, 100, "left");
@@ -938,10 +958,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMovePID(drivePID, robot, 40, "forward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 65,"left");
+        imuTurnPID(turnPID, robot, 62,"left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,30,"forward");
+        encodersMovePID(drivePID, robot,34,"forward");
         //robotSleep(250);
 
     }
@@ -968,7 +988,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 55, "left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,31,"forward");
+        encodersMovePID(drivePID, robot,35,"forward");
         //robotSleep(250);
     }
 
