@@ -492,7 +492,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
           //  robot.setDriveMotorPower(power, power, power, power); //the robot will turn right
 
-            while((opModeIsActive() && (loopcount < 10 &&
+            while((opModeIsActive() && (loopcount < 20 &&
                     !(currentHeading < finalHeading + 3.5 && currentHeading > finalHeading - 3.5)))){
                     //&& Math.abs(power) > 0.1) {
                 currentHeading = robot.getIntegratedZAxis();
@@ -536,7 +536,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
             L.Debug("finalHeading: ",finalHeading);
 
 
-            while((opModeIsActive() && (loopcount < 10 &&
+            while((opModeIsActive() && (loopcount < 20 &&
                     !(currentHeading > finalHeading - 3.5 && currentHeading < finalHeading + 3.5)))){
                 //&& Math.abs(power) > 0.1) {
                 currentHeading = robot.getIntegratedZAxis();
@@ -695,7 +695,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         imuTurnPID(turnPID, robot,90, "left");
 
-        encodersMove(robot, 3, .45,"forward");
+        encodersMove(robot, 2.5, .45,"forward");
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
@@ -723,6 +723,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         int goldPostion = -1;
         int numberofrecognized = 0;
         List<Recognition> updatedRecognitions = null;
+        Logger  L = new Logger("detectGoldMineral");
 
         robotSleep(500);
 
@@ -749,6 +750,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                 }
 
             }//while?
+            L.Debug("numberRecognized", numberofrecognized);
 
             if (updatedRecognitions == null) {
                 telemetry.addLine("updatedRecognitionsIsNull");
@@ -765,17 +767,24 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                             goldMineralX = (int) recognition.getLeft();
                             telemetry.addData("goldConfidence:",recognition.getConfidence());
                             telemetry.addData("Position", recognition.getLeft());
+                            L.Debug("goldConfidence", recognition.getConfidence());
                         } else if (silverMineral1X == -1) {
                             silverMineral1X = (int) recognition.getLeft();
                             telemetry.addData("silverConfidence:",recognition.getConfidence());
+                            L.Debug("silverConfidence", recognition.getConfidence());
                         } else {
                             silverMineral2X = (int) recognition.getLeft();
                             telemetry.addData("silverConfidence:",recognition.getConfidence());
+                            L.Debug("silverConfidence", recognition.getConfidence());
                         }
                     }
                     telemetry.addData("goldMineralX", String.valueOf(goldMineralX));
                     telemetry.addData("silverMineral1X", String.valueOf(silverMineral1X));
                     telemetry.addData("silverMineral2X", String.valueOf(silverMineral2X));
+
+                    L.Debug("goldMineralX", goldMineralX);
+                    L.Debug("silverMineral1X", silverMineral1X);
+                    L.Debug("silverMineral2X", silverMineral2X);
 
 
                     // Did the robot not see the gold mineral    THIS IS CHANGED
@@ -800,6 +809,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
                     }
                 }
                 telemetry.update();
+                L.Debug("goldPosition", goldPostion);
             }
 
         }
@@ -917,18 +927,18 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 25, "forward");
-       //robotSleep(250);
-
-        encodersMovePID(drivePID, robot, 15, "backward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 140, "left");
+        encodersMovePID(drivePID, robot, 20, "backward");
+        //robotSleep(250);
+
+        imuTurnPID(turnPID, robot, 100, "left");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 40, "forward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 56,"left");
+        imuTurnPID(turnPID, robot, 65,"left");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot,30,"forward");
