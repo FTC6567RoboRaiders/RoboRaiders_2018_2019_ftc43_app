@@ -56,12 +56,18 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public boolean prevState1Y = false;
     public boolean currStateDPadUp = false;
     public boolean currStateDPadDown = false;
+    public boolean gp1_currStateDPadRight = false;
+    public boolean gp1_currStateDPadLeft = false;
+    public boolean gp1_prevStateDPadRight = false;
+    public boolean gp1_prevStateDPadLeft = false;
     public String intakeStatus = null;
     public String dumperStatus = null;
     public String collectionStatus = null;
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
     public String LEDStatus = null;
+    public double startTime;
+    public double currentTime;
 
 
 
@@ -79,11 +85,15 @@ public class NostromoDriveMotorForDumper extends OpMode {
     @Override
     public void start() {
 
+        startTime = System.currentTimeMillis();
+
         //   robot.initializeServosTeleOp();
     }
 
     @Override
     public void loop() {
+
+        currentTime = System.currentTimeMillis();
 
         // "Mecanum Drive" functionality
         LeftBack = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
@@ -110,6 +120,45 @@ public class NostromoDriveMotorForDumper extends OpMode {
                 LeftBack * 0.95,
                 RightBack * 0.95);
 
+        /**
+         * support dPad strafing on game pad 1
+         */
+
+        gp1_currStateDPadLeft = gamepad1.dpad_left;
+
+
+        if (gp1_currStateDPadLeft && gp1_currStateDPadLeft != gp1_prevStateDPadLeft) {
+
+            robot.setDriveMotorPower(1.0, -1.0, -1.0, 1.0);
+            gp1_prevStateDPadLeft = gp1_currStateDPadLeft;
+
+        }
+        else if (!gp1_currStateDPadLeft && gp1_currStateDPadLeft != gp1_prevStateDPadLeft) {
+
+            gp1_prevStateDPadLeft = gp1_currStateDPadLeft;
+        }
+        else if (gp1_currStateDPadLeft && gp1_prevStateDPadLeft){
+            robot.setDriveMotorPower(1.0, -1.0, -1.0, 1.0);
+        }
+
+        gp1_currStateDPadRight = gamepad1.dpad_right;
+
+        if (gp1_currStateDPadRight && gp1_currStateDPadRight != gp1_prevStateDPadRight) {
+
+            robot.setDriveMotorPower(-1.0, 1.0, 1.0, -1.0);
+            gp1_prevStateDPadRight = gp1_currStateDPadRight;
+
+        }
+        else if (!gp1_currStateDPadRight && gp1_currStateDPadRight != gp1_prevStateDPadRight) {
+
+            gp1_prevStateDPadRight = gp1_currStateDPadRight;
+        }
+        else if (gp1_currStateDPadRight && gp1_prevStateDPadRight){
+            robot.setDriveMotorPower(-1.0, 1.0, 1.0, -1.0);
+        }
+
+
+
 
         // "Power Factor" functionality
         currStateLeftBumper1 = gamepad1.left_bumper;
@@ -133,23 +182,20 @@ public class NostromoDriveMotorForDumper extends OpMode {
             prevStateRightBumper1 = currStateRightBumper1;
         }
 
+        if (currentTime - startTime > 75 * 1000) {
 
+            // "Set Lift motor power" functionality
+            lander = gamepad2.right_stick_y;
+            lander = Range.clip(lander, -1, 1);
+            //lander = (float) scaleInput(lander);
 
-        // "Set Lift motor power" functionality
-        lander = gamepad2.right_stick_y;
-        lander = Range.clip(lander, -1, 1);
-        //lander = (float) scaleInput(lander);
-
-        if (lander >= 0.2 ){
-            robot.setLiftMotorPower(-0.95);
-        }
-
-        else if (lander <= -0.2){
-            robot.setLiftMotorPower(0.95);
-        }
-
-        else if (lander > -0.2 && lander <0.2){
-            robot.setLiftMotorPower(0.00);
+            if (lander >= 0.2) {
+                robot.setLiftMotorPower(-0.95);
+            } else if (lander <= -0.2) {
+                robot.setLiftMotorPower(0.95);
+            } else if (lander > -0.2 && lander < 0.2) {
+                robot.setLiftMotorPower(0.00);
+            }
         }
 
 
