@@ -1,20 +1,18 @@
 package RoboRaiders.TeleOp;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 
 /**
  *  Created by Steve Kocik
  */
 
-@TeleOp(name="Teleop: Lets Drive With Lift Disabled")
+@TeleOp(name="Teleop: Lets Drive Normal")
 
-public class NostromoDriveMotorForDumper extends OpMode {
+public class NostromoDriveMotorForDumperDisabledLift extends OpMode {
 
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 
@@ -66,8 +64,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
     public String LEDStatus = null;
-    public double startTime;
-    public double currentTime;
 
 
 
@@ -85,7 +81,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
     @Override
     public void start() {
 
-        startTime = System.currentTimeMillis();
 
         //   robot.initializeServosTeleOp();
     }
@@ -93,7 +88,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
     @Override
     public void loop() {
 
-        currentTime = System.currentTimeMillis();
 
         // "Mecanum Drive" functionality
         LeftBack = -gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
@@ -182,8 +176,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
             prevStateRightBumper1 = currStateRightBumper1;
         }
 
-        if (currentTime - startTime > 75 * 1000) {
-
             // "Set Lift motor power" functionality
             lander = gamepad2.right_stick_y;
             lander = Range.clip(lander, -1, 1);
@@ -196,7 +188,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
             } else if (lander > -0.2 && lander < 0.2) {
                 robot.setLiftMotorPower(0.00);
             }
-        }
+
 
 
         // "Set collection extension" functionality
