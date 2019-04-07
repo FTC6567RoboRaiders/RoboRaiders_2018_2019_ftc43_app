@@ -14,7 +14,7 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 @Autonomous
 public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
 
-    private boolean isRed             = false;
+    public boolean isRed             = false;
     private boolean startLocation     = false;
     private boolean deployFromLander  = false;
     private boolean claimDepot        = false;
