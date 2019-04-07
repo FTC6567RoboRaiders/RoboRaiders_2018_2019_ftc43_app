@@ -651,7 +651,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      * @param turnPID
      * @param robot
      */
-    public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
+    public void samplingMineralsDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot, boolean sampleWait) {
 
 
         encodersMove(robot, 2, .45, "forward");
@@ -666,6 +666,11 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         telemetry.addLine().addData("Mineral Seen", String.valueOf(goldLocation));
         telemetry.update();
+
+
+        if (sampleWait){
+            robotSleep(5000);
+        }
 
 
         switch (goldLocation) {
@@ -690,7 +695,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      * @param turnPID
      * @param robot
      */
-    public void samplingMineralsCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
+    public void samplingMineralsCrater(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot, boolean sampleWait) {
 
         encodersMove(robot, 2, .45,"forward");
         robotSleep(200);
@@ -701,6 +706,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
+
+        if (sampleWait){
+            robotSleep(5000);
+        }
 
         switch (goldLocation) {
             case 1:

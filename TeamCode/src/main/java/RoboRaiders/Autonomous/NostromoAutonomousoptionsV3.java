@@ -21,6 +21,7 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
     private boolean parkInCrater      = false;
     private boolean selectionsAreGood = false;
     private boolean sampling     = false;
+    private boolean sampleWait       = false;
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
     //public RoboRaidersPID turningPID = new RoboRaidersPID(0.02,0.0,0.1);
     public RoboRaidersPID turningPID = new RoboRaidersPID(0.024,0.0,0.02);
@@ -53,8 +54,10 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
             startLocation    = myAO.selectStartLocation();         // Get where the robot is starting from (Depot or Crater)
             deployFromLander = myAO.selectDeployFromLander();      // Should the robot deploy from the lander (Yes or No)
             sampling    = myAO.selectSampling();              // Should the robot sample for minerals (Yes or No)
+            sampleWait      = myAO.selectWait();                   //Should we wait to sample?
             claimDepot       = myAO.selectClaimDepot();            // Should the robot claim the depot
             parkInCrater     = myAO.selectParkInCrater();          // Should the robot park in crater
+
 
             // Add new/additional auto options, so things like drive to depot, drop team marker, etc..
 
@@ -70,7 +73,8 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
             telemetry.addLine().addData("Autonomous", "Selections");
             telemetry.addLine().addData("Alliance:", isRed ? "Red  " : "Blue  ").addData("  Robot Start Location:", startLocation ? "Crater" : "Depot");
             telemetry.addLine().addData("Deploy From Lander:", deployFromLander ? "Yes  " : "No  ").addData("  Sample Mineral: ", sampling ? "Depot" : "Crater");
-            telemetry.addLine() .addData("  Claim Depot:", claimDepot ? "Yes" : "No").addData("Park In Crater:", parkInCrater ? "Yes  " : "No  ");
+            telemetry.addLine().addData("  Claim Depot:", claimDepot ? "Yes" : "No").addData("Park In Crater:", parkInCrater ? "Yes  " : "No  ");
+            telemetry.addLine().addData("Wait for Sampling", sampleWait ? "Yes " : "No ");
             telemetry.update();
 
             // Verify that the autonomous selections are good, if so we are ready to rumble.  If not, well ask again.
@@ -85,6 +89,7 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
         L.Debug("isRed: ", isRed);
         L.Debug("startLocation: ", startLocation);
         L.Debug("deployFromLander: ", deployFromLander);
+        L.Debug("sampleWait:", sampleWait);
         L.Debug("claimDepot: ", claimDepot);
         L.Debug("parkInCrater: ", parkInCrater);
 
@@ -98,6 +103,7 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
         rtd.displayRobotTelemetry("Alliance:",isRed ? "Red" : "Blue");
         rtd.displayRobotTelemetry("Start Location:",startLocation ? "Crater" : "Depot");
         rtd.displayRobotTelemetry("Deploy From Lander:",deployFromLander ? "Yes" : "No");
+        rtd.displayRobotTelemetry("Wait to Sample:",sampleWait ? "Yes" : "No");
         rtd.displayRobotTelemetry("Park In Crater:",parkInCrater ? "Yes" : "No");
 
         if (sampling == true) {
@@ -130,10 +136,10 @@ public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
 
         if (sampling){//asking if sampling
             if (startLocation){//are we starting from the crater?
-                samplingMineralsCrater(drivePID, turningPID, robot);
+                samplingMineralsCrater(drivePID, turningPID, robot, sampleWait);
             }
             else {
-                samplingMineralsDepot(drivePID, turningPID, robot);
+                samplingMineralsDepot(drivePID, turningPID, robot, sampleWait);
             }
         }
         else{

@@ -49,22 +49,26 @@ public class AutoOptions {
 
     /**
      * Constructor
+     *
      * @param op - the linear opmode tied to this class
      */
-    public AutoOptions(LinearOpMode op) {this.op = op;}
+    public AutoOptions(LinearOpMode op) {
+        this.op = op;
+    }
 
     /**
      * will return the alliance selection
+     *
      * @return a boolean indicating the alliance selection, when:
-     *         RED  - true
-     *         BLUE - false
+     * RED  - true
+     * BLUE - false
      */
     public boolean selectAlliance() {
-        String[] alliances = new String[] {"Red", "Blue"};             // Create the selections
+        String[] alliances = new String[]{"Red", "Blue"};             // Create the selections
 
         // Let driver make selection, when index = 0 means first selection, when index = 1
         // means second selection
-        int index = makeSelection("Alliance?",alliances);
+        int index = makeSelection("Alliance?", alliances);
 
         // Check index against zero, if zero then true returned else false
         return index == 0;
@@ -72,14 +76,15 @@ public class AutoOptions {
 
     /**
      * will return the location selection
+     *
      * @return a boolean indicating the alliance selection, when:
-     *          DEPOT  - true
-     *          CRATER - false
+     * DEPOT  - true
+     * CRATER - false
      */
     public boolean selectStartLocation() {
 
         // Create the locations
-        String[] locations = new String[] {"Crater", "Depot"};
+        String[] locations = new String[]{"Crater", "Depot"};
 
         // Let driver make selection, when index = 0 means first selection, when index = 1
         // means second selection
@@ -91,9 +96,10 @@ public class AutoOptions {
 
     /**
      * will return yes or no if the robot should be deployed (lowered) from the lander
+     *
      * @return a boolean indicating if the robot should be deployed from the lander
-     *         YES - true
-     *         NO  - false
+     * YES - true
+     * NO  - false
      */
     public boolean selectDeployFromLander() {
 
@@ -107,9 +113,10 @@ public class AutoOptions {
 
     /**
      * will return yes or no if the robot should sample for mineral color
+     *
      * @return a boolean indicating if the robot should be deployed from the lander
-     *         YES - true
-     *         NO  - false
+     * YES - true
+     * NO  - false
      */
     public boolean selectSampling() {
 
@@ -123,9 +130,10 @@ public class AutoOptions {
 
     /**
      * will return yes or no if the robot should claim the depot (drop the team marker)
+     *
      * @return a boolean indicating if the robot should claim the depot (drop the team marker)
-     *         YES - true
-     *         NO  - false
+     * YES - true
+     * NO  - false
      */
     public boolean selectClaimDepot() {
 
@@ -139,9 +147,10 @@ public class AutoOptions {
 
     /**
      * will return yes or no if the robot should park in the crater
+     *
      * @return a boolean indicating if the robot should park in the crater
-     *         YES - true
-     *         NO  - false
+     * YES - true
+     * NO  - false
      */
     public boolean selectParkInCrater() {
 
@@ -151,6 +160,19 @@ public class AutoOptions {
         // Check index against zero, if zero, then true returned, else false
         return index == 0;
 
+    }
+
+    /**
+     * This will return yes or no if you want to wait.
+     */
+
+    public boolean selectWait() {
+
+    // Let the driver make a yes or no selection for parking in the crater
+    int index = makeYesNoSelection("Wait to sample?");
+
+    // Check index against zero, if zero, then true returned, else false
+        return index ==0;
     }
 
     /**
