@@ -1,25 +1,20 @@
 package RoboRaiders.TeleOp;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import RoboRaiders.Logger.Logger;
-import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 
 /**
  *  Created by Steve Kocik
  */
 
-@TeleOp(name="Teleop: Lets Drive With New Dumper")
+@TeleOp(name="Teleop: Lets Drive Normal")
 
 public class NostromoDriveMotorForDumper extends OpMode {
 
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
-
-    public Logger L = new Logger("Teleop");
 
     /* Define variables */
     float LeftBack;   // Power for left back motor
@@ -59,14 +54,19 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public boolean prevState1Y = false;
     public boolean currStateDPadUp = false;
     public boolean currStateDPadDown = false;
+    public boolean gp1_currStateDPadRight = false;
+    public boolean gp1_currStateDPadLeft = false;
+    public boolean gp1_prevStateDPadRight = false;
+    public boolean gp1_prevStateDPadLeft = false;
     public String intakeStatus = null;
     public String dumperStatus = null;
     public String collectionStatus = null;
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
     public String LEDStatus = null;
-    public RevBlinkinLedDriver.BlinkinPattern currPattern = null;
-    public RevBlinkinLedDriver.BlinkinPattern prevPattern = null;
+    public double startTime;
+    public double currentTime;
+
 
 
     @Override
@@ -77,14 +77,15 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.addData("Initialized", true);
         telemetry.update();
 
-        robot.blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-        robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
-        RevBlinkinLedDriver.BlinkinPattern currPattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-        prevPattern = currPattern;
+        //robot.blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
     }
 
     @Override
     public void start() {
+
+
+        startTime = System.currentTimeMillis();
+
 
         //   robot.initializeServosTeleOp();
     }
@@ -92,6 +93,8 @@ public class NostromoDriveMotorForDumper extends OpMode {
     @Override
     public void loop() {
 
+
+        currentTime = System.currentTimeMillis();
 
 
         // "Mecanum Drive" functionality
@@ -119,8 +122,47 @@ public class NostromoDriveMotorForDumper extends OpMode {
                 LeftBack * 0.95,
                 RightBack * 0.95);
 
+        /**
+         * support dPad strafing on game pad 1
+         */
 
-        // "Power Factor" functionality for Kevin
+        gp1_currStateDPadLeft = gamepad1.dpad_left;
+
+
+        if (gp1_currStateDPadLeft && gp1_currStateDPadLeft != gp1_prevStateDPadLeft) {
+
+            robot.setDriveMotorPower(1.0, -1.0, -1.0, 1.0);
+            gp1_prevStateDPadLeft = gp1_currStateDPadLeft;
+
+        }
+        else if (!gp1_currStateDPadLeft && gp1_currStateDPadLeft != gp1_prevStateDPadLeft) {
+
+            gp1_prevStateDPadLeft = gp1_currStateDPadLeft;
+        }
+        else if (gp1_currStateDPadLeft && gp1_prevStateDPadLeft){
+            robot.setDriveMotorPower(1.0, -1.0, -1.0, 1.0);
+        }
+
+        gp1_currStateDPadRight = gamepad1.dpad_right;
+
+        if (gp1_currStateDPadRight && gp1_currStateDPadRight != gp1_prevStateDPadRight) {
+
+            robot.setDriveMotorPower(-1.0, 1.0, 1.0, -1.0);
+            gp1_prevStateDPadRight = gp1_currStateDPadRight;
+
+        }
+        else if (!gp1_currStateDPadRight && gp1_currStateDPadRight != gp1_prevStateDPadRight) {
+
+            gp1_prevStateDPadRight = gp1_currStateDPadRight;
+        }
+        else if (gp1_currStateDPadRight && gp1_prevStateDPadRight){
+            robot.setDriveMotorPower(-1.0, 1.0, 1.0, -1.0);
+        }
+
+
+
+
+        // "Power Factor" functionality
         currStateLeftBumper1 = gamepad1.left_bumper;
         if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
@@ -142,23 +184,19 @@ public class NostromoDriveMotorForDumper extends OpMode {
             prevStateRightBumper1 = currStateRightBumper1;
         }
 
+        if (currentTime - startTime > 75 * 1000) {
 
-
-        // "Set Lift motor power" functionality
-        lander = gamepad2.right_stick_y;
-        lander = Range.clip(lander, -1, 1);
-        //lander = (float) scaleInput(lander);
-
-        if (lander >= 0.2 ){
-            robot.setLiftMotorPower(-0.95);
-        }
-
-        else if (lander <= -0.2){
-            robot.setLiftMotorPower(0.95);
-        }
-
-        else if (lander > -0.2 && lander <0.2){
-            robot.setLiftMotorPower(0.00);
+            // "Set Lift motor power" functionality
+            lander = gamepad2.right_stick_y;
+            lander = Range.clip(lander, -1, 1);
+            //lander = (float) scaleInput(lander);
+            if (lander >= 0.2) {
+                robot.setLiftMotorPower(-0.95);
+            } else if (lander <= -0.2) {
+                robot.setLiftMotorPower(0.95);
+            } else if (lander > -0.2 && lander < 0.2) {
+                robot.setLiftMotorPower(0.00);
+            }
         }
 
 
@@ -292,8 +330,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
         telemetry.update();
 
 
-        L.Debug("Current State Right Trigger", currStateRightTrigger);
-        L.Debug("Previous State Right Trigger", prevStateRightTrigger);
         if (gamepad2.right_trigger > 0){
             currStateRightTrigger = true;
         }
@@ -302,15 +338,13 @@ public class NostromoDriveMotorForDumper extends OpMode {
             currStateRightTrigger = false;
         }
 
-        L.Debug("Current State Right Trigger", currStateRightTrigger);
-        L.Debug("Previous State Right Trigger", prevStateRightTrigger);
         if (currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
 
             robot.liftClaw.setPosition(robot.liftClawClosed);
             prevStateRightTrigger = currStateRightTrigger;
 
-
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
         }
         else if (!currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
 
@@ -333,8 +367,6 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
             robot.liftClaw.setPosition(robot.liftClawOpen);
             prevStateLeftTrigger = currStateLeftTrigger;
-
-            robot.blinkinLedDriver.setPattern(prevPattern);
         }
 
          else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
@@ -412,21 +444,21 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currState1X) {
             //robot.dumperUp();
-
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "BLUE";
 
         }
         else if (currState1B) {
             //robot.dumperDown();
-
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_RED);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "RED";
         }
         else if (currState1Y) {
             //robot.dumperDown();
-
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "HANG";
         }
         else {
