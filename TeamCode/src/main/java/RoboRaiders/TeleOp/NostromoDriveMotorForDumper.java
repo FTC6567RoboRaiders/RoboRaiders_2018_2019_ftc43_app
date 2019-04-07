@@ -184,6 +184,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
             prevStateRightBumper1 = currStateRightBumper1;
         }
 
+        // Limit lift motor functionality until the last 45 seconds
         if (currentTime - startTime > 75 * 1000) {
 
             // "Set Lift motor power" functionality
