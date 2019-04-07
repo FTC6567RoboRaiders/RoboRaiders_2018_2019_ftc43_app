@@ -120,7 +120,7 @@ public class NostromoDriveMotorForDumper extends OpMode {
                 RightBack * 0.95);
 
 
-        // "Power Factor" functionality
+        // "Power Factor" functionality for Kevin
         currStateLeftBumper1 = gamepad1.left_bumper;
         if (currStateLeftBumper1 && currStateLeftBumper1 != prevStateLeftBumper1) {
 
