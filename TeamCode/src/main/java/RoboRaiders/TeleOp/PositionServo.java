@@ -13,7 +13,7 @@ import RoboRaiders.Robot.NostromoBotMotorDumper;
  */
 
 @TeleOp(name="Teleop: Lets Figure out the Dump Wrist Position")
-@Disabled
+
 
 public class PositionServo extends OpMode {
 
@@ -53,7 +53,7 @@ public class PositionServo extends OpMode {
     public String intakeDoorStatus = null;
     public String sliderStatus = null;
 
-    double newPosition = 0.0;
+    double newPosition = 0.32;
 
     @Override
     public void init() {
@@ -77,19 +77,23 @@ public class PositionServo extends OpMode {
         currStateA = gamepad2.a;
         currStateB = gamepad2.b;
         currStateX = gamepad2.x;
+        currStateY = gamepad2.y;
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("currStateA", currStateA);
         telemetry.addData("currStateB", currStateB);
 
         if (currStateA) {
-            newPosition = 0.1;
+            newPosition = 0.7;
         }
         else if (currStateB) {
-            newPosition = 0.0;
+            newPosition = 0.8;
         }
         else if (currStateX) {
-            newPosition = 1.0;
+            newPosition = 0.32;
+        }
+        else if (currStateY) {
+            newPosition = 0.42;
         }
 
         robot.dumpWrist.setPosition(newPosition);

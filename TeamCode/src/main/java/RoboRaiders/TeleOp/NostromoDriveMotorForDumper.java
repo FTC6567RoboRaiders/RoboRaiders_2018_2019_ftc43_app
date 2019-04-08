@@ -10,7 +10,7 @@ import RoboRaiders.Robot.NostromoBotMotorDumper;
  *  Created by Steve Kocik
  */
 
-@TeleOp(name="Teleop: Lets Drive Normal")
+@TeleOp(name="Teleop: Lets Drive Normal Without Disabled Lift")
 
 public class NostromoDriveMotorForDumper extends OpMode {
 
