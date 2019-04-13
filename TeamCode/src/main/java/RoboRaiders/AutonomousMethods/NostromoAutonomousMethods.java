@@ -669,7 +669,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
 
         if (sampleWait){
-            robotSleep(5000);
+            RRsleep(5000);
         }
 
 
@@ -1191,14 +1191,15 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         long startTime = System.currentTimeMillis();
         long displayTime = startTime;
-        long updatingTime = 0;
+        long updatingTime = 1;
 
         while(System.currentTimeMillis() - startTime > timeToSleep) {
             if(System.currentTimeMillis() - displayTime > (updatingTime * 250)) {
                 telemetry.addLine("Patience Kevin!");
                 telemetry.update();
+                updatingTime++;
             }
         }
-        updatingTime++;
+
     }
 }
