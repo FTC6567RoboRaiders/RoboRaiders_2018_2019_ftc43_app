@@ -852,19 +852,19 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
     public void mineralLeftDepot(RoboRaidersPID drivePID, RoboRaidersPID turnPID, NostromoBotMotorDumper robot) {
 
-        imuTurnPID(turnPID, robot, 60, "right"); //turn towards mineral
+        imuTurnPID(turnPID, robot, 70, "right"); //turn towards mineral
         //robotSleep(500);
 
-        encodersMovePID(drivePID, robot, 37, "forward"); //push the mineral
+        encodersMovePID(drivePID, robot, 43, "forward"); //push the mineral
         //robotSleep(500);
 
         encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot, 80,  "right"); //turn towards depot was 60
+        imuTurnPID(turnPID, robot, 75,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
-        encodersMove(robot, 10, .5,"forward"); //ready to deploy team marker
+        encodersMove(robot, 8, .5,"forward"); //ready to deploy team marker
         //robotSleep(500);
 
     }
@@ -887,7 +887,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 80,  "left"); //turn towards depot
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 32.,  "forward"); //ready to deploy team marker
+        encodersMovePID(drivePID, robot, 34,  "forward"); //ready to deploy team marker
        //robotSleep(250);
 
         imuTurnPID(turnPID, robot, 84, "right"); //turn towards depot
