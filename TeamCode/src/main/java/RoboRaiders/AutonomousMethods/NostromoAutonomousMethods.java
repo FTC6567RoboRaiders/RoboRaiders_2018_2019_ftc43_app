@@ -707,8 +707,9 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         int goldLocation = detectGoldMineral(robot);
         telemetry.addLine().addData("GoldLocation", goldLocation);
 
-        if (sampleWait){
-            robotSleep(5000);
+
+            if (sampleWait) {
+                robotSleep(5000);
         }
 
         switch (goldLocation) {
