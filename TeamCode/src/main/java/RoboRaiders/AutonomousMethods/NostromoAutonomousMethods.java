@@ -1195,7 +1195,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         while(System.currentTimeMillis() - startTime > timeToSleep) {
             if(System.currentTimeMillis() - displayTime > (updatingTime * 250)) {
-                telemetry.addData("Time", System.currentTimeMillis());
+                telemetry.addLine("Patience Kevin!");
                 telemetry.update();
             }
         }
