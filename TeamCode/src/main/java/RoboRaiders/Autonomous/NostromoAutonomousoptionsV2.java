@@ -1,6 +1,7 @@
 package RoboRaiders.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -12,7 +13,7 @@ import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.NostromoBot;
 import RoboRaiders.Robot.NostromoBotMotorDumper;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
-
+@Disabled
 //@Autonomous
 public class NostromoAutonomousoptionsV2 //extends NostromoAutonomousMethods
  {

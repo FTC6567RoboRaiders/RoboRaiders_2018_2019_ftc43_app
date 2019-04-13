@@ -1,6 +1,7 @@
 package RoboRaiders.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import RoboRaiders.AutonomousMethods.AutoOptions.RoboRaidersPID;
 import RoboRaiders.AutonomousMethods.NostromoAutonomousMethods;
@@ -9,6 +10,7 @@ import RoboRaiders.Robot.PidUdpReceiver;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
+@Disabled
 public class NewPIDTurnTest extends NostromoAutonomousMethods {
     public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();
 

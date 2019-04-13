@@ -9,7 +9,7 @@ import RoboRaiders.Robot.PidUdpReceiver;
 import RoboRaiders.Robot.RobotTelemetryDisplay;
 
 @Autonomous
-
+@Disabled
 public class StevesPIDTuner extends NostromoAutonomousMethods{
 
    // public NostromoBotMotorDumper robot = new NostromoBotMotorDumper();

@@ -8,7 +8,7 @@ import RoboRaiders.Robot.NostromoBot;
 
 
 @Autonomous (name="Encoder Test", group="Test")
-
+@Disabled
 /**
  * Created by Steve Kocik as a sample for RedStorm to build off of...
  */
