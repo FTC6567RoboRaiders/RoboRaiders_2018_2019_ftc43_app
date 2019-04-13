@@ -708,8 +708,10 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         telemetry.addLine().addData("GoldLocation", goldLocation);
 
 
+        {
             if (sampleWait) {
-                robotSleep(5000);
+                RRsleep(5000);
+            }
         }
 
         switch (goldLocation) {
@@ -1180,5 +1182,23 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         }
     }
 
+    /**
+     * make the robot sleep (wait)
+     *
+     * @param timeToSleep time in milliseconds
+     */
+    public void RRsleep(int timeToSleep) {
 
+        long startTime = System.currentTimeMillis();
+        long displayTime = startTime;
+        long updatingTime = 0;
+
+        while(System.currentTimeMillis() - startTime > timeToSleep) {
+            if(System.currentTimeMillis() - displayTime > (updatingTime * 250)) {
+                telemetry.addData("Time", System.currentTimeMillis());
+                telemetry.update();
+            }
+        }
+        updatingTime++;
+    }
 }
