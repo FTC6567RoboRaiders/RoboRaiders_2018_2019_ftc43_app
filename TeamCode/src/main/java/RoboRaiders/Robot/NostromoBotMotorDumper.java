@@ -2,7 +2,7 @@ package RoboRaiders.Robot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-//import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -43,8 +43,8 @@ public class NostromoBotMotorDumper {
    // public Servo slider = null;
     public Servo intakeDoor = null;
     public Servo dumpWrist = null;
-   // public RevBlinkinLedDriver blinkinLedDriver = null;
-   // public RevBlinkinLedDriver.BlinkinPattern pattern;
+    public RevBlinkinLedDriver blinkinLedDriver = null;
+    public RevBlinkinLedDriver.BlinkinPattern pattern;
 
 
 //me too and because im stupid i didnt do any of it before work
@@ -139,7 +139,7 @@ public class NostromoBotMotorDumper {
         //slider = hwMap.servo.get("slider");
         intakeDoor = hwMap.servo.get("intakedoor");
         dumpWrist = hwMap.servo.get("dumpwrist");
-        //blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+        blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
 
 

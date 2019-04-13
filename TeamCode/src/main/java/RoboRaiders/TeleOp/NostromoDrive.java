@@ -11,7 +11,7 @@ import RoboRaiders.Robot.NostromoBot;
  *  Created by Steve Kocik
  */
 
-@TeleOp(name="Teleop: Lets Drive")
+@TeleOp(name="Teleop: Lets Drive Normal")
 @Disabled
 
 public class NostromoDrive extends OpMode {
