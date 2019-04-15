@@ -1187,13 +1187,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
      *
      * @param timeToSleep time in milliseconds
      */
-    public void RRsleep(int timeToSleep) {
+    public void RRsleep(long timeToSleep) {
 
         long startTime = System.currentTimeMillis();
         long displayTime = startTime;
         long updatingTime = 1;
 
-        while(System.currentTimeMillis() - startTime > timeToSleep) {
+        while(System.currentTimeMillis() - startTime < timeToSleep) {
             if(System.currentTimeMillis() - displayTime > (updatingTime * 250)) {
                 telemetry.addLine("Patience Kevin!");
                 telemetry.update();
