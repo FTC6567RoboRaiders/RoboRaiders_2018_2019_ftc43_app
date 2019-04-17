@@ -864,7 +864,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         encodersMove(robot, 3, .5, "backward"); //pull back
         //robotSleep(500);
 
-        imuTurnPID(turnPID, robot, 75,  "right"); //turn towards depot was 60
+        imuTurnPID(turnPID, robot, 73,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
         encodersMove(robot, 5, .5,"forward"); //ready to deploy team marker
@@ -878,7 +878,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         encodersMove(robot, 2, .45, "backward");
 
-        imuTurnPID(turnPID, robot, 130, "right"); //turn towards mineral
+        imuTurnPID(turnPID, robot, 125, "right"); //turn towards mineral
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 39,  "forward"); //push the mineral
