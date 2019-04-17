@@ -867,7 +867,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 75,  "right"); //turn towards depot was 60
         //robotSleep(500);
 
-        encodersMove(robot, 8, .5,"forward"); //ready to deploy team marker
+        encodersMove(robot, 5, .5,"forward"); //ready to deploy team marker
         //robotSleep(500);
 
     }
@@ -914,7 +914,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot,45,"right");
         //robotSleep(200);
 
-        encodersMovePID(drivePID, robot,18,"backward");
+        encodersMovePID(drivePID, robot,15,"backward");
         //robotSleep(200);
 
 
@@ -931,13 +931,13 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot,65, "right");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,20, "forward");
+        encodersMovePID(drivePID, robot,22, "forward");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot,5,"backward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 45,"left");
+        imuTurnPID(turnPID, robot, 48,"left");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 26,"forward");
@@ -946,7 +946,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 60,  "left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,34,"forward");
+        encodersMovePID(drivePID, robot,37,"forward");
         //robotSleep(250);
 
     }
@@ -955,25 +955,25 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         encodersMove(robot,3,.45,"backward");
 
-        imuTurnPID(turnPID, robot, 125, "right");
+        imuTurnPID(turnPID, robot, 115, "right");
         //robotSleep(250);
 
         encodersMovePID(drivePID, robot, 25, "forward");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 18, "backward");
+        encodersMovePID(drivePID, robot, 15, "backward");
         //robotSleep(250);
 
         imuTurnPID(turnPID, robot, 100, "left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot, 40, "forward");
+        encodersMovePID(drivePID, robot, 45, "forward");
         //robotSleep(250);
 
-        imuTurnPID(turnPID, robot, 62,"left");
+        imuTurnPID(turnPID, robot, 60,"left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,34,"forward");
+        encodersMovePID(drivePID, robot,38,"forward");
         //robotSleep(250);
 
     }
@@ -982,7 +982,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
 
         encodersMove(robot, 3, .45, "backward");
 
-        imuTurnPID(turnPID, robot, 90,"right");
+        imuTurnPID(turnPID, robot, 85,"right");
         //robotSleep(200);
 
         encodersMovePID(drivePID, robot, 20, "forward");
@@ -994,7 +994,7 @@ public abstract class NostromoAutonomousMethods extends LinearOpMode {
         imuTurnPID(turnPID, robot, 82, "left");
         //robotSleep(250);
 
-        encodersMovePID(drivePID, robot,36.5, "forward");
+        encodersMovePID(drivePID, robot,43, "forward");
         //robotSleep(250);
 
         imuTurnPID(turnPID, robot, 55, "left");
