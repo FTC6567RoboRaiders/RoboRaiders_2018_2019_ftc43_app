@@ -68,6 +68,17 @@ public class NostromoDriveMotorForDumper extends OpMode {
     public double startTime;
     public double currentTime;
 
+    int robotState;
+    public final static int ALLIANCE_IS_RED = 1;
+    public final static int ALLIANCE_IS_BLUE = 2;
+    public final static int CLAW_OPEN = 3;
+    public final static int CLAW_CLOSED = 4;
+    public final static int X_BUTTON = 5;
+    public final static int B_BUTTON = 6;
+    public final static int Y_BUTTON = 8;
+
+
+
 
 
     @Override
@@ -343,9 +354,11 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
             robot.liftClaw.setPosition(robot.liftClawClosed);
             prevStateRightTrigger = currStateRightTrigger;
+            robot.setBlinkinPattern(CLAW_CLOSED);
+            robotState = CLAW_CLOSED;
 
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
         }
         else if (!currStateRightTrigger && currStateRightTrigger != prevStateRightTrigger) {
 
@@ -368,6 +381,8 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
             robot.liftClaw.setPosition(robot.liftClawOpen);
             prevStateLeftTrigger = currStateLeftTrigger;
+
+
         }
 
          else if (!currStateLeftTrigger && currStateLeftTrigger != prevStateLeftTrigger) {
@@ -445,22 +460,28 @@ public class NostromoDriveMotorForDumper extends OpMode {
 
         if (currState1X) {
             //robot.dumperUp();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "BLUE";
+            robot.setBlinkinPattern(X_BUTTON);
+            robotState = X_BUTTON;
 
         }
         else if (currState1B) {
             //robot.dumperDown();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.BREATH_RED;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
             LEDStatus = "RED";
+            robot.setBlinkinPattern(B_BUTTON);
+            robotState = B_BUTTON;
         }
         else if (currState1Y) {
             //robot.dumperDown();
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
-            LEDStatus = "HANG";
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
+            robot.setBlinkinPattern(Y_BUTTON);
+            robotState = Y_BUTTON;
+            //LEDStatus = "HANG";
         }
         else {
 

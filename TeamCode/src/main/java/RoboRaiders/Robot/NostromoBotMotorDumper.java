@@ -82,6 +82,16 @@ public class NostromoBotMotorDumper {
     public double dumpTeamMarkerWristDump = 1.0;
     boolean robotDown;
 
+    public final static int ALLIANCE_IS_RED = 1;
+    public final static int ALLIANCE_IS_BLUE = 2;
+    public final static int CLAW_OPEN = 3;
+    public final static int CLAW_CLOSED = 4;
+    public final static int X_BUTTON = 5;
+    public final static int B_BUTTON = 6;
+    public final static int Y_BUTTON = 8;
+
+
+
     private static final String VUFORIA_KEY = "AedUDNP/////AAAAGXH2ZpUID0KanSX9ZSR37LKFSFokxIqmy/g0BNepdA9EepixxnO00qygLnMJq3Fg9gZxnkUJaKgk14/UjhxPWVQIs90ZXJLc21NvQvOeZ3dOogagVP8yFnFQs2xCijGmC/CE30ojlAnbhAhqz1y4tZPW2QkK5Qt0xCakTTSAw3KPQX2mZxX+qMxI2ljrN0eaxaKVnKnAUl8x3naF1mez7f9c8Xdi1O5auL0ePdG6bJhWjEO1YwpSd8WkSzNDEkmw20zpQ7zaOOPw5MeUQUr9vAS0fef0GnLjlS1gb67ajUDlEcbbbIeSrLW/oyRGTil8ueQC2SWafdspSWL3SJNaQKWydies23BxJxM/FoLuYYjx";
 
 
@@ -259,6 +269,25 @@ public class NostromoBotMotorDumper {
         dumpp2.setPosition(0.5);
     }*/
 
+
+    public void setBlinkinPattern(int robotState) {
+        if (robotState == CLAW_CLOSED){
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER);
+        }
+
+        if (robotState == X_BUTTON){
+            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE));
+        }
+
+        if (robotState == B_BUTTON){
+            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BREATH_RED));
+        }
+
+        if (robotState == Y_BUTTON) {
+            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BLACK));
+        }
+
+    }
 
 
 
