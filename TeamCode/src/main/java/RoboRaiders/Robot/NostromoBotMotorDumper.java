@@ -89,6 +89,7 @@ public class NostromoBotMotorDumper {
     public final static int X_BUTTON = 5;
     public final static int B_BUTTON = 6;
     public final static int Y_BUTTON = 8;
+    public final static int LEDS_OFF = 9;
 
 
 
@@ -192,8 +193,7 @@ public class NostromoBotMotorDumper {
         motorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftIntake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-
-
+        setBlinkinPattern(LEDS_OFF); //turns off LEDS
 
 
         // Define and initialize sensors
@@ -271,20 +271,29 @@ public class NostromoBotMotorDumper {
 
 
     public void setBlinkinPattern(int robotState) {
-        if (robotState == CLAW_CLOSED){
-            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER);
-        }
 
-        if (robotState == X_BUTTON){
-            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE));
-        }
 
-        if (robotState == B_BUTTON){
-            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BREATH_RED));
-        }
+        switch (robotState) {
 
-        if (robotState == Y_BUTTON) {
-            blinkinLedDriver.setPattern((RevBlinkinLedDriver.BlinkinPattern.BLACK));
+            case CLAW_CLOSED:
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_WITH_GLITTER);
+                break;
+
+            case X_BUTTON:
+
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_BLUE);
+                break;
+
+            case B_BUTTON:
+
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BREATH_RED);
+                break;
+
+            case Y_BUTTON:
+            case LEDS_OFF:
+
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
+                break;
         }
 
     }

@@ -14,6 +14,16 @@ import RoboRaiders.Robot.RobotTelemetryDisplay;
 @Autonomous
 public class NostromoAutonomousoptionsV3 extends NostromoAutonomousMethods{
 
+
+    public final static int ALLIANCE_IS_RED = 1;
+    public final static int ALLIANCE_IS_BLUE = 2;
+    public final static int CLAW_OPEN = 3;
+    public final static int CLAW_CLOSED = 4;
+    public final static int X_BUTTON = 5;
+    public final static int B_BUTTON = 6;
+    public final static int Y_BUTTON = 8;
+    public final static int LEDS_OFF = 9;
+
     public boolean isRed             = false;
     private boolean startLocation     = false;
     private boolean deployFromLander  = false;
